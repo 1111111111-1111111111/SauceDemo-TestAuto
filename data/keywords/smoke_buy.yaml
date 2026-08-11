@@ -1,0 +1,35 @@
+# ============================================================
+# 冒烟用例：登录 → 加购 → 进购物车（关键字驱动）
+# 覆盖多页面跳转，验证核心业务链路
+# ============================================================
+testcase: "冒烟_登录加购进购物车"
+steps:
+  - keyword: open
+    url: "https://www.saucedemo.com/"
+  - keyword: input
+    page: login
+    locator: USERNAME_INPUT
+    text: "standard_user"
+  - keyword: input
+    page: login
+    locator: PASSWORD_INPUT
+    text: "secret_sauce"
+  - keyword: click
+    page: login
+    locator: LOGIN_BUTTON
+  - keyword: assert_url_contains
+    text: "inventory"
+  - keyword: click
+    page: products
+    locator: ADD_TO_CART_BTN
+  - keyword: assert_text_visible
+    page: products
+    locator: SHOPPING_CART_BADGE
+  - keyword: click
+    page: products
+    locator: SHOPPING_CART_LINK
+  - keyword: wait_url_contains
+    text: "cart"
+  - keyword: assert_text_visible
+    page: cart
+    locator: CHECKOUT_BTN

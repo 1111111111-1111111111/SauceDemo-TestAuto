@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+#"""
+#项目依赖
+#一键安装：  pip install -r requirements.txt
+#"""
+# Web 自动化核心
+selenium==4.15.2
+
+# 测试框架
+pytest
+pytest-ordering
+
+# 数据驱动（可选）
+pytest-rerunfailures==13.0          # 失败重跑，减少 flaky
+pytest-xdist==3.5.0                 # 多线程/多进程并发（可选）
+pytest-html==4.1.1                  # HTML 报告（可选）
+
+# Allure 报告
+allure-pytest==2.16.0
+
+# 日志
+colorlog==6.8.2                     # 控制台彩色日志
+
+# 工具
+webdriver-manager==4.0.1            # 自动下载浏览器驱动（强烈推荐）
+Pillow==10.2.0                      # Allure 截图所需
+
+# 解析（数据驱动 / YAML 用）
+PyYAML==6.0.1

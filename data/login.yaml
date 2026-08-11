@@ -1,0 +1,51 @@
+# ============================================================
+# 登录测试数据（数据驱动）
+# 每条 case 会被 pytest 参数化为独立用例，id 作为 Allure 标识
+# 非技术人员可直接增减用例，无需修改 Python 代码
+# ============================================================
+
+# ======= 登录成功用例 =======
+login_success:
+  - id: login_standard
+    username: standard_user
+    password: secret_sauce
+    expect_success: true
+  - id: login_problem
+    username: problem_user
+    password: secret_sauce
+    expect_success: true
+  - id: login_perf_glitch
+    username: performance_glitch_user
+    password: secret_sauce
+    expect_success: true
+  - id: login_error_user
+    username: error_user
+    password: secret_sauce
+    expect_success: true
+  - id: login_visual
+    username: visual_user
+    password: secret_sauce
+    expect_success: true
+
+# ======= 登录异常用例 =======
+login_failure:
+  - id: login_locked_out
+    username: locked_out_user
+    password: secret_sauce
+    expect_error: "Epic sadface: Sorry, this user has been locked out."
+  - id: login_empty_username
+    username: ""
+    password: secret_sauce
+    expect_error: "Epic sadface: Username is required"
+  - id: login_empty_password
+    username: standard_user
+    password: ""
+    expect_error: "Epic sadface: Password is required"
+  - id: login_wrong_username
+    username: test_user
+    password: secret_sauce
+    expect_error: "Epic sadface: Username and password do not match any user in this service"
+  - id: login_wrong_password
+    username: standard_user
+    password: secret_saucee
+    expect_error: "Epic sadface: Username and password do not match any user in this service"

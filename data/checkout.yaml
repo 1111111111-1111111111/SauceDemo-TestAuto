@@ -1,0 +1,63 @@
+# ============================================================
+# 结账测试数据（数据驱动）
+# ============================================================
+
+# ======= 结账校验信息 =======
+checkout_info:
+  valid:
+    first_name: "Test"
+    last_name: "User"
+    postal_code: "12345"
+  invalid:
+    first_name: ""
+    last_name: ""
+    postal_code: ""
+
+# ======= 结账错误文案 =======
+checkout_errors:
+  first_name: "Error: First Name is required"
+  last_name: "Error: Last Name is required"
+  postal_code: "Error: Postal Code is required"
+
+# ======= 字段缺失组合用例（2^3=8 种，全空+7种单/双填，笛卡尔覆盖）=======
+checkout_field_cases:
+  - id: checkout_all_empty
+    first_name: ""
+    last_name: ""
+    postal_code: ""
+    expect_error: "Error: First Name is required"
+  - id: checkout_only_first
+    first_name: "Test"
+    last_name: ""
+    postal_code: ""
+    expect_error: "Error: Last Name is required"
+  - id: checkout_only_last
+    first_name: ""
+    last_name: "User"
+    postal_code: ""
+    expect_error: "Error: First Name is required"
+  - id: checkout_only_postal
+    first_name: ""
+    last_name: ""
+    postal_code: "12345"
+    expect_error: "Error: First Name is required"
+  - id: checkout_first_last
+    first_name: "Test"
+    last_name: "User"
+    postal_code: ""
+    expect_error: "Error: Postal Code is required"
+  - id: checkout_first_postal
+    first_name: "Test"
+    last_name: ""
+    postal_code: "12345"
+    expect_error: "Error: Last Name is required"
+  - id: checkout_last_postal
+    first_name: ""
+    last_name: "User"
+    postal_code: "12345"
+    expect_error: "Error: First Name is required"
+  - id: checkout_all_filled
+    first_name: "Test"
+    last_name: "User"
+    postal_code: "12345"
+    expect_success: true

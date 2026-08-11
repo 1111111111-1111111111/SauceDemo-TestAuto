@@ -1,0 +1,26 @@
+# ============================================================
+# 冒烟用例：登录成功（关键字驱动）
+# 非技术同学可读：每一步就是一个动作 + 参数
+# ============================================================
+testcase: "冒烟_登录成功"
+steps:
+  - keyword: open
+    url: "https://www.saucedemo.com/"
+  - keyword: input
+    page: login
+    locator: USERNAME_INPUT
+    text: "standard_user"
+  - keyword: input
+    page: login
+    locator: PASSWORD_INPUT
+    text: "secret_sauce"
+  - keyword: click
+    page: login
+    locator: LOGIN_BUTTON
+  - keyword: assert_url_contains
+    text: "inventory"
+  - keyword: assert_title
+    text: "Swag Labs"
+  - keyword: assert_text_visible
+    page: products
+    locator: TITLE_LABEL
