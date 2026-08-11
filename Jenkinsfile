@@ -1,43 +1,24 @@
 pipeline {
-    // 在任何可用的 Jenkins Agent 上运行
+    // 在您的 Windows Jenkins 节点上运行
     agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Run Auto Tests') {
             steps {
-                // Jenkins 从 SCM 检出代码，此步骤由 Pipeline 定义自动完成
-                echo '代码已拉取'
-            }
-        }
-
-        stage('Setup Python Environment') {
-            steps {
-                // 在容器内安装 Python、Pip 和所需依赖
-                sh '''
-                    apt-get update -y
-                    apt-get install -y python3 python3-pip
-                    pip3 install -r requirements.txt
-                '''
-            }
-        }
-
-        stage('Run Pytest Tests') {
-            steps {
-                // 运行你的 Selenium 测试用例，并生成 JUnit 格式的报告
-                // 这里假设你的测试文件在以 test_ 开头的文件中
-                sh '''
-                    python3 -m pytest -v --junitxml=reports/results.xml
-                '''
+                // 强制使用 UTF-8 编码，防止控制台打印 Emoji 报错
+                withEnv(['PYTHONIOENCODING=utf-8']) {
+                    bat 'chcp 65001 && C:\\Users\\NotAfraidofFailure\\WorkBuddy\\2026-08-07-12-55-14\\SauceDemo_autotest\\.venv\\Scripts\\python.exe -m pytest -sv'
+                }
             }
         }
     }
 
-    post {
-        always {
-            // 无论构建成功还是失败，都会执行此步骤来收集测试报告
-            junit 'reports/results.xml'
-            // 如果你使用了 HTML 报告插件，可以在这里发布
-            // publishHTML (target: [reportDir: 'reports', reportFiles: 'report.html', reportName: 'HTML Test Report'])
-        }
-    }
+    // post {
+    //     always {
+    //         // 注意：目前您的测试大概率还没生成 'reports/results.xml' 这个文件
+    //         // 如果此时配置 junit，Jenkins 可能会报“文件不存在”的错
+    //         // 建议先注释掉这一行，等测试成功生成报告后再放开
+    //         junit 'reports/results.xml' 
+    //     }
+    // }
 }
