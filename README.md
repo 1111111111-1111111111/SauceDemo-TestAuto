@@ -321,8 +321,7 @@ git push -u origin main
 3. 保存后立即触发：**Build Now**（或 push 代码经 Webhook 自动触发）
 4. 查看结果：Console Output 看执行日志；构建后可集成 Allure 插件查看报告
 
-![81a8b8ad-f918-4246-8106-99308f3d0ed2](file:///C:/Users/NotAfraidofFailure/Pictures/Typedown/81a8b8ad-f918-4246-8106-99308f3d0ed2.png)
-
+<img width="2879" height="1621" alt="Image" src="https://github.com/user-attachments/assets/4312f87e-1f4e-49b5-bac1-b5b5403033cc" />
 ---
 
 ## 📊 三、报告展示说明
@@ -342,8 +341,9 @@ Allure 提供的核心视角：
 * **完整日志**（`logs/test_run.log`，滚动保留）
 * 浏览器 session、traceback
 
-![Allure-Behaviors-分级示意图](file:///C:/Users/NotAfraidofFailure/Pictures/Typedown/9d614e9a-1441-4679-a5e9-fe0bfe7d23a6.png)
 
+
+<img width="2879" height="1529" alt="Image" src="https://github.com/user-attachments/assets/23a4fa6c-655a-4469-8e1a-50cfb53be578" />
 ---
 
 ## ✨ 四、项目亮点
