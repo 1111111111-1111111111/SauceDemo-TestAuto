@@ -49,17 +49,25 @@ jobs:
       - name: 📥 Checkout 代码
         uses: actions/checkout@v4
 
-      # 可选：利用 Docker BuildKit 和缓存加速构建
       - name: 🐳 设置 Docker BuildKit
         run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+
+      # ✅ 添加这步：转换仓库名为小写
+      - name: 🔧 准备镜像名称（小写）
+        id: image-name
+        run: |
+          # 将 github.repository 转换为小写
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "repo_lower=${REPO_LOWER}" >> $GITHUB_OUTPUT
+          echo "✅ 镜像名称: ghcr.io/${REPO_LOWER}"
 
       - name: 🐳 构建 Docker 镜像
         id: build
         run: |
           # 构建镜像，打上两个标签：latest 和 commit-sha
           docker build -t saucedemo-test:latest .
-          docker tag saucedemo-test:latest ghcr.io/${{ github.repository }}:latest
-          docker tag saucedemo-test:latest ghcr.io/${{ github.repository }}:${{ github.sha }}
+          docker tag saucedemo-test:latest ghcr.io/${{ steps.image-name.outputs.repo_lower }}:latest
+          docker tag saucedemo-test:latest ghcr.io/${{ steps.image-name.outputs.repo_lower }}:${{ github.sha }}
           echo "image_tag=${{ github.sha }}" >> $GITHUB_OUTPUT
 
       # 可选：推送到 GitHub Container Registry（仅在 main 分支）
@@ -74,9 +82,9 @@ jobs:
       - name: 📤 推送镜像到 GHCR
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
-          docker push ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
-          echo "✅ 镜像已推送到 ghcr.io/${{ github.repository }}:${{ github.sha }}"
+          docker push ghcr.io/${{ steps.image-name.outputs.repo_lower }}:latest
+          docker push ghcr.io/${{ steps.image-name.outputs.repo_lower }}:${{ github.sha }}
+          echo "✅ 镜像已推送到 ghcr.io/${{ steps.image-name.outputs.repo_lower }}:${{ github.sha }}"
 
   # ==================== Job 2: 在 Docker 容器中运行测试 ====================
   test:
