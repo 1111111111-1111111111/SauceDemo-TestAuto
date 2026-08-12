@@ -1,5 +1,5 @@
 pipeline {
-    // 在任何可用的 Jenkins Agent 上运行
+    // 在您的 Windows Jenkins 节点上运行
     agent any
 
     stages {
@@ -18,9 +18,16 @@ pipeline {
     //         // 注意：目前您的测试大概率还没生成 'reports/results.xml' 这个文件
     //         // 如果此时配置 junit，Jenkins 可能会报“文件不存在”的错
     //         // 建议先注释掉这一行，等测试成功生成报告后再放开
+<<<<<<< HEAD
     //        junit 'reports/results.xml'
     //     }
     // }
 }
 
 }
+=======
+    //         junit 'reports/results.xml' 
+    //     }
+    // }
+}
+>>>>>>> 3b0fdb9e8f74ab34f4a0f7753199eb6bcc2986f9

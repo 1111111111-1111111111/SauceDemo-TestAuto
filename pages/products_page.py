@@ -6,8 +6,10 @@ import re
 from typing import TYPE_CHECKING, List
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
+from utils.logger import logger
 
 if TYPE_CHECKING:
     from pages.cart_page import CartPage
@@ -100,9 +102,16 @@ class ProductsPage(BasePage):
         return ProductDetailPage(self.driver)
 
     def click_item_image(self, product_index: int) -> "ProductDetailPage":
+        """点击商品图片 → 对应详情页
+        注意：SauceDemo 中 <img> 本身不绑定点击事件，真正可点击的是包裹它的 <a> 链接。
+        新版 ChromeDriver 对直接 click(<img>) 会抛 ElementNotInteractableException，
+        因此先定位 img，再点击其父级 <a> 元素。
+        """
         items = self.find_elements(self.INVENTORY_ITEMS)
         img = items[product_index].find_element(By.CSS_SELECTOR, "img")
-        img.click()
+        link = img.find_element(By.XPATH, "./parent::a")
+        self.wait.until(EC.element_to_be_clickable(link)).click()
+        logger.info(f"🖱️ 已点击商品 {product_index} 的图片（父级链接）")
         from pages.product_detail_page import ProductDetailPage  # 延迟导入
         return ProductDetailPage(self.driver)
 

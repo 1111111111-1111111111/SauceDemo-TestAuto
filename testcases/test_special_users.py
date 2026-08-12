@@ -18,6 +18,7 @@ SauceDemo 提供了 4 种异常用户账户，每种账户都有特定的已知�
 import time
 
 import pytest
+import allure
 
 from config.config import BASE_URL
 from pages.login_page import LoginPage
@@ -31,10 +32,14 @@ def _login_as(driver, username, password="secret_sauce"):
     return login_page.login(username, password)
 
 
+@allure.epic("SauceDemo 电商网站自动化测试")
+@allure.feature("异常账户缺陷验证")
 @pytest.mark.special_users
 class TestSpecialUsers:
     """异常账户缺陷验证"""
 
+    @allure.story("已知缺陷回归")
+    @allure.title("problem_user 商品图片加载异常")
     @pytest.mark.flaky(reruns=2)
     def test_problem_user_images_broken(self, driver_instance):
         """SD-USERS-001：problem_user 商品图片加载异常
@@ -49,6 +54,8 @@ class TestSpecialUsers:
         broken = [img for img in images if "404" in img or "jpg-with-broken" in img]
         assert len(broken) > 0, "problem_user 应有图片加载异常，但所有图片 src 看起来正常"
 
+    @allure.story("已知缺陷回归")
+    @allure.title("error_user 加购操作异常")
     @pytest.mark.flaky(reruns=2)
     def test_error_user_add_to_cart_defect(self, driver_instance):
         """SD-USERS-002：error_user 加购操作异常
@@ -70,6 +77,8 @@ class TestSpecialUsers:
                 failures += 1
         assert failures > 0, "error_user 应有加购异常，但所有加购操作均成功"
 
+    @allure.story("已知缺陷回归")
+    @allure.title("visual_user 页面布局错位")
     @pytest.mark.flaky(reruns=2)
     def test_visual_user_layout_mismatch(self, driver_instance):
         """SD-USERS-003：visual_user 页面布局错位
@@ -102,22 +111,27 @@ class TestSpecialUsers:
             "visual_user 应有布局错位，但名称和价格与 standard_user 一致"
         )
 
+    @allure.story("已知缺陷回归")
+    @allure.title("performance_glitch_user 登录/页面加载速度慢")
     @pytest.mark.flaky(reruns=2)
-    def test_performance_glitch_user_slow_sort(self, driver_instance):
-        """SD-USERS-004：performance_glitch_user 排序加载速度慢
-        Arrange: 用 performance_glitch_user 登录
-        Act:     执行排序操作并计时
-        Assert:  排序耗时 > 1 秒（正常用户 < 1 秒）
-        """
-        from data.test_data import SORT_OPTIONS
+    def test_performance_glitch_user_slow_login(self, driver_instance):
+        """SD-USERS-004：performance_glitch_user 登录/页面加载缓慢
+        Arrange: 打开登录页
+        Act:     执行登录并等待 inventory 页面加载完成，全程计时
+        Assert:  登录+加载耗时 > 1 秒（正常用户约 0.2s）
 
-        products = _login_as(driver_instance, "performance_glitch_user")
+        修复说明：SauceDemo 的 performance_glitch_user 人为延迟注入在
+        登录/页面加载环节（实测约 5s），前端排序操作本身不慢（实测 ~0.1s）。
+        因此计时点从"排序操作"改为"登录 + inventory 页面加载"。
+        """
+        login_page = LoginPage(driver_instance)
+        login_page.open_login(BASE_URL)
         start = time.time()
-        products.select_sort_option(SORT_OPTIONS["az"])
-        products.get_all_item_names()  # 等待排序结果渲染
+        products = login_page.login("performance_glitch_user", "secret_sauce")
+        products.find_element(ProductsPage.SORT_DROPDOWN)  # 等 inventory 页面渲染完成
         elapsed = time.time() - start
 
         assert elapsed > 1.0, (
-            f"performance_glitch_user 排序耗时 {elapsed:.2f}s，"
+            f"performance_glitch_user 登录/加载耗时 {elapsed:.2f}s，"
             f"预期应 > 1.0s（正常用户 < 1.0s）"
         )

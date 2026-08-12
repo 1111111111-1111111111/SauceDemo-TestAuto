@@ -11,6 +11,7 @@
   - Allure 报告中每一步都作为独立 step 展示
 """
 import pytest
+import allure
 
 from utils.keyword_engine import KeywordEngine
 
@@ -20,10 +21,14 @@ SMOKE_FILES = [
 ]
 
 
+@allure.epic("SauceDemo 电商网站自动化测试")
+@allure.feature("关键字驱动冒烟")
 @pytest.mark.smoke
 class TestKeywordSmoke:
     """关键字驱动冒烟测试"""
 
+    @allure.story("冒烟用例")
+    @allure.title("YAML 关键字驱动冒烟 - {yaml_file}")
     @pytest.mark.parametrize("yaml_file", SMOKE_FILES)
     def test_keyword_smoke(self, driver_instance, yaml_file):
         """数据驱动加载 YAML 用例，引擎执行步骤"""

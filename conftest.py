@@ -3,9 +3,8 @@
 项目根 conftest.py
 所有测试模块共享的 fixtures + Allure 钩子
 
-设计变更：
-  - 删除了 logged_in_products / logged_in_with_cart / cart_with_items 三个链式 fixture
-  - 改为只保留 driver_instance（基础）和 login_page（简单页面对象）
+设计：
+  - 只保留 driver_instance（基础）和 login_page（简单页面对象）
   - 各测试模块通过 utils.app_flows 的 helper 函数按需组装前置条件
   - 好处：登录挂了只影响调了 quick_login 的模块，不再连锁失败 ~60 个用例
 """
@@ -96,7 +95,7 @@ def pytest_itemcollected(item: Item):
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """测试结果写入 Allure + 失败自动截图"""
-    outcome = yield
+    outcome = yield  # 先包装，后释放
     rep = outcome.get_result()
 
     if rep.when in ("setup", "call") and rep.failed:

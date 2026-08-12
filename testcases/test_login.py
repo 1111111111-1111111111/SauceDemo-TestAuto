@@ -9,6 +9,7 @@
 - 改造后：2 个参数化函数（10 条）+ 3 条边界用例，覆盖 Excel SD-LOGIN-013/014/015
 """
 import pytest
+import allure
 
 from config.config import BASE_URL
 from utils.data_loader import load_yaml
@@ -19,10 +20,14 @@ SUCCESS_CASES = LOGIN_DATA["login_success"]
 FAILURE_CASES = LOGIN_DATA["login_failure"]
 
 
+@allure.epic("SauceDemo 电商网站自动化测试")
+@allure.feature("用户认证")
 @pytest.mark.login
 class TestLogin:
     """登录页面"""
 
+    @allure.story("合法账号登录")
+    @allure.title("合法账号登录 → 进入主页")
     @pytest.mark.parametrize(
         "case", SUCCESS_CASES, ids=[c["id"] for c in SUCCESS_CASES]
     )
@@ -34,6 +39,8 @@ class TestLogin:
         assert "inventory" in products_page.get_current_url()
         assert products_page.get_title() == "Swag Labs"
 
+    @allure.story("异常登录场景")
+    @allure.title("异常登录 → 显示错误文案")
     @pytest.mark.parametrize(
         "case", FAILURE_CASES, ids=[c["id"] for c in FAILURE_CASES]
     )
@@ -45,7 +52,8 @@ class TestLogin:
         assert login_page.is_at_login_page()
 
     # ========== 边界用例（Excel SD-LOGIN-013/014/015 补充）==========
-
+    @allure.story("边界场景")
+    @allure.title("密码输入框掩码显示验证")
     def test_login_password_masked(self, driver_instance, login_page):
         """SD-LOGIN-015：密码输入框类型验证_掩码显示
         Arrange: 打开登录页
@@ -56,6 +64,8 @@ class TestLogin:
         login_page.input_password("secret_sauce")
         assert login_page.get_password_input_type() == "password"
 
+    @allure.story("边界场景")
+    @allure.title("错误提示框关闭按钮")
     def test_login_close_error_button(self, driver_instance, login_page):
         """SD-LOGIN-013：错误提示框的关闭功能_错误提示消失
         Arrange: 打开登录页，触发一个错误（密码为空）
@@ -70,6 +80,8 @@ class TestLogin:
         assert not login_page.is_error_displayed()
         assert login_page.get_username_value() == "standard_user"
 
+    @allure.story("边界场景")
+    @allure.title("未登录直接访问 inventory 重定向到登录页")
     def test_login_direct_access_inventory_redirects(self, driver_instance, login_page):
         """SD-LOGIN-014：未登录直接访问 inventory.html_重定向到登录页
         Arrange: 打开登录页（未登录状态）

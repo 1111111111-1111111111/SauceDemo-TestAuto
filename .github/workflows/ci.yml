@@ -1,0 +1,214 @@
+# =====================================================================
+# SauceDemo 自动化测试 —— GitHub Actions CI/CD（Docker 版）
+# 触发：push / PR → main、手动、定时（每天北京时间 06:00）
+# 流程：Checkout → 构建 Docker 镜像 → 在容器内跑测试
+#       → 生成 Allure 报告 → 上传 artifact → 部署到 GitHub Pages
+# 
+# 与旧版对比优势：
+#   1. 环境完全由 Dockerfile 定义，与本地开发 100% 一致
+#   2. 无需在 CI 中重复安装 Chrome/JDK/Allure，镜像已内置
+#   3. 构建速度更快（依赖层已缓存）
+#   4. 镜像可推送到 GHCR，供后续部署使用
+# =====================================================================
+name: "SauceDemo 自动化测试 (Docker)"
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: "浏览器 (chrome/firefox/edge)"
+        required: false
+        default: "chrome"
+  schedule:
+    # 每天北京时间 06:00（UTC 22:00）跑一次回归
+    - cron: "0 22 * * *"
+
+# 同一分支新提交时取消旧的运行
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write   # 部署 GitHub Pages 所需
+  packages: write   # 推送镜像到 GHCR 所需
+
+jobs:
+  # ==================== Job 1: 构建 Docker 镜像 ====================
+  build-image:
+    name: 🐳 构建 Docker 镜像
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: 📥 Checkout 代码
+        uses: actions/checkout@v4
+
+      # 可选：利用 Docker BuildKit 和缓存加速构建
+      - name: 🐳 设置 Docker BuildKit
+        run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+
+      - name: 🐳 构建 Docker 镜像
+        id: build
+        run: |
+          # 构建镜像，打上两个标签：latest 和 commit-sha
+          docker build -t saucedemo-test:latest .
+          docker tag saucedemo-test:latest ghcr.io/${{ github.repository }}:latest
+          docker tag saucedemo-test:latest ghcr.io/${{ github.repository }}:${{ github.sha }}
+          echo "image_tag=${{ github.sha }}" >> $GITHUB_OUTPUT
+
+      # 可选：推送到 GitHub Container Registry（仅在 main 分支）
+      - name: 📤 登录 GitHub Container Registry
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📤 推送镜像到 GHCR
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          docker push ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
+          echo "✅ 镜像已推送到 ghcr.io/${{ github.repository }}:${{ github.sha }}"
+
+  # ==================== Job 2: 在 Docker 容器中运行测试 ====================
+  test:
+    name: 🧪 运行测试（Docker 容器内）
+    runs-on: ubuntu-latest
+    needs: build-image
+    timeout-minutes: 30
+
+    # ★★★ 核心变化：使用刚构建的 Docker 镜像作为运行环境 ★★★
+    container:
+      image: saucedemo-test:latest
+      # 如果需要从 GHCR 拉取，可以改为：
+      # image: ghcr.io/${{ github.repository }}:${{ github.sha }}
+      options: --user root  # 确保容器有权限写入挂载卷
+
+    steps:
+      # 注意：在 container 上下文中，需要重新 checkout 代码到容器内
+      - name: 📥 Checkout 代码
+        uses: actions/checkout@v4
+
+      # 测试运行（直接使用 Dockerfile 中定义的环境）
+      # 镜像内已包含：Python 3.12 + Chrome + chromedriver + JDK 21 + Allure CLI
+      - name: 🧪 运行测试
+        working-directory: /app  # 或 $GITHUB_WORKSPACE
+        env:
+          HEADLESS: "true"
+          CONTAINER: "1"
+          BROWSER: ${{ github.event.inputs.browser || 'chrome' }}
+          CI: "true"
+        run: |
+          python -m pytest -v \
+            --alluredir=reports/allure-results \
+            --clean-alluredir
+
+      # 生成 Allure 报告（镜像内已安装 Allure CLI）
+      - name: 📊 生成 Allure HTML 报告
+        if: always()
+        working-directory: /app
+        run: |
+          allure generate reports/allure-results -o reports/allure-report --clean
+
+      # 从 gh-pages 分支拉取历史趋势数据（保证趋势图连续）
+      - name: 📥 拉取 Allure 历史（趋势图）
+        if: always()
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+        continue-on-error: true
+
+      - name: 🔧 合并历史数据
+        if: always()
+        working-directory: /app
+        run: |
+          mkdir -p reports/allure-results/history
+          if [ -d ../gh-pages/history ]; then
+            cp -r ../gh-pages/history/* reports/allure-results/history/ || true
+            echo "✅ 历史数据已合并"
+          fi
+
+      # 重新生成带历史数据的报告
+      - name: 📊 重新生成 Allure 报告（含历史）
+        if: always()
+        working-directory: /app
+        run: |
+          allure generate reports/allure-results -o reports/allure-report --clean
+
+      # 上传 Allure 报告作为 artifact（保留 90 天）
+      - name: 📤 上传 Allure 报告 (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report-${{ github.run_number }}
+          path: /app/reports/allure-report
+          retention-days: 90
+
+      # 上传日志和截图作为 artifact
+      - name: 📤 上传日志 / 截图 (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-${{ github.run_number }}
+          path: |
+            /app/logs
+            /app/screenshots
+          retention-days: 30
+          if-no-files-found: ignore
+
+  # ==================== Job 3: 部署到 GitHub Pages ====================
+  deploy-pages:
+    name: 🚀 部署 Allure 报告到 GitHub Pages
+    runs-on: ubuntu-latest
+    needs: test
+    if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    timeout-minutes: 10
+
+    permissions:
+      contents: write   # gh-pages 需要写入权限
+      pages: write
+      id-token: write
+
+    steps:
+      - name: 📥 下载 Allure 报告 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-report-${{ github.run_number }}
+          path: allure-report
+
+      - name: 🚀 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-report
+          keep_files: true
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: "chore(allure): update report [${{ github.run_number }}]"
+
+  # ==================== Job 4: 失败通知（可选）====================
+  notify:
+    name: 📢 失败通知
+    runs-on: ubuntu-latest
+    needs: [test, deploy-pages]
+    if: failure()
+    steps:
+      - name: 📢 发送失败通知
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "⚠️ 未配置 WEBHOOK_URL，跳过通知"
+            exit 0
+          fi
+          MSG="{\"msg_type\":\"text\",\"content\":{\"text\":\"🔴 SauceDemo 自动化测试失败！\\n仓库: ${{ github.repository }}\\n分支: ${{ github.ref_name }}\\n提交: ${{ github.event.head_commit.message || '手动触发' }}\\n链接: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}}"
+          curl -s -X POST -H "Content-Type: application/json" -d "$MSG" "$WEBHOOK_URL"

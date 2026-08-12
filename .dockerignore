@@ -1,0 +1,39 @@
+# ===== Docker 构建时忽略这些文件，避免镜像膨胀 / 缓存失效 =====
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ===== 文档/测试产物 =====
+*.md
+docs/
+*.html
+.pytest_cache/
+logs/
+reports/
+screenshots/
+allure-results/
+allure-report/
+valid/
+.github/
+.gitignore
+Jenkins/
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.swp
+
+# =====Git =====
+.git/
+.gitignore
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Docker 自身 =====
+Makefile
+Dockerfile
+docker-compose.yml
+.dockerignore
+run_docker.bat
