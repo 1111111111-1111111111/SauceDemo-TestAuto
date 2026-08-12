@@ -322,6 +322,7 @@ git push -u origin main
 4. 查看结果：Console Output 看执行日志；构建后可集成 Allure 插件查看报告
 
 <img width="2879" height="1621" alt="Image" src="https://github.com/user-attachments/assets/4312f87e-1f4e-49b5-bac1-b5b5403033cc" />
+
 ---
 
 ## 📊 三、报告展示说明
@@ -341,9 +342,8 @@ Allure 提供的核心视角：
 * **完整日志**（`logs/test_run.log`，滚动保留）
 * 浏览器 session、traceback
 
-
-
 <img width="2879" height="1529" alt="Image" src="https://github.com/user-attachments/assets/23a4fa6c-655a-4469-8e1a-50cfb53be578" />
+
 ---
 
 ## ✨ 四、项目亮点
