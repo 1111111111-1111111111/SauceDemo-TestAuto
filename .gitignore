@@ -20,7 +20,7 @@ videos/
 
 # 其它文件
 valid/
-DDT_KDT_稳定性治理_改造说明.md
+*.md
 .github
 .dockerignore
 docker-compose.yml
@@ -28,4 +28,4 @@ Dockerfile
 Makefile
 run_docker.bat
 run_docker.sh
-测试用例专业审查报告.html
+*.html
