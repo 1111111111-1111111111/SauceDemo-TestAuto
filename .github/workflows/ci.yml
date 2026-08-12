@@ -39,81 +39,60 @@ permissions:
   packages: write   # 推送镜像到 GHCR 所需
 
 jobs:
-  # ==================== Job 1: 构建 Docker 镜像 ====================
-  build-image:
-    name: 🐳 构建 Docker 镜像
+  build-and-push:
+    name: 🐳 构建并推送镜像
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
+    outputs:
+      image: ${{ steps.meta.outputs.tags }}
+    
     steps:
       - name: 📥 Checkout 代码
         uses: actions/checkout@v4
 
-      - name: 🐳 设置 Docker BuildKit
-        run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
-
-      # ✅ 添加这步：转换仓库名为小写
-      - name: 🔧 准备镜像名称（小写）
-        id: image-name
+      - name: 🔧 准备镜像名称
+        id: meta
         run: |
-          # 将 github.repository 转换为小写
           REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          echo "repo_lower=${REPO_LOWER}" >> $GITHUB_OUTPUT
-          echo "✅ 镜像名称: ghcr.io/${REPO_LOWER}"
+          echo "tags=ghcr.io/${REPO_LOWER}:${{ github.sha }}" >> $GITHUB_OUTPUT
 
-      - name: 🐳 构建 Docker 镜像
-        id: build
-        run: |
-          # 构建镜像，打上两个标签：latest 和 commit-sha
-          docker build -t saucedemo-test:latest .
-          docker tag saucedemo-test:latest ghcr.io/${{ steps.image-name.outputs.repo_lower }}:latest
-          docker tag saucedemo-test:latest ghcr.io/${{ steps.image-name.outputs.repo_lower }}:${{ github.sha }}
-          echo "image_tag=${{ github.sha }}" >> $GITHUB_OUTPUT
+      - name: 🐳 设置 Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      # 可选：推送到 GitHub Container Registry（仅在 main 分支）
       - name: 📤 登录 GitHub Container Registry
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📤 推送镜像到 GHCR
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-        run: |
-          docker push ghcr.io/${{ steps.image-name.outputs.repo_lower }}:latest
-          docker push ghcr.io/${{ steps.image-name.outputs.repo_lower }}:${{ github.sha }}
-          echo "✅ 镜像已推送到 ghcr.io/${{ steps.image-name.outputs.repo_lower }}:${{ github.sha }}"
+      - name: 🐳 构建并推送 Docker 镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-  # ==================== Job 2: 在 Docker 容器中运行测试 ====================
   test:
-    name: 🧪 运行测试（Docker 容器内）
+    name: 🧪 运行测试
     runs-on: ubuntu-latest
-    needs: build-image
+    needs: build-and-push
     timeout-minutes: 30
-
-    # ★★★ 核心变化：使用刚构建的 Docker 镜像作为运行环境 ★★★
+    
     container:
-      image: saucedemo-test:latest
-      # 如果需要从 GHCR 拉取，可以改为：
-      # image: ghcr.io/${{ github.repository }}:${{ github.sha }}
-      options: --user root  # 确保容器有权限写入挂载卷
-
+      image: ghcr.io/${{ github.repository_owner }}/$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]'):${{ github.sha }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+      options: --user root
+    
     steps:
-      # 注意：在 container 上下文中，需要重新 checkout 代码到容器内
       - name: 📥 Checkout 代码
         uses: actions/checkout@v4
 
-      # 测试运行（直接使用 Dockerfile 中定义的环境）
-      # 镜像内已包含：Python 3.12 + Chrome + chromedriver + JDK 21 + Allure CLI
       - name: 🧪 运行测试
-        working-directory: /app  # 或 $GITHUB_WORKSPACE
-        env:
-          HEADLESS: "true"
-          CONTAINER: "1"
-          BROWSER: ${{ github.event.inputs.browser || 'chrome' }}
-          CI: "true"
         run: |
           python -m pytest -v \
             --alluredir=reports/allure-results \
