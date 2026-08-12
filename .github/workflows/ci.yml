@@ -24,10 +24,8 @@ on:
         required: false
         default: "chrome"
   schedule:
-    # 每天北京时间 06:00（UTC 22:00）跑一次回归
     - cron: "0 22 * * *"
 
-# 同一分支新提交时取消旧的运行
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -35,8 +33,8 @@ concurrency:
 permissions:
   contents: read
   pages: write
-  id-token: write   # 部署 GitHub Pages 所需
-  packages: write   # 推送镜像到 GHCR 所需
+  id-token: write
+  packages: write
 
 jobs:
   build-and-push:
@@ -44,7 +42,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
-      image: ${{ steps.meta.outputs.tags }}
+      image: ${{ steps.meta.outputs.image }}  # 输出完整镜像名（不含 tag）
+      image_with_tag: ${{ steps.meta.outputs.image_with_tag }}  # 输出完整镜像名（含 tag）
     
     steps:
       - name: 📥 Checkout 代码
@@ -54,7 +53,10 @@ jobs:
         id: meta
         run: |
           REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          echo "tags=ghcr.io/${REPO_LOWER}:${{ github.sha }}" >> $GITHUB_OUTPUT
+          IMAGE_NAME="ghcr.io/${REPO_LOWER}"
+          echo "image=${IMAGE_NAME}" >> $GITHUB_OUTPUT
+          echo "image_with_tag=${IMAGE_NAME}:${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "✅ 镜像名称: ${IMAGE_NAME}:${{ github.sha }}"
 
       - name: 🐳 设置 Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -71,7 +73,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.image }}:latest
+            ${{ steps.meta.outputs.image_with_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -82,7 +86,7 @@ jobs:
     timeout-minutes: 30
     
     container:
-      image: ghcr.io/${{ github.repository_owner }}/$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]'):${{ github.sha }}
+      image: ${{ needs.build-and-push.outputs.image_with_tag }}  # 使用 outputs
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -93,19 +97,25 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🧪 运行测试
+        working-directory: ${{ github.workspace }}
+        env:
+          HEADLESS: "true"
+          CONTAINER: "1"
+          BROWSER: ${{ github.event.inputs.browser || 'chrome' }}
+          CI: "true"
         run: |
           python -m pytest -v \
             --alluredir=reports/allure-results \
             --clean-alluredir
 
-      # 生成 Allure 报告（镜像内已安装 Allure CLI）
+      # 生成 Allure 报告
       - name: 📊 生成 Allure HTML 报告
         if: always()
-        working-directory: /app
+        working-directory: ${{ github.workspace }}
         run: |
           allure generate reports/allure-results -o reports/allure-report --clean
 
-      # 从 gh-pages 分支拉取历史趋势数据（保证趋势图连续）
+      # 从 gh-pages 分支拉取历史趋势数据
       - name: 📥 拉取 Allure 历史（趋势图）
         if: always()
         uses: actions/checkout@v4
@@ -116,43 +126,42 @@ jobs:
 
       - name: 🔧 合并历史数据
         if: always()
-        working-directory: /app
+        working-directory: ${{ github.workspace }}
         run: |
           mkdir -p reports/allure-results/history
-          if [ -d ../gh-pages/history ]; then
-            cp -r ../gh-pages/history/* reports/allure-results/history/ || true
+          if [ -d gh-pages/history ]; then
+            cp -r gh-pages/history/* reports/allure-results/history/ || true
             echo "✅ 历史数据已合并"
           fi
 
       # 重新生成带历史数据的报告
       - name: 📊 重新生成 Allure 报告（含历史）
         if: always()
-        working-directory: /app
+        working-directory: ${{ github.workspace }}
         run: |
           allure generate reports/allure-results -o reports/allure-report --clean
 
-      # 上传 Allure 报告作为 artifact（保留 90 天）
+      # 上传 Allure 报告
       - name: 📤 上传 Allure 报告 (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-report-${{ github.run_number }}
-          path: /app/reports/allure-report
+          path: ${{ github.workspace }}/reports/allure-report
           retention-days: 90
 
-      # 上传日志和截图作为 artifact
+      # 上传日志和截图
       - name: 📤 上传日志 / 截图 (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-logs-${{ github.run_number }}
           path: |
-            /app/logs
-            /app/screenshots
+            ${{ github.workspace }}/logs
+            ${{ github.workspace }}/screenshots
           retention-days: 30
           if-no-files-found: ignore
 
-  # ==================== Job 3: 部署到 GitHub Pages ====================
   deploy-pages:
     name: 🚀 部署 Allure 报告到 GitHub Pages
     runs-on: ubuntu-latest
@@ -161,7 +170,7 @@ jobs:
     timeout-minutes: 10
 
     permissions:
-      contents: write   # gh-pages 需要写入权限
+      contents: write
       pages: write
       id-token: write
 
@@ -182,7 +191,6 @@ jobs:
           user_email: "github-actions[bot]@users.noreply.github.com"
           commit_message: "chore(allure): update report [${{ github.run_number }}]"
 
-  # ==================== Job 4: 失败通知（可选）====================
   notify:
     name: 📢 失败通知
     runs-on: ubuntu-latest
