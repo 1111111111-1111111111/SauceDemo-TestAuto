@@ -14,18 +14,14 @@ node_modules/  # Node.js
 
 # 4. 测试产物和报告 (自动生成的东西，不传代码库)
 logs/
-reports
+reports/
 screenshots/
 videos/
 
-# 其它文件
+# 5. 其它文件
 valid/
-DDT_KDT_稳定性治理_改造说明.md
-.github
-.dockerignore
 docker-compose.yml
-Dockerfile
 Makefile
 run_docker.bat
 run_docker.sh
-测试用例专业审查报告.html
+*.html
