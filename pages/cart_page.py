@@ -61,7 +61,11 @@ class CartPage(BasePage):
         return ProductDetailPage(self.driver)
 
     def continue_shopping(self) -> "ProductsPage":
+        # 测试是否 GitHub 中浏览器响应跟 Windows 浏览器响应不一致
+        self.wait_for_element(self.CONTINUE_SHOPPING_BTN)
+        # 然后再点击
         self.click(self.CONTINUE_SHOPPING_BTN)
+        
         self.wait.until(EC.url_contains("inventory"))
         from pages.products_page import ProductsPage  # 延迟导入
         return ProductsPage(self.driver)
