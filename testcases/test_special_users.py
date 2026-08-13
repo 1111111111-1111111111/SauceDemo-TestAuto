@@ -13,7 +13,7 @@ SauceDemo 提供了 4 种异常用户账户，每种账户都有特定的已知�
 
 注意：
   - 这些用例标记为 @pytest.mark.flaky，因为 performance_glitch_user 的耗时不稳定
-  - 用例优先级建议 P1（已知缺陷的回归验证）
+  - 用例优先级 P1（已知缺陷的回归验证）
 """
 import time
 

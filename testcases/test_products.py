@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-商品主页测试（4 大模块）
+商品主页测试（4 大模块之一）
 1. 排序功能
 2. 加入购物车
 3. 移除购物车
@@ -8,8 +8,7 @@
 5. 进入购物车页面
 6. 退出登录
 
-改造说明：
-  - 不再依赖 logged_in_products 链式 fixture
+说明：
   - 使用本地 fixture + utils.app_flows.quick_login 按需组装前置
   - 登录失败只影响本模块，不连锁波及 cart / checkout
 """

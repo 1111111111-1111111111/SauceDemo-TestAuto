@@ -10,10 +10,6 @@
   3. 内部使用延迟导入，避免循环依赖
   4. 调用方（测试用例）自己决定用哪个 flow，而非被全局 fixture 链绑定
 
-对比旧方案（链式 fixture）：
-  cart_with_items → logged_in_with_cart → logged_in_products → driver_instance
-  ↑ 登录挂了 → products + cart + checkout 共 ~60 个用例全 ERROR
-
 新方案：
   每个测试模块在本地 fixture 中调用 quick_xxx，只影响自己
 """

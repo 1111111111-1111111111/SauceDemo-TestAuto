@@ -5,8 +5,7 @@
 - 测试数据外置到 data/login.yaml，消除硬编码用户名
 - 成功用例和异常用例分别从 YAML 加载，参数化生成
 - 每条 case 带唯一 id，Allure 报告中清晰可辨
-- 改造前：5 个成功用例硬编码 + 5 个异常用例各写一个函数
-- 改造后：2 个参数化函数（10 条）+ 3 条边界用例，覆盖 Excel SD-LOGIN-013/014/015
+- 2 个参数化函数（10 条）+ 3 条边界用例，覆盖 Excel SD-LOGIN-013/014/015
 """
 import pytest
 import allure

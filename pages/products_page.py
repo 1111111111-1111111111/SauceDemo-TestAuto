@@ -102,11 +102,7 @@ class ProductsPage(BasePage):
         return ProductDetailPage(self.driver)
 
     def click_item_image(self, product_index: int) -> "ProductDetailPage":
-        """点击商品图片 → 对应详情页
-        注意：SauceDemo 中 <img> 本身不绑定点击事件，真正可点击的是包裹它的 <a> 链接。
-        新版 ChromeDriver 对直接 click(<img>) 会抛 ElementNotInteractableException，
-        因此先定位 img，再点击其父级 <a> 元素。
-        """
+        """点击商品图片 → 对应详情页 """
         items = self.find_elements(self.INVENTORY_ITEMS)
         img = items[product_index].find_element(By.CSS_SELECTOR, "img")
         link = img.find_element(By.XPATH, "./parent::a")
@@ -116,17 +112,7 @@ class ProductsPage(BasePage):
         return ProductDetailPage(self.driver)
 
     def go_to_cart(self) -> "CartPage":
-        """进入购物车页面（稳定性增强版）
-
-        背景：CI 中偶发点击 shopping-cart-link 后未触发导航，导致
-        url_contains("cart") 等满 EXPLICIT_WAIT 后超时（ERROR/FAILED）。
-
-        方案：
-          1. 优先读取 <a> 的 href 直接 driver.get 导航，
-             绕开 React 事件未绑定的窗口期（最稳定）
-          2. 等待 URL 变更为 cart 页
-          3. 再等待购物车页关键元素出现（双保险）
-        """
+        """进入购物车页面"""
         from selenium.webdriver.common.by import By
         from selenium.webdriver.support import expected_conditions as EC
 
@@ -139,18 +125,13 @@ class ProductsPage(BasePage):
             self.click(self.SHOPPING_CART_LINK)
         # 等待 URL 变更为 cart 页
         self.wait.until(EC.url_contains("cart"))
-        # 等待购物车页关键元素出现（双保险）
+        # 等待购物车页关键元素出现
         self.wait.until(EC.presence_of_element_located((By.ID, "checkout")))
         from pages.cart_page import CartPage  # 延迟导入
         return CartPage(self.driver)
 
     def get_cart_badge_count(self) -> int:
-        """获取购物车角标数量；角标不存在（购物车为空）时返回 0。
-
-        注意：不要用 find_element/get_text —— 空购物车时 badge 不渲染，
-        find_element 会等满 EXPLICIT_WAIT 并触发 element_not_found 截图，
-        拖慢整个测试。这里用 find_elements 短超时快速判断，绝不等待。
-        """
+        """获取购物车角标数量；角标不存在（购物车为空）时返回 0。"""
         eles = self.find_elements(self.SHOPPING_CART_BADGE, timeout=1)
         if not eles:
             return 0

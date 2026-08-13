@@ -27,13 +27,7 @@ class CheckoutCompletePage(BasePage):
         return self.get_text(self.COMPLETE_HEADER)
 
     def get_cart_badge_count(self) -> int:
-        """获取购物车角标数量；badge 不存在（购物车为空）时返回 0。
-
-        注意：不要用 get_text/find_element —— 完成结账后购物车被清空、
-        badge 不渲染，find_element 会等满 EXPLICIT_WAIT 并触发
-        element_not_found 截图（CI 日志中 element_not_found_...badge 的来源）。
-        用 find_elements 短超时快速判断，绝不等待。
-        """
+        """获取购物车角标数量；badge 不存在（购物车为空）时返回 0。"""
         eles = self.find_elements(self.SHOPPING_CART_BADGE, timeout=1)
         if not eles:
             return 0

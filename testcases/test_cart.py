@@ -2,8 +2,7 @@
 """
 购物车页面测试
 
-改造说明：
-  - 不再依赖 cart_with_items / logged_in_products 链式 fixture
+说明：
   - 使用本地 fixture + utils.app_flows helper 函数按需组装前置
   - 需要购物车的用例用 quick_setup_cart，只需要商品主页的用例用 quick_login
 """
@@ -31,9 +30,7 @@ def cart_with_items(driver_instance):
 class TestCart:
     """购物车页面"""
 
-      
-    
-    
+
     @allure.story("购物车基础操作")
     @allure.title("Continue Shopping 返回主页")
     def test_cart_continue_shopping_back_to_products(self, cart_with_items):

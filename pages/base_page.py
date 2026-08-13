@@ -43,13 +43,7 @@ class BasePage:
             raise
 
     def find_elements(self, locator: Tuple[str, str], timeout: float = None):
-        """返回所有匹配元素；不存在时等待出现，超时返回 []（不抛异常、不截图）。
-
-        ⚠️ 空状态判断必须传短 timeout（如 1~2s）：
-           EC.presence_of_all_elements_located 只要匹配到 1 个就返回，
-           空集合场景（空购物车 / badge 消失）会一直等到超时，
-           导致每个用例白等 EXPLICIT_WAIT（CI 上更明显）。
-        """
+        """返回所有匹配元素；不存在时等待出现，超时返回 []（不抛异常、不截图）。"""
         wait = WebDriverWait(self.driver, timeout if timeout is not None else EXPLICIT_WAIT)
         try:
             eles = wait.until(EC.presence_of_all_elements_located(locator))

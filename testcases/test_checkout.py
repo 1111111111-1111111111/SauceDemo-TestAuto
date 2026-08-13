@@ -2,8 +2,7 @@
 """
 结账流程测试（3 步）
 
-改造说明：
-  - 不再依赖 cart_with_items / logged_in_with_cart 链式 fixture
+说明：
   - 使用本地 fixture + utils.app_flows helper 函数按需组装前置
   - step one 用例用 quick_setup_checkout
   - step two / three 用例用 quick_setup_step_two / quick_setup_complete
