@@ -1,12 +1,16 @@
 # 🍔 SauceDemo 自动化测试项目
 
 > **目标站点**：<https://www.saucedemo.com/>
+> 
 > **技术栈**：Python 3.10+ · Pytest · Selenium WebDriver · Allure · Page Object（PO 模式）
 > 
 > **操作系统**：Windows（本地）/ Linux（Docker / CI）
+> 
 > **覆盖范围**：登录 / 商品列表 / 商品详情 / 购物车 / 结账流程
+> 
 > **当前状态**：**103 条用例全部通过（全绿）**，支持数据驱动 + 关键字驱动 + Docker / GitHub Actions / Jenkins 三套 CI
-> **查看 Allure 报告URL**: https://1111111111-1111111111.github.io/SauceDemo-TestAuto/allure/index.html
+> 
+> **查看 Allure 报告URL**: https://1111111111-1111111111.github.io/SauceDemo-TestAuto/index.html
 
 ---
 
