@@ -43,7 +43,9 @@ class CartPage(BasePage):
         return prices
 
     def get_item_count(self) -> int:
-        items = self.find_elements(self.CART_ITEM_NAME)
+        # 短超时快速判空：remove_all_items 清空购物车后，最后一次轮询
+        # 无需等满 EXPLICIT_WAIT（否则每个清空用例白等 10 秒）
+        items = self.find_elements(self.CART_ITEM_NAME, timeout=2)
         return len(items)
 
     def remove_item_by_index(self, idx: int):

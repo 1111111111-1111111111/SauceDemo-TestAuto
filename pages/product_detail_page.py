@@ -50,16 +50,39 @@ class ProductDetailPage(BasePage):
         return ProductsPage(self.driver)
 
     def open_cart(self) -> "CartPage":
-        self.click(self.SHOPPING_CART_LINK)
+        """进入购物车页面（稳定性增强版，与 ProductsPage.go_to_cart 同款方案）
+
+        背景：CI 中偶发点击 shopping-cart-link 后未触发导航（React 事件
+        未绑定窗口期），url_contains("cart") 会等满 EXPLICIT_WAIT 超时。
+        方案：优先读 <a> 的 href 用 driver.get 直连导航，再等 URL + 关键元素。
+        """
+        from selenium.webdriver.common.by import By
         from selenium.webdriver.support import expected_conditions as EC
+
+        link = self.find_clickable_element(self.SHOPPING_CART_LINK)
+        href = link.get_attribute("href")
+        if href:
+            self.driver.get(href)
+        else:
+            self.click(self.SHOPPING_CART_LINK)
         self.wait.until(EC.url_contains("cart"))
+        self.wait.until(EC.presence_of_element_located((By.ID, "checkout")))
         from pages.cart_page import CartPage  # 延迟导入
         return CartPage(self.driver)
 
     def get_cart_badge_count(self) -> int:
+        """获取购物车角标数量；badge 不存在（购物车为空）时返回 0。
+
+        注意：不要用 get_text/find_element —— 空购物车时 badge 不渲染，
+        find_element 会等满 EXPLICIT_WAIT 并触发 element_not_found 截图。
+        用 find_elements 短超时快速判断，绝不等待。
+        """
+        eles = self.find_elements(self.SHOPPING_CART_BADGE, timeout=1)
+        if not eles:
+            return 0
         try:
-            return int(self.get_text(self.SHOPPING_CART_BADGE))
-        except Exception:
+            return int(eles[0].text)
+        except ValueError:
             return 0
 
     def get_item_name(self) -> str:

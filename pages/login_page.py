@@ -65,22 +65,17 @@ class LoginPage(BasePage):
         self.click(self.ERROR_BUTTON)
 
     def is_error_displayed(self) -> bool:
-        """错误提示框是否仍然可见"""
-        from selenium.common.exceptions import NoSuchElementException
-        try:
-            self.driver.find_element(*self.ERROR_CONTAINER)
-            return True
-        except NoSuchElementException:
-            return False
+        """错误提示框是否仍然可见（快速判断，不等待不截图）"""
+        return bool(self.find_elements(self.ERROR_CONTAINER, timeout=1))
 
     def get_password_input_type(self) -> str:
         """获取密码输入框的 type 属性（验证掩码显示）"""
-        return self.driver.find_element(*self.PASSWORD_INPUT).get_attribute("type")
+        return self.find_element(self.PASSWORD_INPUT).get_attribute("type")
 
     def get_username_value(self) -> str:
         """获取用户名输入框当前值"""
-        return self.driver.find_element(*self.USERNAME_INPUT).get_attribute("value")
+        return self.find_element(self.USERNAME_INPUT).get_attribute("value")
 
     def get_password_value(self) -> str:
         """获取密码输入框当前值"""
-        return self.driver.find_element(*self.PASSWORD_INPUT).get_attribute("value")
+        return self.find_element(self.PASSWORD_INPUT).get_attribute("value")

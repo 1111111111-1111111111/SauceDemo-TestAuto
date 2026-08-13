@@ -42,14 +42,21 @@ class BasePage:
             take_screenshot(self.driver, name=f"element_not_found_{locator[0]}_{locator[1]}")
             raise
 
-    def find_elements(self, locator: Tuple[str, str]):
-        """返回所有匹配元素"""
+    def find_elements(self, locator: Tuple[str, str], timeout: float = None):
+        """返回所有匹配元素；不存在时等待出现，超时返回 []（不抛异常、不截图）。
+
+        ⚠️ 空状态判断必须传短 timeout（如 1~2s）：
+           EC.presence_of_all_elements_located 只要匹配到 1 个就返回，
+           空集合场景（空购物车 / badge 消失）会一直等到超时，
+           导致每个用例白等 EXPLICIT_WAIT（CI 上更明显）。
+        """
+        wait = WebDriverWait(self.driver, timeout if timeout is not None else EXPLICIT_WAIT)
         try:
-            eles = self.wait.until(EC.presence_of_all_elements_located(locator))
+            eles = wait.until(EC.presence_of_all_elements_located(locator))
             logger.debug(f"✅ 共找到 {len(eles)} 个元素 {locator}")
             return eles
         except TimeoutException:
-            logger.error(f"❌ 元素未找到 {locator}")
+            logger.warning(f"⚠️ 元素未找到（等待 {timeout if timeout is not None else EXPLICIT_WAIT}s）{locator}")
             return []
 
     def find_clickable_element(self, locator: Tuple[str, str]) -> WebElement:
@@ -63,9 +70,13 @@ class BasePage:
 
     # ============= 基础操作 =============
     def click(self, locator: Tuple[str, str]):
-        """点击元素（稳定性治理：去掉 time.sleep 硬等待，find_clickable_element 已保证可点击）"""
+        """点击元素（稳定性增强：WebDriver 点击失败时用 JS 兜底）"""
         ele = self.find_clickable_element(locator)
-        ele.click()
+        try:
+            ele.click()
+        except Exception:
+            logger.warning(f"⚠️ 常规点击失败 {locator}，改用 JS 点击")
+            self.driver.execute_script("arguments[0].click();", ele)
         logger.info(f"🖱️ 已点击 {locator}")
 
     def input_text(self, locator: Tuple[str, str], text: str):
