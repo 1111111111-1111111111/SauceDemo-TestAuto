@@ -12,6 +12,7 @@ import os
 import platform
 import shutil
 import tempfile
+import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -81,7 +82,7 @@ def _make_options(browser: str):
         if browser.lower() == "firefox":
             options.add_argument("--headless")
         else:
-            # Chrome 109+ 推荐用 --headless=new
+            # Chrome 109+ 推荐用 --headless=new（无头模式必需，否则容器内无法启动）
             options.add_argument("--headless=new")
 
     # 通用选项
@@ -96,7 +97,15 @@ def _make_options(browser: str):
     # 容器内 /dev/shm 较小时必须启用，否则 Chrome 会频繁崩溃
     if _is_container() or _is_shm_limited():
         options.add_argument("--disable-dev-shm-usage")
-        logger.info("🐳 检测到容器环境，启用 --disable-dev-shm-usage")
+        # 容器内（Docker / GitHub Actions 嵌套容器）Chrome 偶发崩溃加固：
+        # "Chrome instance exited" 的经典根因是 zygote 进程在受限容器中 fork 失败，
+        # 以及 root 用户 + setuid sandbox 冲突。以下参数为容器环境标准兜底。
+        options.add_argument("--no-zygote")
+        options.add_argument("--disable-setuid-sandbox")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-software-rasterizer")
+        options.add_argument("--disable-features=Vulkan")
+        logger.info("🐳 检测到容器环境，启用容器稳定性参数(--no-zygote 等)")
 
     # 屏蔽 Chrome "正受自动化软件控制" 提示
     if browser.lower() in ("chrome", "edge"):
@@ -134,15 +143,41 @@ def _resolve_chrome_service() -> ChromeService:
     return ChromeService()
 
 
+def _launch_chrome_with_retry(options, retries: int = 3):
+    """启动 Chrome，失败自动重试（容器内偶发崩溃的兜底）。
+
+    容器（尤其 GitHub Actions 嵌套容器）中 Chrome 偶发出现
+    SessionNotCreatedException: Chrome instance exited，属启动竞态，
+    重试通常即可恢复。配合 pytest 层 --reruns 形成双重兜底。
+    """
+    last_exc = None
+    for attempt in range(1, retries + 1):
+        try:
+            driver = webdriver.Chrome(service=_resolve_chrome_service(), options=options)
+            driver._wb_profile_dir = getattr(options, "_wb_profile_dir", None)
+            return driver
+        except Exception as e:  # SessionNotCreatedException / WebDriverException 等
+            last_exc = e
+            logger.warning(f"⚠️ Chrome 启动失败 (第 {attempt}/{retries} 次): {type(e).__name__}: {e}")
+            if attempt < retries:
+                # 清掉可能半初始化的临时 profile，避免残留锁文件导致下次仍失败
+                pd = getattr(options, "_wb_profile_dir", None)
+                if pd and os.path.isdir(pd):
+                    shutil.rmtree(pd, ignore_errors=True)
+                wait = 2 * attempt  # 退避：2s / 4s
+                logger.info(f"⏳ 等待 {wait}s 后重试...")
+                time.sleep(wait)
+    logger.error(f"❌ Chrome 连续 {retries} 次启动失败，放弃")
+    raise last_exc
+
+
 def get_driver(browser: str = BROWSER):
     """创建 WebDriver 实例"""
     logger.info(f"📌 初始化浏览器: {browser}, headless={HEADLESS}")
     options = _make_options(browser)
 
     if browser.lower() == "chrome":
-        driver = webdriver.Chrome(service=_resolve_chrome_service(), options=options)
-        # 记录本次会话的临时 profile 目录，quit 后清理
-        driver._wb_profile_dir = getattr(options, "_wb_profile_dir", None)
+        driver = _launch_chrome_with_retry(options)
 
     elif browser.lower() == "firefox":
         if HAS_WDM:
