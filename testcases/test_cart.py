@@ -39,18 +39,8 @@ class TestCart:
     def test_cart_continue_shopping_back_to_products(self, cart_with_items):
         """点击 Continue Shopping → 返回主页继续购物"""
         cart = cart_with_items
-      
-        logger.info(f"Cart object: {cart}")
-        logger.info(f"Cart type: {type(cart)}")
-        logger.info(f"Cart item count: {cart.get_item_count()}")
-        assert cart.get_item_count() == 3
-      
+        assert cart.get_item_count() == 3   
         back = cart.continue_shopping()
-
-        # 查看返回对象信息
-        logger.info(f"Back page object: {back}")
-        logger.info(f"Current URL: {back.get_current_url()}")
-        logger.info(f"Page title: {back.get_title() if hasattr(back, 'get_title') else 'N/A'}")
         assert "inventory" in back.get_current_url()
         
 
