@@ -1,0 +1,13 @@
+INFO     saucedemo:conftest.py:33 ================================================================================
+INFO     saucedemo:conftest.py:34 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:132 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:98 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+INFO     saucedemo:driver.py:117 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:160 ✅ 浏览器启动成功, 版本: 151.0.7922.137, 平台: linux
+INFO     saucedemo:base_page.py:128 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:base_page.py:87 ⌨️ 输入文本 'visual_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:87 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:80 🖱️ 已点击 ('id', 'login-button')
+INFO     saucedemo:conftest.py:37 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:173 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:39 ================================================================================

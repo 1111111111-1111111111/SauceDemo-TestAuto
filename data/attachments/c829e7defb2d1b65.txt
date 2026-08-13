@@ -1,0 +1,24 @@
+INFO     saucedemo:conftest.py:33 ================================================================================
+INFO     saucedemo:conftest.py:34 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:132 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:98 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+INFO     saucedemo:driver.py:117 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:160 ✅ 浏览器启动成功, 版本: 151.0.7922.137, 平台: linux
+INFO     saucedemo:base_page.py:128 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:app_flows.py:34 🔑 quick_login: user=standard_user
+INFO     saucedemo:base_page.py:87 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:87 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:80 🖱️ 已点击 ('id', 'login-button')
+INFO     saucedemo:app_flows.py:47 🛒 quick_setup_cart: 加购 3 件，进入购物车
+INFO     saucedemo:base_page.py:80 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+INFO     saucedemo:app_flows.py:59 💳 quick_setup_checkout: 进入结账 step one
+INFO     saucedemo:base_page.py:80 🖱️ 已点击 ('id', 'checkout')
+INFO     saucedemo:app_flows.py:72 📋 quick_setup_step_two: 填写结账信息，进入 step two
+INFO     saucedemo:base_page.py:87 ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+INFO     saucedemo:base_page.py:87 ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+INFO     saucedemo:base_page.py:87 ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+INFO     saucedemo:base_page.py:80 🖱️ 已点击 ('id', 'continue')
+INFO     saucedemo:base_page.py:80 🖱️ 已点击 ('id', 'cancel')
+INFO     saucedemo:conftest.py:37 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:173 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:39 ================================================================================
