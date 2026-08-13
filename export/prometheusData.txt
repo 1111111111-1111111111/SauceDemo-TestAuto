@@ -7,8 +7,8 @@ launch_time_duration 0
 launch_time_min_duration 0
 launch_time_max_duration 0
 launch_time_sum_duration 0
-launch_time_start 1786625293627
-launch_time_stop 1786625293627
+launch_time_start 1786625477931
+launch_time_stop 1786625477931
 launch_problems_test_defects 1
-launch_retries_retries 1
+launch_retries_retries 2
 launch_retries_run 1
