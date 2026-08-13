@@ -31,6 +31,28 @@ def cart_with_items(driver_instance):
 class TestCart:
     """购物车页面"""
 
+      
+    
+    
+    @allure.story("购物车基础操作")
+    @allure.title("Continue Shopping 返回主页")
+    def test_cart_continue_shopping_back_to_products(self, cart_with_items):
+        """点击 Continue Shopping → 返回主页继续购物"""
+        from selenium.common.exceptions import WebDriverException, TimeoutException
+        try:
+            cart = cart_with_items
+            assert cart.get_item_count() == 3
+            back = cart.continue_shopping()
+            assert "inventory" in back.get_current_url()
+        except AssertionError as e:
+            # 断言失败 - 这是正常的测试失败
+            allure.attach(str(e), name="Assertion Error", attachment_type=allure.attachment_type.TEXT)
+            raise  # 重新抛出，让 pytest 标记为 FAILED
+        except (WebDriverException, TimeoutException) as e:
+            # 浏览器/网络错误 - 这是 ERROR
+            allure.attach(str(e), name="WebDriver Error", attachment_type=allure.attachment_type.TEXT)
+            pytest.fail(f"浏览器操作失败: {e}")  # 转为 FAILED
+
     @allure.story("购物车基础操作")
     @allure.title("Continue Shopping 返回主页")
     def test_cart_continue_shopping_back_to_products(self, cart_with_items):
