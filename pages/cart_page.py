@@ -61,25 +61,11 @@ class CartPage(BasePage):
         return ProductDetailPage(self.driver)
 
     def continue_shopping(self) -> "ProductsPage":
-        # 测试代码 - 添加 try-except捕获异常
-        // 在你的测试代码中
-        try {
-            self.click(self.CONTINUE_SHOPPING_BTN)
-            self.wait.until(EC.url_contains("inventory"))
-            from pages.products_page import ProductsPage  # 延迟导入
-            return ProductsPage(self.driver)
-        } catch (error) {
-          if (error.name === 'TimeoutError') {
-            // 这通常导致 FAILED
-            console.error('Test assertion failed:', error);
-          } else {
-            // 这可能导致 ERROR
-            console.error('Unexpected error:', error);
-          }
-          throw error;
-        }
+        self.click(self.CONTINUE_SHOPPING_BTN)
+        self.wait.until(EC.url_contains("inventory"))
+        from pages.products_page import ProductsPage  # 延迟导入
+        return ProductsPage(self.driver)
         
-
     def checkout(self) -> "CheckoutStepOnePage":
         self.click(self.CHECKOUT_BTN)
         self.wait.until(EC.url_contains("checkout-step-one"))
