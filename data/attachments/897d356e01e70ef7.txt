@@ -1,0 +1,49 @@
+2026-08-13 12:54:53,064 | INFO     | saucedemo | ================================================================================
+2026-08-13 12:54:53,064 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-13 12:54:53,064 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-13 12:54:53,065 | INFO     | saucedemo | 🐳 检测到容器环境，启用容器稳定性参数(--no-zygote 等)
+2026-08-13 12:54:53,066 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-13 12:54:54,220 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.137, 平台: linux
+2026-08-13 12:54:54,733 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-13 12:54:54,734 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-13 12:54:54,882 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-13 12:54:54,961 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-13 12:54:55,112 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-13 12:54:55,413 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-13 12:54:55,473 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-13 12:54:55,556 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue-shopping')
+2026-08-13 12:54:55,565 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-13 12:54:55,672 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-13 12:54:55,681 | INFO     | saucedemo | ================================================================================
+2026-08-13 12:54:55,684 | INFO     | saucedemo | ================================================================================
+2026-08-13 12:54:55,684 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-13 12:54:55,684 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-13 12:54:55,685 | INFO     | saucedemo | 🐳 检测到容器环境，启用容器稳定性参数(--no-zygote 等)
+2026-08-13 12:54:55,685 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-13 12:54:56,667 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.137, 平台: linux
+2026-08-13 12:54:57,134 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-13 12:54:57,135 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-13 12:54:57,274 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-13 12:54:57,361 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-13 12:54:57,503 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-13 12:54:57,802 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-13 12:54:57,860 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-13 12:54:57,931 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-13 12:54:57,943 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-13 12:54:58,039 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-13 12:54:58,048 | INFO     | saucedemo | ================================================================================
+2026-08-13 12:54:58,051 | INFO     | saucedemo | ================================================================================
+2026-08-13 12:54:58,051 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-13 12:54:58,051 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-13 12:54:58,051 | INFO     | saucedemo | 🐳 检测到容器环境，启用容器稳定性参数(--no-zygote 等)
+2026-08-13 12:54:58,052 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-13 12:54:59,052 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.137, 平台: linux
+2026-08-13 12:54:59,518 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-13 12:54:59,518 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-13 12:54:59,662 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-13 12:54:59,741 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-13 12:54:59,882 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-13 12:55:00,177 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-13 12:55:00,236 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-13 12:55:02,534 | WARNING  | saucedemo | ⚠️ 元素未找到（等待 2s）('css selector', "[data-test='inventory-item-name']")
+2026-08-13 12:55:04,553 | WARNING  | saucedemo | ⚠️ 元素未找到（等待 2s）('css selector', "[data-test='inventory-item-name']")
