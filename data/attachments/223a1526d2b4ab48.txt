@@ -1,0 +1,34 @@
+INFO     saucedemo:conftest.py:33 ================================================================================
+INFO     saucedemo:conftest.py:34 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:176 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:108 🐳 检测到容器环境，启用容器稳定性参数(--no-zygote 等)
+INFO     saucedemo:driver.py:133 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:204 ✅ 浏览器启动成功, 版本: 151.0.7922.137, 平台: linux
+INFO     saucedemo:base_page.py:122 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:app_flows.py:30 🔑 quick_login: user=standard_user
+INFO     saucedemo:base_page.py:81 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:81 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:74 🖱️ 已点击 ('id', 'login-button')
+INFO     saucedemo:app_flows.py:43 🛒 quick_setup_cart: 加购 3 件，进入购物车
+INFO     saucedemo:base_page.py:74 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+INFO     saucedemo:conftest.py:37 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:218 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:39 ================================================================================
+INFO     saucedemo:conftest.py:33 ================================================================================
+INFO     saucedemo:conftest.py:34 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:176 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:108 🐳 检测到容器环境，启用容器稳定性参数(--no-zygote 等)
+INFO     saucedemo:driver.py:133 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:204 ✅ 浏览器启动成功, 版本: 151.0.7922.137, 平台: linux
+INFO     saucedemo:base_page.py:122 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:app_flows.py:30 🔑 quick_login: user=standard_user
+INFO     saucedemo:base_page.py:81 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:81 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:74 🖱️ 已点击 ('id', 'login-button')
+INFO     saucedemo:app_flows.py:43 🛒 quick_setup_cart: 加购 3 件，进入购物车
+INFO     saucedemo:base_page.py:74 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+INFO     saucedemo:app_flows.py:55 💳 quick_setup_checkout: 进入结账 step one
+INFO     saucedemo:base_page.py:74 🖱️ 已点击 ('id', 'checkout')
+INFO     saucedemo:conftest.py:37 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:218 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:39 ================================================================================
