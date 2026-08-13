@@ -46,12 +46,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # --------- 安装 Allure CLI 2.45.0（与你本地版本一致） ---------
 ARG ALLURE_VERSION=2.45.0
-RUN wget -q "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz" \
-        -O /tmp/allure.tgz \
-    && tar -xzf /tmp/allure.tgz -C /opt/ \
-    && ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure \
-    && rm /tmp/allure.tgz \
-    && allure --version
+# 注意：GitHub Releases 直连在国内网络经常超时（wget exit code 4 = 网络故障）。
+# GitHub release 的 allure-2.x.x.tgz 与 Maven 仓库的 allure-commandline-2.x.x.tgz 是同一份产物，
+# 因此优先从阿里云 Maven 镜像下载，失败则回退 Maven Central，最后再试 GitHub。
+#RUN wget -q "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz" \
+#            -O /tmp/allure.tgz \
+#	&& tar -xzf /tmp/allure.tgz -C /opt/ \
+
+RUN for url in \
+        "https://maven.aliyun.com/repository/central/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz" \
+        "https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz" \
+        "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz" \
+    ; do \
+        echo ">>> 尝试下载 Allure: ${url}"; \
+        if wget -q --tries=3 --timeout=60 -O /tmp/allure.tgz "${url}"; then \
+            echo ">>> 下载成功: ${url}"; \
+            break; \
+        fi; \
+        echo ">>> 下载失败，尝试下一个源"; \
+    done; \
+    tar -xzf /tmp/allure.tgz -C /opt/ \
+	&& ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure \
+	&& rm /tmp/allure.tgz \
+	&& allure --version
+
+
 
 # --------- Python 依赖 ---------
 WORKDIR /app
