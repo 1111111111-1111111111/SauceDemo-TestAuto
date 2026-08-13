@@ -11,6 +11,7 @@
 import os
 import platform
 import shutil
+import tempfile
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -101,6 +102,12 @@ def _make_options(browser: str):
     if browser.lower() in ("chrome", "edge"):
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
+        # 稳定性修复：每个会话使用独立的临时 user-data-dir。
+        # 若不指定，headless Chrome 会与用户正在运行的 Chrome 争抢默认 profile，
+        # 触发单例锁冲突 → "Chrome instance exited" / SessionNotCreatedException。
+        profile_dir = tempfile.mkdtemp(prefix="wb_chrome_profile_")
+        options.add_argument(f"--user-data-dir={profile_dir}")
+        options._wb_profile_dir = profile_dir  # 供 kill_driver 清理
 
     return options
 
@@ -134,6 +141,8 @@ def get_driver(browser: str = BROWSER):
 
     if browser.lower() == "chrome":
         driver = webdriver.Chrome(service=_resolve_chrome_service(), options=options)
+        # 记录本次会话的临时 profile 目录，quit 后清理
+        driver._wb_profile_dir = getattr(options, "_wb_profile_dir", None)
 
     elif browser.lower() == "firefox":
         if HAS_WDM:
@@ -168,11 +177,19 @@ def kill_driver(driver):
     """安全关闭浏览器"""
     if driver is None:
         return
+    profile_dir = getattr(driver, "_wb_profile_dir", None)
     try:
         driver.quit()
         logger.info("🛑 浏览器已安全退出")
     except Exception as e:
         logger.warning(f"关闭浏览器异常: {e}")
+    finally:
+        # 清理本次会话的临时 profile 目录，避免 Temp 目录堆积垃圾
+        if profile_dir and os.path.isdir(profile_dir):
+            try:
+                shutil.rmtree(profile_dir, ignore_errors=True)
+            except Exception:
+                pass
 
 
 if __name__ == "__main__":

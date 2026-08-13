@@ -21,12 +21,6 @@ from utils.app_flows import (
 
 
 @pytest.fixture()
-def cart_with_items(driver_instance):
-    """本地 fixture：登录 → 加购 3 件 → 进购物车"""
-    return quick_setup_cart(driver_instance, count=3)
-
-
-@pytest.fixture()
 def checkout_page(driver_instance):
     """本地 fixture：登录 → 加购 3 件 → 进购物车 → 点 Checkout"""
     return quick_setup_checkout(driver_instance, count=3)

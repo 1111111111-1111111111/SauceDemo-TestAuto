@@ -140,6 +140,9 @@ jobs:
           CONTAINER: "1"
           BROWSER: ${{ github.event.inputs.browser || 'chrome' }}
           CI: "true"
+          # GitHub Actions runner 网络/资源较慢，页面加载可能超过本地 10s 默认值
+          # 单独拉长显式等待，避免购物车等页面偶发加载慢导致 TimeoutException
+          EXPLICIT_WAIT: "30"
         run: |
           python -m pytest -v \
             --alluredir=reports/allure-results \

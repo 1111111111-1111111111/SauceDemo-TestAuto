@@ -113,16 +113,7 @@ class ProductsPage(BasePage):
 
     def go_to_cart(self) -> "CartPage":
         """进入购物车页面"""
-        from selenium.webdriver.common.by import By
-        from selenium.webdriver.support import expected_conditions as EC
-
-        link = self.find_clickable_element(self.SHOPPING_CART_LINK)
-        href = link.get_attribute("href")
-        if href:
-            logger.info(f"🛒 购物车链接 href={href}，直接导航")
-            self.driver.get(href)
-        else:
-            self.click(self.SHOPPING_CART_LINK)
+        self.click(self.SHOPPING_CART_LINK)
         # 等待 URL 变更为 cart 页
         self.wait.until(EC.url_contains("cart"))
         # 等待购物车页关键元素出现

@@ -22,12 +22,10 @@ SauceDemo_autotest/
 ├── pytest.ini                 # pytest 配置
 ├── requirements.txt           # 依赖清单
 ├── run.py                     # 一键运行入口
-├── Makefile                   # 常用命令聚合（make setup / test / docker-up / ci-local …）
 ├── Dockerfile                 # Docker 镜像
 ├── docker-compose.yml         # 一键编排（测试容器 + Allure 预览服务 :5050）
 ├── .dockerignore
 ├── Jenkinsfile                # Jenkins 声明式流水线
-├── run_docker.bat / .sh       # Windows / Linux 一键 Docker 启动脚本
 ├── .github/workflows/ci.yml   # GitHub Actions CI/CD
 ├── README.md
 │
@@ -70,9 +68,7 @@ SauceDemo_autotest/
 │   ├── helpers.py             # 截图、Allure step 封装
 │   └── logger.py              # 日志（滚动文件 + 控制台）
 │
-├── logs/                      # 🟢 自动生成（滚动日志 test_run.log）
-├── screenshots/               # 🟢 自动生成（用例失败自动截图）
-└── reports/                   # 🟢 自动生成（allure-results 原始数据 / allure-report HTML）
+└─
 ```
 
 **分层依赖关系（单向，避免循环导入）：**
