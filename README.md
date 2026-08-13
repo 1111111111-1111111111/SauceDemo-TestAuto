@@ -2,13 +2,13 @@
 
 > **目标站点**：<https://www.saucedemo.com/>
 > 
-> **技术栈**：Python 3.10+ · Pytest · Selenium WebDriver · Allure · Page Object（PO 模式）
+> **技术栈**：Python 3.12 · Pytest · Selenium WebDriver · Allure · Page Object（PO 模式）
 > 
 > **操作系统**：Windows（本地）/ Linux（Docker / CI）
 > 
 > **覆盖范围**：登录 / 商品列表 / 商品详情 / 购物车 / 结账流程
 > 
-> **当前状态**：**103 条用例全部通过（全绿）**，支持数据驱动 + 关键字驱动 + Docker / GitHub Actions / Jenkins 三套 CI
+> **当前状态**：**96条用例本地全部通过,推送GitHub Actions后 82条全绿,14条⚠️**，支持数据驱动 + 关键字驱动 + Docker / GitHub Actions / Jenkins 
 > 
 > **查看 Allure 报告URL**: https://1111111111-1111111111.github.io/SauceDemo-TestAuto/index.html
 
@@ -23,7 +23,6 @@ SauceDemo_autotest/
 ├── requirements.txt           # 依赖清单
 ├── run.py                     # 一键运行入口
 ├── Dockerfile                 # Docker 镜像
-├── docker-compose.yml         # 一键编排（测试容器 + Allure 预览服务 :5050）
 ├── .dockerignore
 ├── Jenkinsfile                # Jenkins 声明式流水线
 ├── .github/workflows/ci.yml   # GitHub Actions CI/CD
@@ -207,18 +206,6 @@ git config --global user.email "你的邮箱"
 2. GitHub 仓库 Settings → Webhooks → 添加 `http://<Jenkins地址>/github-webhook/`
 3. Jenkins 配置 GitHub 凭据（Personal Access Token，类型选 secret text）
 
-### 1.9 常用命令速查（Makefile）
-
-```bash
-make setup          # 安装依赖
-make test           # 全量测试 + Allure 收集
-make test-parallel  # pytest-xdist 多进程并发
-make docker-up      # docker compose 一键起（含 Allure 服务）
-make ci-local       # 本地模拟 CI（无头模式跑 + 生成报告）
-make allure         # 生成/打开 Allure 报告
-make clean          # 清理报告 / 日志 / 截图 / 缓存
-```
-
 ---
 
 ## 🚀 二、运行
@@ -227,7 +214,7 @@ make clean          # 清理报告 / 日志 / 截图 / 缓存
 
 ```bash
 # 激活虚拟环境后
-uv run pytest                              # 全量 103 条
+uv run pytest                              # 全量 96 条
 uv run pytest testcases/test_login.py      # 只跑登录模块
 uv run pytest -m smoke                     # 只跑冒烟标记
 uv run pytest -m "not flaky"               # 跳过已知不稳定用例
@@ -254,19 +241,7 @@ docker build -t saucedemo-tests:v1.0 .
 
 2. 一键启动（推荐，含报告持久化 + Allure 预览服务）：
 
-```bash
-docker compose up --build
-# 结果自动挂载到宿主机 ./reports ./logs ./screenshots
-# Allure 报告预览：http://localhost:5050（allure-server 服务）
-```
-
-3. 或使用一键脚本 / Makefile：
-
-```bash
-run_docker.bat        # Windows
-./run_docker.sh       # Linux / macOS
-make docker-up        # 等价于 docker compose up --build
-```
+![img.png](img.png)
 
 ### 2.3 源码推送到 GitHub Actions（CI/CD）
 
@@ -364,20 +339,19 @@ Allure 提供的核心视角：
 
 > - 现象：`allure: command not found`
 > - 解决：把 `D:\tools\allure-2.45.0\bin` 完整加入系统 PATH（**新开终端生效**，先 `allure --version` 验证）
-> - 防复发：环境配置统一写入本文档 1.5；CI 中用镜像内置 allure，不依赖本机 PATH
 
 **2. Python 3.13 下 `Pillow==10.2.0` 源码编译失败，`pip install -r requirements.txt` 整体回滚**
 
 > - 现象：Pillow 无预编译 wheel，源码编译报错导致依赖安装全部失败（当前 `requirements.txt` 已修正为 `Pillow>=11.0`）
 > - 解决：升级 Pillow 到 `>=11.0`（实测 12.x 正常）；个别包版本与 Python 版本不匹配时，先单独安装失败项
-> - 防复发：`requirements.txt` 用宽松版本约束（`>=`）；新 Python 大版本先 `pip install` 冒烟验证
 
 **3. PO 层相互全局导入导致循环引用（ImportError: cannot import name ... from partially initialized module）**
 
 > - 现象：`cart_page` 与 `checkout_step_one_page` 互相返回对方对象，全局导入报循环导入错误
-> - 解决：**方法内局部导入 + TYPE_CHECKING 类型提示**（运行时零开销，类型检查不报错）：
+> - 解决：**方法内局部导入 + TYPE_CHECKING 类型提示**（运行时零开销，类型检查不报错）;后续用 `app_flows.py` 集中编排流程，页面对象间不再互相跳转依赖
 
 ```python
+from selenium.webdriver.support import expected_conditions as EC
 # cart_page.py
 def checkout(self) -> "CheckoutStepOnePage":
     self.click(self.CHECKOUT_BTN)
@@ -386,46 +360,48 @@ def checkout(self) -> "CheckoutStepOnePage":
     return CheckoutStepOnePage(self.driver)
 ```
 
-> - 防复发：PO 层依赖方向必须单向；后续用 `app_flows.py` 集中编排流程，页面对象间不再互相跳转依赖
-
 **4. fixture 链式耦合：登录 fixture 一挂，购物车 / 结账共 60 条用例全部 ERROR**
 
 > - 现象：`logged_in_with_cart → logged_in_products → driver_instance` 链式 fixture，上游登录失败导致下游全挂
 > - 解决：废弃链式 fixture，改为 **Flow 层 helper**（`quick_login` / `quick_setup_cart` / `quick_setup_checkout`），每条用例按需调用、互不牵连
-> - 防复发：fixture 只负责基础设施（driver），业务前置条件交给 Flow 函数按需组装
 
 **5. 隐式等待与显式等待混用，页面刷新后元素重新挂载导致定位超时 / 误点**
 
 > - 现象：同一页面元素被重新渲染（如排序后商品列表刷新），隐式等待 + 显式等待叠加导致偶发超时
 > - 解决：**统一纯显式等待**（`WebDriverWait + expected_conditions`），`config.py` 中 `IMPLICIT_WAIT = 0`，`driver.py` 不再强制设置隐式等待
-> - 防复发：新增页面对象一律只用显式等待；代码评审检查 `implicitly_wait` / `time.sleep`
 
 **6. 点击商品图片报 `ElementNotInteractableException`（新版 ChromeDriver）**
 
 > - 现象：`test_click_item_image_to_detail[0~5]` 共 6 条用例全部 broken——直接 `img.click()` 被判定元素不可交互
 > - 根因：SauceDemo 中 `<img>` 本身不绑定点击事件，真正可点击的是**包裹它的 `<a>` 链接**
 > - 解决：先定位 `img`，再取父级 `./parent::a`，用 `EC.element_to_be_clickable` 等待后点击
-> - 防复发：点击前先查 DOM 结构（`img` 的点击事件通常绑定在包裹链接上）；失败用例先看截图再改定位
 
 **7. "性能慢"用例断言测错对象：`performance_glitch_user` 排序用例永远失败**
 
 > - 现象：`test_performance_glitch_user_slow_sort` 断言排序耗时 > 1s，但实测排序仅 0.11~0.14s，3 次重试全败
 > - 根因：SauceDemo 对该用户的人为延迟注入在**登录 / 页面加载**环节（实测 5.2s vs normal 0.23s），排序操作本身不慢——**断言测错了对象**
 > - 解决：用例改为 `test_performance_glitch_user_slow_login`，计时点改为"点击登录 → inventory 页面渲染完成"
-> - 防复发：写"性能慢"类用例前，先实测慢点在哪一步（登录 vs 操作），再写计时断言，避免永假失败
 
-**8. Docker构建镜像时,加载速度过慢**
+**8. Docker构建镜像时,加载速度过慢**  + **+GitHub中下载Allure时,返回exit code 4**
 
-> - 现象：5373s 时进度位[5/14],速度太慢了
-> - 解决：打开Docker Desktop -> Setting -> Docker Engine -> 复制粘贴(如下内容): -> 点击 Apply & Restart 重启 Docker -> 先清除缓存: docker builder prune -f -> 重新执行 docker build -t saucedemo-tests:v1.0 .
+> - 现象：5373s 时进度位[5/14],速度太慢了  | 构建镜像总在下载allure时截停
+> 
+> - 解决：打开Docker Desktop -> Setting -> Docker Engine -> 复制粘贴(如下内容): -> 点击 Apply & Restart 重启 Docker -> 先清除缓存: docker builder prune -f -> 重新执行 docker build -t saucedemo-tests:v1.0 .   |    域名解析
 >   ```bash
 >   
+>         # 提高下载速度
 >         "registry-mirrors": [
 >             "https://dockerproxy.com",
 >             "https://docker.m.daocloud.io",
 >             "https://docker.nju.edu.cn",
 >             "https://docker.1panel.live"
->          ]
+>          ],
+>         # 正确解析如https://github.com域名
+>         "dns": [
+>           "8.8.8.8",
+>           "114.114.114.114"
+>         ]  
+> 
 > - ```
 
 **9. Jenkins 连接 GitHub 时配置 secret_text 凭证仍无法连接**
