@@ -64,11 +64,17 @@ class CheckoutStepTwoPage(BasePage):
     def click_finish(self) -> "CheckoutCompletePage":
         self.click(self.FINISH_BTN)
         self.wait.until(EC.url_contains("checkout-complete"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染完成页
+        self.wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='complete-header']")))
         from pages.checkout_complete_page import CheckoutCompletePage  # 延迟导入
         return CheckoutCompletePage(self.driver)
 
     def click_cancel(self) -> "ProductsPage":
         self.click(self.CANCEL_BTN)
         self.wait.until(EC.url_contains("inventory"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染商品列表
+        self.wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='inventory-list']")))
         from pages.products_page import ProductsPage  # 延迟导入
         return ProductsPage(self.driver)

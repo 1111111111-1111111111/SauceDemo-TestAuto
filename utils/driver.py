@@ -85,6 +85,20 @@ def _make_options(browser: str):
             # Chrome 109+ 推荐用 --headless=new（无头模式必需，否则容器内无法启动）
             options.add_argument("--headless=new")
 
+    # ============================================================
+    # CI 稳定性核心修复：pageLoadStrategy = "eager"
+    # ------------------------------------------------------------
+    # Selenium 默认 "normal" 策略：click()/get() 触发导航时会阻塞等待
+    # 整页所有资源（图片/CSS/JS/字体）加载完毕（load 事件）。
+    # GitHub Actions → saucedemo.com 网络延迟高，整页加载可能 >30s
+    # 导致 click() 本身抛 TimeoutException 或吃掉大量时间。
+    #
+    # "eager" 策略：只等 DOMContentLoaded（DOM 就绪）即返回，
+    # 后续元素渲染交给 BasePage 的显式等待（WebDriverWait + EC.*）。
+    # 效果：click() 不再阻塞等图片/CSS，CI 测试从偶发超时变为稳定通过。
+    # ============================================================
+    options.page_load_strategy = "eager"
+
     # 通用选项
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-gpu")

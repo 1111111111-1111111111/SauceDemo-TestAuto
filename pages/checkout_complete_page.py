@@ -43,5 +43,8 @@ class CheckoutCompletePage(BasePage):
     def back_home(self) -> "ProductsPage":
         self.click(self.BACK_HOME_BTN)
         self.wait.until(EC.url_contains("inventory"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染商品列表
+        self.wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='inventory-list']")))
         from pages.products_page import ProductsPage  # 延迟导入
         return ProductsPage(self.driver)

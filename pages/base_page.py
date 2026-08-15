@@ -64,10 +64,30 @@ class BasePage:
 
     # ============= 基础操作 =============
     def click(self, locator: Tuple[str, str]):
-        """点击元素（稳定性增强：WebDriver 点击失败时用 JS 兜底）"""
+        """点击元素（稳定性增强：区分页面加载超时与元素不可交互）
+
+        pageLoadStrategy=eager 下 click() 触发导航时只在 DOMContentLoaded 即返回，
+        不再阻塞等整页资源。但极端网络环境下仍可能抛 TimeoutException（页面加载超时）。
+
+        错误处理策略：
+          - TimeoutException + URL 已变更 → 导航其实成功了（只是资源慢），继续后续显式等待
+          - TimeoutException + URL 未变更 → 导航未发生，JS 兜底点击
+          - 其他异常（ElementNotInteractable 等）→ JS 兜底点击
+        """
         ele = self.find_clickable_element(locator)
+        url_before = self.driver.current_url
         try:
             ele.click()
+        except TimeoutException:
+            # 页面加载超时（DOMContentLoaded 超过 PAGE_LOAD_TIMEOUT）
+            url_after = self.driver.current_url
+            if url_after != url_before:
+                # URL 已变更 = 导航成功了，只是资源加载慢
+                logger.info(f"🖱️ 点击 {locator} 触发导航（资源加载超时但 URL 已变更: {url_after}）")
+            else:
+                # URL 没变 = 导航未发生，可能元素不可交互，JS 兜底
+                logger.warning(f"⚠️ 常规点击失败 {locator}（URL 未变更），改用 JS 点击")
+                self.driver.execute_script("arguments[0].click();", ele)
         except Exception:
             logger.warning(f"⚠️ 常规点击失败 {locator}，改用 JS 点击")
             self.driver.execute_script("arguments[0].click();", ele)

@@ -26,6 +26,8 @@ class ProductDetailPage(BasePage):
         super().__init__(driver)
         from selenium.webdriver.support import expected_conditions as EC
         self.wait.until(EC.url_contains("inventory-item"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染商品名
+        self.wait.until(EC.presence_of_element_located(self.ITEM_NAME))
 
     # ========== 操作 ==========
     def add_to_cart(self):
@@ -46,6 +48,9 @@ class ProductDetailPage(BasePage):
         self.click(self.BACK_BUTTON)
         from selenium.webdriver.support import expected_conditions as EC
         self.wait.until(EC.url_contains("inventory"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染商品列表
+        self.wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='inventory-list']")))
         from pages.products_page import ProductsPage  # 延迟导入
         return ProductsPage(self.driver)
 

@@ -42,6 +42,8 @@ class CheckoutStepOnePage(BasePage):
     def click_cancel(self) -> "CartPage":
         self.click(self.CANCEL_BTN)
         self.wait.until(EC.url_contains("cart"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染购物车页
+        self.wait.until(EC.presence_of_element_located((By.ID, "checkout")))
         from pages.cart_page import CartPage  # 延迟导入
         return CartPage(self.driver)
 
@@ -54,5 +56,8 @@ class CheckoutStepOnePage(BasePage):
         self.input_postal_code(postal)
         self.click_continue()
         self.wait.until(EC.url_contains("checkout-step-two"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染账单汇总
+        self.wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='subtotal-label']")))
         from pages.checkout_step_two_page import CheckoutStepTwoPage  # 延迟导入
         return CheckoutStepTwoPage(self.driver)

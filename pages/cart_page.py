@@ -4,10 +4,12 @@ Cart Page
 """
 from typing import TYPE_CHECKING, List
 
+from selenium.webdriver.common import window
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
+from utils.logger import logger
 
 if TYPE_CHECKING:
     from pages.checkout_step_one_page import CheckoutStepOnePage
@@ -65,11 +67,16 @@ class CartPage(BasePage):
     def continue_shopping(self) -> "ProductsPage":
         self.click(self.CONTINUE_SHOPPING_BTN)
         self.wait.until(EC.url_contains("inventory"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染商品列表
+        self.wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='inventory-list']")))
         from pages.products_page import ProductsPage  # 延迟导入
         return ProductsPage(self.driver)
         
     def checkout(self) -> "CheckoutStepOnePage":
         self.click(self.CHECKOUT_BTN)
         self.wait.until(EC.url_contains("checkout-step-one"))
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染表单
+        self.wait.until(EC.presence_of_element_located((By.ID, "first-name")))
         from pages.checkout_step_one_page import CheckoutStepOnePage  # 延迟导入
         return CheckoutStepOnePage(self.driver)

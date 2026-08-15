@@ -140,8 +140,10 @@ jobs:
           CONTAINER: "1"
           BROWSER: ${{ github.event.inputs.browser || 'chrome' }}
           CI: "true"
-          # GitHub Actions runner 网络/资源较慢，页面加载可能超过本地 10s 默认值
-          # 单独拉长显式等待，避免购物车等页面偶发加载慢导致 TimeoutException
+          # pageLoadStrategy=eager 下 PAGE_LOAD_TIMEOUT 控制的是 DOMContentLoaded 超时
+          # CI → saucedemo.com 网络延迟高，60s 安全余量避免极端慢请求导致 TimeoutException
+          PAGE_LOAD_TIMEOUT: "60"
+          # GitHub Actions runner 网络/资源较慢，元素级显式等待保持 30s
           EXPLICIT_WAIT: "30"
         run: |
           python -m pytest -v \

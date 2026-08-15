@@ -6,6 +6,7 @@ https://www.saucedemo.com/
 from typing import TYPE_CHECKING
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -42,6 +43,10 @@ class LoginPage(BasePage):
         self.input_password(password)
         self.click_login_button()
         self.wait_url_contains("inventory")
+        # pageLoadStrategy=eager: URL 变更后 React 可能尚未渲染，
+        # 等待商品列表容器出现确保页面真正就绪
+        self.wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='inventory-list']")))
         from pages.products_page import ProductsPage  # 延迟导入，打断循环
         return ProductsPage(self.driver)
 

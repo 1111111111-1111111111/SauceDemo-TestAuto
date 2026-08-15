@@ -114,9 +114,9 @@ class ProductsPage(BasePage):
     def go_to_cart(self) -> "CartPage":
         """进入购物车页面"""
         self.click(self.SHOPPING_CART_LINK)
-        # 等待 URL 变更为 cart 页
+        # pageLoadStrategy=eager: URL 变更后等 React 渲染购物车页关键元素
+        # （CartPage.__init__ 也校验 URL，但元素等待确保页面真正就绪）
         self.wait.until(EC.url_contains("cart"))
-        # 等待购物车页关键元素出现
         self.wait.until(EC.presence_of_element_located((By.ID, "checkout")))
         from pages.cart_page import CartPage  # 延迟导入
         return CartPage(self.driver)
