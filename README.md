@@ -273,18 +273,6 @@ git push -u origin main
 | 手动触发（Actions 页面 Run workflow）                | 可选参数指定浏览器（chrome / firefox / edge）   |
 | 定时任务                                         | 每天北京时间 06:00 自动回归（cron `0 22 * * *`） |
 
-**CI 流程**：Checkout → 构建 Docker 镜像 → 在容器内跑测试# → 生成 Allure 报告 → 上传 artifact → 部署到 GitHub Pages。
-
-**报告访问地址**：`https://<你的用户名>.github.io/SauceDemo_autotest/`
-
-**需要的仓库 Secrets**（Settings → Secrets and variables → Actions）：
-
-| Secret         | 用途                              | 是否必须       |
-| -------------- | ------------------------------- | ---------- |
-| `GITHUB_TOKEN` | 部署 Pages（GitHub 自动提供，无需手动创建）    | 自动         |
-| `WEBHOOK_URL`  | 失败通知（钉钉 / 企业微信 / 飞书机器人 webhook） | 可选，不配则跳过通知 |
-
-> 同一分支新提交会自动取消旧运行（`concurrency: cancel-in-progress`），避免排队浪费 CI 时长。
 
 ### 2.4 Jenkins 中执行
 
