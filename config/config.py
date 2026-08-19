@@ -14,7 +14,7 @@ BASE_URL = os.environ.get("BASE_URL", "https://www.saucedemo.com/")
 
 # ==================== 浏览器配置 ====================
 BROWSER = os.environ.get("BROWSER", "chrome")          # chrome / firefox / edge
-HEADLESS = os.environ.get("HEADLESS", "false").lower() in ("true", "1", "yes")
+HEADLESS = os.environ.get("HEADLESS", "true").lower() in ("true", "1", "yes")
 WINDOW_SIZE = (1920, 1080)
 
 # ChromeDriver 路径（优先级：显式路径 > PATH > webdriver-manager > selenium-manager）

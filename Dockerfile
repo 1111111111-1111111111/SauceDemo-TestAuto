@@ -1,13 +1,14 @@
 # =====================================================================
-# SauceDemo 自动化测试 —— Docker 镜像（超时治理版）
+# SauceDemo 自动化测试 —— Docker 镜像（超时治理 + 灵活执行版）
 # 基础：python:3.12-slim
 # 内置：Google Chrome (stable) + chromedriver + JDK 21 + Allure CLI 2.45.0
-# 目标：与本地开发环境保持一致
+# 目标：与本地开发环境保持一致，支持CI/CD灵活调用
 #
 # 超时治理（本版本新增）：
 #   1. 所有网络下载（Chrome / chromedriver / Allure / pip）均带 --timeout + 重试
 #   2. apt-get 增加 Acquire::Retries，避免镜像构建阶段偶发网络抖动失败
 #   3. 增加 tzdata，Allure 报告时间戳使用正确时区
+#   4. 通过环境变量控制测试执行，支持多测试套件
 # =====================================================================
 FROM python:3.12-slim AS base
 
@@ -67,10 +68,6 @@ ARG ALLURE_VERSION=2.45.0
 # 注意：GitHub Releases 直连在国内网络经常超时（wget exit code 4 = 网络故障）。
 # GitHub release 的 allure-2.x.x.tgz 与 Maven 仓库的 allure-commandline-2.x.x.tgz 是同一份产物，
 # 因此优先从阿里云 Maven 镜像下载，失败则回退 Maven Central，最后再试 GitHub。
-#RUN wget -q "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz" \
-#            -O /tmp/allure.tgz \
-#	&& tar -xzf /tmp/allure.tgz -C /opt/ \
-
 RUN for url in \
         "https://maven.aliyun.com/repository/central/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz" \
         "https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz" \
@@ -84,11 +81,9 @@ RUN for url in \
         echo ">>> 下载失败，尝试下一个源"; \
     done; \
     tar -xzf /tmp/allure.tgz -C /opt/ \
-	&& ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure \
-	&& rm /tmp/allure.tgz \
-	&& allure --version
-
-
+    && ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure \
+    && rm /tmp/allure.tgz \
+    && allure --version
 
 # --------- Python 依赖（pip 网络加固：超时 60s、重试 5 次） ---------
 WORKDIR /app
@@ -98,7 +93,7 @@ RUN pip install --no-cache-dir --timeout 60 --retries 5 -r requirements.txt
 # --------- 项目代码 ---------
 COPY . .
 
-# 环境变量
+# 环境变量（支持测试套件动态选择）
 ENV HEADLESS=true \
     CONTAINER=1 \
     PYTHONUNBUFFERED=1 \
@@ -112,10 +107,19 @@ ENV HEADLESS=true \
     RETRY_INTERVAL=2 \
     SLOW_TEST_THRESHOLD=60 \
     WDM_TIMEOUT=120 \
-    WDM_RETRIES=3
+    WDM_RETRIES=3 \
+    # ---- 测试执行控制 ----
+    TEST_SUITE="smoke" \
+    TEST_MARKER=""
 
 # 挂载点
 VOLUME ["/app/reports", "/app/logs", "/app/screenshots"]
 
-# 默认执行：跑用例 + 生成 Allure HTML 报告
-CMD ["sh", "-c", "python -m pytest -v --alluredir=reports/allure-results && allure generate reports/allure-results -o reports/allure-report --clean && echo '>>> 报告: reports/allure-report/index.html'"]
+# --------- 入口点脚本（支持灵活执行） ---------
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+# 默认参数（可被 docker run 覆盖）
+CMD ["--alluredir=reports/allure-results"]

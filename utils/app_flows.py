@@ -40,6 +40,9 @@ def quick_setup_cart(driver, count: int = 3):
     """
     products = quick_login(driver)
     products.add_to_cart_random(count=count)
+    # 稳定性（#44 修复）：连续加购后先等角标数量确认，页面状态稳定再跳购物车，
+    # 避免点击购物车图标时 DOM 仍在更新导致 URL 跳转等待超时（CI #44 19 个 broken 根因）
+    products.wait_cart_badge_count(count)
     logger.info(f"🛒 quick_setup_cart: 加购 {count} 件，进入购物车")
     return products.go_to_cart()
 
