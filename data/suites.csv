@@ -1,119 +1,111 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"移除全部商品","4288","购物车移除全部商品","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"账单含税：subtotal + tax = total（含一定四舍五入误差）","1330","账单含税验证 (subtotal + tax = total)","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"数据驱动：输入合法账号 → 登录成功进入主页","824","合法账号登录 → 进入主页","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"商品详情页移除购物车，购物车商品数目角标 - 1","1181","详情页从购物车移除","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"点击购物车商品标题 → 进入对应商品的详情页","68","点击购物车商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"数据驱动：输入合法账号 → 登录成功进入主页","752","合法账号登录 → 进入主页","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"First Name 空 → Error: First Name is required","168","First Name 为空校验","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"点击商品图片 → 对应详情页","88","点击商品图片进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"点击购物车商品标题 → 进入对应商品的详情页","68","点击购物车商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"Price (high to low) 排序","120","按价格高→低排序","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"Step one 点击 Cancel → 返回购物车","73","Cancel 返回购物车","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"数据驱动加载 YAML 用例，引擎执行步骤","743","YAML 关键字驱动冒烟 - keywords/smoke_login.yaml","testcases","2026-08-19","passed","2026-08-19","TestKeywordSmoke","test_keyword_smoke","",""
-"点击商品标题 → 对应详情页","66","点击商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"SD-LOGOUT-002：退出后直接访问 inventory.html → 重定向到登录页
-        Arrange: 登录后退出登录
-        Act:     直接访问 /inventory.html
-        Assert:  页面被重定向回登录页（URL 不含 inventory）
-        ","727","退出后访问 inventory 重定向到登录页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页返回所有商品页面","143","详情页返回商品列表","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"SD-USERS-001：problem_user 商品图片加载异常
-        Arrange: 用 problem_user 登录
-        Act:     获取所有商品图片 src
-        Assert:  至少 1 张图片 src 异常（包含 slug/404 或与 standard_user 不同）
-        ","809","problem_user 商品图片加载异常","testcases","2026-08-19","passed","2026-08-19","TestSpecialUsers","test_special_users","",""
-"随机加购多个商品作为一个用例","1161","随机加入 3 件商品到购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"点击购物车商品标题 → 进入对应商品的详情页","67","点击购物车商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","1152","异常登录 → 显示错误文案","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","739","异常登录 → 显示错误文案","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"Step two Finish → 进入 step three（结账完毕）","1342","Finish 进入结账完成页","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"全部留空 → Error: First Name is required","80","全部字段留空校验","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
 "SD-LOGIN-015：密码输入框类型验证_掩码显示
         Arrange: 打开登录页
         Act:     在密码框输入任意内容
         Assert:  密码框 type 属性为 password（内容以掩码显示，不显示明文）
-        ","474","密码输入框掩码显示验证","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"每个商品一个用例：加入购物车","1073","加入单个商品到购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"Step two 点击 Cancel → 返回商品主页","1371","Cancel 返回商品主页","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","741","异常登录 → 显示错误文案","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"点击 Checkout → 进入结账流程 step one","77","Checkout 进入结账 Step One","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"商品详情页加入购物车，购物车商品数目角标 + 1","1132","详情页加入购物车","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"SD-PRODUCT-012：商品信息完整性验证
-        Arrange: 登录进入商品列表页
-        Act:     遍历 6 件商品，检查每件商品的图片/标题/描述/价格/按钮
-        Assert:  每件商品 5 要素均存在且非空
-        ","159","商品信息完整性验证（图片/标题/描述/价格）","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"Step one 填写完整信息 → 进入 step two","255","完整信息填写成功进入 Step Two","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"点击商品图片 → 对应详情页","90","点击商品图片进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"点击购物车商品标题 → 进入对应商品的详情页","72","点击购物车商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"每个商品一个用例：加入购物车","1081","加入单个商品到购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"Price (low to high) 排序","102","按价格低→高排序","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"","0","test_safe_filename_sanitizes_invalid_chars[plain]","testcases","2026-08-19","passed","2026-08-19","","test_helpers","",""
-"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","655","异常登录 → 显示错误文案","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"点击购物车商品标题 → 进入对应商品的详情页","66","点击购物车商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"每个商品一个用例：移除购物车","329","从购物车移除单个商品","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"点击商品图片 → 对应详情页","90","点击商品图片进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"点击商品标题 → 对应详情页","69","点击商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"点击商品标题 → 对应详情页","67","点击商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页移除购物车，购物车商品数目角标 - 1","1198","详情页从购物车移除","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"每个商品一个用例：移除购物车","327","从购物车移除单个商品","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页返回所有商品页面","171","详情页返回商品列表","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"每个商品一个用例：移除购物车","331","从购物车移除单个商品","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"SD-USERS-002：error_user 加购操作异常
-        Arrange: 用 error_user 登录
-        Act:     逐个点击 6 件商品的 Add to Cart 按钮
-        Assert:  至少 1 次点击后按钮状态未变化（加购失败）
-        ","13193","error_user 加购操作异常","testcases","2026-08-19","passed","2026-08-19","TestSpecialUsers","test_special_users","",""
-"SD-USERS-003：visual_user 页面布局错位
-        Arrange: 用 visual_user 登录
-        Act:     获取商品名称列表和价格列表
-        Assert:  与 standard_user 的数据不一致（布局错位导致数据不匹配）
-        ","1866","visual_user 页面布局错位","testcases","2026-08-19","passed","2026-08-19","TestSpecialUsers","test_special_users","",""
-"点击商品图片 → 对应详情页","90","点击商品图片进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页返回所有商品页面","168","详情页返回商品列表","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"Name (Z to A) 排序","100","按商品名称 Z→A 排序","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页移除购物车，购物车商品数目角标 - 1","1176","详情页从购物车移除","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"点击 Continue Shopping → 返回主页继续购物","82","Continue Shopping 返回主页","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"点击商品图片 → 对应详情页","113","点击商品图片进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页移除购物车，购物车商品数目角标 - 1","1178","详情页从购物车移除","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"点击商品标题 → 对应详情页","79","点击商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"每个商品一个用例：加入购物车","1079","加入单个商品到购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页加入购物车，购物车商品数目角标 + 1","1131","详情页加入购物车","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"商品详情页加入购物车，购物车商品数目角标 + 1","1135","详情页加入购物车","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"每个商品一个用例：移除购物车","340","从购物车移除单个商品","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"Step three 点击 Back Home → 返回主页","1393","Back Home 返回主页","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"Step two 点击账单商品标题 → 进入对应商品详情页","1357","点击账单商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"","0","test_safe_filename_sanitizes_invalid_chars[empty]","testcases","2026-08-19","passed","2026-08-19","","test_helpers","",""
-"点击商品标题 → 对应详情页","63","点击商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页加入购物车，购物车商品数目角标 + 1","1134","详情页加入购物车","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"点击商品图片 → 对应详情页","88","点击商品图片进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页移除购物车，购物车商品数目角标 - 1","1189","详情页从购物车移除","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"数据驱动：输入合法账号 → 登录成功进入主页","717","合法账号登录 → 进入主页","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"每个商品一个用例：加入购物车","1080","加入单个商品到购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"","0","test_safe_filename_sanitizes_invalid_chars[slashes]","testcases","2026-08-19","passed","2026-08-19","","test_helpers","",""
-"核对账单条目正确性（多商品）","1370","账单条目与购物车一致","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
+        ","576","密码输入框掩码显示验证","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"商品详情页返回所有商品页面","137","详情页返回商品列表","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"点击购物车商品标题 → 进入对应商品的详情页","0","点击购物车商品标题进入详情页","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"Step one 填写完整信息 → 进入 step two","0","完整信息填写成功进入 Step Two","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"核对账单价格正确性","1275","账单小计等于购物车商品总价","testcases","2026-08-20","passed","2026-08-20","TestCheckout","test_checkout","",""
+"每个商品一个用例：移除购物车","339","从购物车移除单个商品","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"商品详情页加入购物车，购物车商品数目角标 + 1","1128","详情页加入购物车","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"SD-PRODUCT-013：Reset App State 功能验证
+        Arrange: 登录并加购 3 件商品
+        Act:     打开侧边栏菜单 → 点击 Reset App State
+        Assert:  1. 购物车角标清零  2. 仍在商品列表页
+        ","1826","Reset App State 清空购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"商品详情页移除购物车，购物车商品数目角标 - 1","1175","详情页从购物车移除","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"随机移除多个商品","368","从购物车随机移除 2 件商品","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"Price (high to low) 排序","96","按价格高→低排序","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"商品详情页返回所有商品页面","171","详情页返回商品列表","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"每个商品一个用例：加入购物车","1072","加入单个商品到购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"","0","test_safe_filename_sanitizes_invalid_chars[pipes_colons]","testcases","2026-08-20","passed","2026-08-20","","test_helpers","",""
+"点击商品标题 → 对应详情页","60","点击商品标题进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"数据驱动：输入合法账号 → 登录成功进入主页","732","合法账号登录 → 进入主页","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"点击商品标题 → 对应详情页","66","点击商品标题进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"每个商品一个用例：加入购物车","1078","加入单个商品到购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"SD-LOGOUT-002：退出后直接访问 inventory.html → 重定向到登录页
+        Arrange: 登录后退出登录
+        Act:     直接访问 /inventory.html
+        Assert:  页面被重定向回登录页（URL 不含 inventory）
+        ","725","退出后访问 inventory 重定向到登录页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","624","异常登录 → 显示错误文案","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"Price (low to high) 排序","104","按价格低→高排序","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"点击购物车商品标题 → 进入对应商品的详情页","0","点击购物车商品标题进入详情页","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"商品详情页加入购物车，购物车商品数目角标 + 1","1135","详情页加入购物车","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
 "SD-LOGIN-014：未登录直接访问 inventory.html_重定向到登录页
         Arrange: 打开登录页（未登录状态）
         Act:     直接访问 /inventory.html
         Assert:  页面被重定向回登录页（URL 不含 inventory）
-        ","472","未登录直接访问 inventory 重定向到登录页","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"商品详情页移除购物车，购物车商品数目角标 - 1","1183","详情页从购物车移除","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"每个商品一个用例：移除购物车","346","从购物车移除单个商品","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"商品详情页打开购物车页面","278","详情页打开购物车页面","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"点击购物车商品标题 → 进入对应商品的详情页","67","点击购物车商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestCart","test_cart","",""
-"商品详情页返回所有商品页面","168","详情页返回商品列表","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"核对账单价格正确性","1410","账单小计等于购物车商品总价","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","719","异常登录 → 显示错误文案","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"数据驱动：输入合法账号 → 登录成功进入主页","747","合法账号登录 → 进入主页","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"点击 logout → 回到登录页面","664","点击 logout 回到登录页面","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"随机移除多个商品","392","从购物车随机移除 2 件商品","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"","0","test_safe_filename_truncates_long_names","testcases","2026-08-19","passed","2026-08-19","","test_helpers","",""
-"Last Name 空 → Error: Last Name is required","188","Last Name 为空校验","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"每个商品一个用例：加入购物车","1076","加入单个商品到购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"Name (A to Z) 排序","83","按商品名称 A→Z 排序","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"","0","test_safe_filename_sanitizes_invalid_chars[css_selector]","testcases","2026-08-19","passed","2026-08-19","","test_helpers","",""
-"每个商品一个用例：移除购物车","339","从购物车移除单个商品","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
+        ","486","未登录直接访问 inventory 重定向到登录页","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"点击商品图片 → 对应详情页","102","点击商品图片进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"商品详情页加入购物车，购物车商品数目角标 + 1","1130","详情页加入购物车","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"点击商品图片 → 对应详情页","86","点击商品图片进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"数据驱动加载 YAML 用例，引擎执行步骤","706","YAML 关键字驱动冒烟 - keywords/smoke_login.yaml","testcases","2026-08-20","passed","2026-08-20","TestKeywordSmoke","test_keyword_smoke","",""
+"点击商品图片 → 对应详情页","104","点击商品图片进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"账单含税：subtotal + tax = total（含一定四舍五入误差）","21039","账单含税验证 (subtotal + tax = total)","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"First Name 空 → Error: First Name is required","0","First Name 为空校验","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"商品详情页加入购物车，购物车商品数目角标 + 1","1131","详情页加入购物车","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"全部留空 → Error: First Name is required","0","全部字段留空校验","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"Step two 点击账单商品标题 → 进入对应商品详情页","1366","点击账单商品标题进入详情页","testcases","2026-08-20","passed","2026-08-20","TestCheckout","test_checkout","",""
+"每个商品一个用例：移除购物车","316","从购物车移除单个商品","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"点击购物车商品标题 → 进入对应商品的详情页","0","点击购物车商品标题进入详情页","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"点击购物车图标 → 进入购物车","79","点击购物车图标进入购物车页面","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"Zip/Postal Code 空 → Error: Postal Code is required","0","Zip/Postal Code 为空校验","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","647","异常登录 → 显示错误文案","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"点击商品标题 → 对应详情页","69","点击商品标题进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"Name (A to Z) 排序","65","按商品名称 A→Z 排序","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"结账完成后购物车被重置（角标消失）","2309","结账完成后购物车被重置","testcases","2026-08-20","passed","2026-08-20","TestCheckout","test_checkout","",""
+"点击商品标题 → 对应详情页","60","点击商品标题进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"每个商品一个用例：移除购物车","318","从购物车移除单个商品","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"SD-USERS-003：visual_user 页面布局错位
+        Arrange: 用 visual_user 登录
+        Act:     获取商品名称列表和价格列表
+        Assert:  与 standard_user 的数据不一致（布局错位导致数据不匹配）
+        ","1762","visual_user 页面布局错位","testcases","2026-08-20","passed","2026-08-20","TestSpecialUsers","test_special_users","",""
+"数据驱动加载 YAML 用例，引擎执行步骤","831","YAML 关键字驱动冒烟 - keywords/smoke_buy.yaml","testcases","2026-08-20","passed","2026-08-20","TestKeywordSmoke","test_keyword_smoke","",""
+"数据驱动：输入合法账号 → 登录成功进入主页","5678","合法账号登录 → 进入主页","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"每个商品一个用例：移除购物车","327","从购物车移除单个商品","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"点击商品图片 → 对应详情页","86","点击商品图片进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"点击商品图片 → 对应详情页","99","点击商品图片进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","657","异常登录 → 显示错误文案","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"Step two Finish → 进入 step three（结账完毕）","21134","Finish 进入结账完成页","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"商品详情页移除购物车，购物车商品数目角标 - 1","1193","详情页从购物车移除","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"数据驱动：输入合法账号 → 登录成功进入主页","777","合法账号登录 → 进入主页","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"数据驱动：输入合法账号 → 登录成功进入主页","744","合法账号登录 → 进入主页","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"商品详情页移除购物车，购物车商品数目角标 - 1","1192","详情页从购物车移除","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"每个商品一个用例：移除购物车","320","从购物车移除单个商品","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"Last Name 空 → Error: Last Name is required","0","Last Name 为空校验","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"核对账单条目正确性（多商品）","21047","账单条目与购物车一致","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"每个商品一个用例：加入购物车","1070","加入单个商品到购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"","0","test_safe_filename_sanitizes_invalid_chars[empty]","testcases","2026-08-20","passed","2026-08-20","","test_helpers","",""
+"商品详情页打开购物车页面","288","详情页打开购物车页面","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"点击购物车商品标题 → 进入对应商品的详情页","0","点击购物车商品标题进入详情页","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"","0","test_safe_filename_sanitizes_invalid_chars[css_selector]","testcases","2026-08-20","passed","2026-08-20","","test_helpers","",""
+"Step two 点击 Cancel → 返回商品主页","1303","Cancel 返回商品主页","testcases","2026-08-20","passed","2026-08-20","TestCheckout","test_checkout","",""
+"商品详情页返回所有商品页面","140","详情页返回商品列表","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"SD-PRODUCT-012：商品信息完整性验证
+        Arrange: 登录进入商品列表页
+        Act:     遍历 6 件商品，检查每件商品的图片/标题/描述/价格/按钮
+        Assert:  每件商品 5 要素均存在且非空
+        ","151","商品信息完整性验证（图片/标题/描述/价格）","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"每个商品一个用例：加入购物车","1070","加入单个商品到购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"商品详情页加入购物车，购物车商品数目角标 + 1","1132","详情页加入购物车","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"Step three 点击 Back Home → 返回主页","21068","Back Home 返回主页","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
+"商品详情页加入购物车，购物车商品数目角标 + 1","1130","详情页加入购物车","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"SD-USERS-001：problem_user 商品图片加载异常
+        Arrange: 用 problem_user 登录
+        Act:     获取所有商品图片 src
+        Assert:  至少 1 张图片 src 异常（包含 slug/404 或与 standard_user 不同）
+        ","677","problem_user 商品图片加载异常","testcases","2026-08-20","passed","2026-08-20","TestSpecialUsers","test_special_users","",""
+"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","722","异常登录 → 显示错误文案","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"SD-LOGIN-013：错误提示框的关闭功能_错误提示消失
+        Arrange: 打开登录页，触发一个错误（密码为空）
+        Act:     点击红色错误提示框右上角的 × 按钮
+        Assert:  1. 错误提示框消失  2. 用户名输入框内容保留
+        ","1760","错误提示框关闭按钮","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"Step one 点击 Cancel → 返回购物车","0","Cancel 返回购物车","testcases","2026-08-20","broken","2026-08-20","TestCheckout","test_checkout","",""
 "SD-USERS-004：performance_glitch_user 登录/页面加载缓慢
         Arrange: 打开登录页
         Act:     执行登录并等待 inventory 页面加载完成，全程计时
@@ -122,26 +114,34 @@
         修复说明：SauceDemo 的 performance_glitch_user 人为延迟注入在
         登录/页面加载环节（实测约 5s），前端排序操作本身不慢（实测 ~0.1s）。
         因此计时点从""排序操作""改为""登录 + inventory 页面加载""。
-        ","5745","performance_glitch_user 登录/页面加载速度慢","testcases","2026-08-19","passed","2026-08-19","TestSpecialUsers","test_special_users","",""
-"每个商品一个用例：加入购物车","1085","加入单个商品到购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"结账完成后购物车被重置（角标消失）","2334","结账完成后购物车被重置","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"商品详情页返回所有商品页面","179","详情页返回商品列表","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"SD-LOGIN-013：错误提示框的关闭功能_错误提示消失
-        Arrange: 打开登录页，触发一个错误（密码为空）
-        Act:     点击红色错误提示框右上角的 × 按钮
-        Assert:  1. 错误提示框消失  2. 用户名输入框内容保留
-        ","1807","错误提示框关闭按钮","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"商品详情页加入购物车，购物车商品数目角标 + 1","1132","详情页加入购物车","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"数据驱动加载 YAML 用例，引擎执行步骤","853","YAML 关键字驱动冒烟 - keywords/smoke_buy.yaml","testcases","2026-08-19","passed","2026-08-19","TestKeywordSmoke","test_keyword_smoke","",""
-"点击商品标题 → 对应详情页","69","点击商品标题进入详情页","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"点击购物车图标 → 进入购物车","84","点击购物车图标进入购物车页面","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"","0","test_safe_filename_sanitizes_invalid_chars[pipes_colons]","testcases","2026-08-19","passed","2026-08-19","","test_helpers","",""
-"数据驱动：输入合法账号 → 登录成功进入主页","5761","合法账号登录 → 进入主页","testcases","2026-08-19","passed","2026-08-19","TestLogin","test_login","",""
-"SD-PRODUCT-013：Reset App State 功能验证
-        Arrange: 登录并加购 3 件商品
-        Act:     打开侧边栏菜单 → 点击 Reset App State
-        Assert:  1. 购物车角标清零  2. 仍在商品列表页
-        ","1808","Reset App State 清空购物车","testcases","2026-08-19","passed","2026-08-19","TestProducts","test_products","",""
-"Zip/Postal Code 空 → Error: Postal Code is required","186","Zip/Postal Code 为空校验","testcases","2026-08-19","passed","2026-08-19","TestCheckout","test_checkout","",""
-"商品详情页返回所有商品页面","142","详情页返回商品列表","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
-"商品详情页加入购物车，购物车商品数目角标 + 1","1132","详情页加入购物车","testcases","2026-08-19","passed","2026-08-19","TestProductDetail","test_product_detail","",""
+        ","5692","performance_glitch_user 登录/页面加载速度慢","testcases","2026-08-20","passed","2026-08-20","TestSpecialUsers","test_special_users","",""
+"","0","test_safe_filename_sanitizes_invalid_chars[plain]","testcases","2026-08-20","passed","2026-08-20","","test_helpers","",""
+"点击商品标题 → 对应详情页","63","点击商品标题进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"","1","test_safe_filename_truncates_long_names","testcases","2026-08-20","passed","2026-08-20","","test_helpers","",""
+"Name (Z to A) 排序","111","按商品名称 Z→A 排序","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"","0","test_safe_filename_sanitizes_invalid_chars[slashes]","testcases","2026-08-20","passed","2026-08-20","","test_helpers","",""
+"数据驱动：异常登录 → 断言错误文案 + 仍在登录页","648","异常登录 → 显示错误文案","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"数据驱动：输入合法账号 → 登录成功进入主页","767","合法账号登录 → 进入主页","testcases","2026-08-20","passed","2026-08-20","TestLogin","test_login","",""
+"点击 logout → 回到登录页面","663","点击 logout 回到登录页面","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"商品详情页移除购物车，购物车商品数目角标 - 1","1174","详情页从购物车移除","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"商品详情页返回所有商品页面","144","详情页返回商品列表","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"移除全部商品","0","购物车移除全部商品","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"每个商品一个用例：加入购物车","1071","加入单个商品到购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"随机加购多个商品作为一个用例","1156","随机加入 3 件商品到购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"SD-USERS-002：error_user 加购操作异常
+        Arrange: 用 error_user 登录
+        Act:     逐个点击 6 件商品的 Add to Cart 按钮
+        Assert:  至少 1 次点击后按钮状态未变化（加购失败）
+        ","13092","error_user 加购操作异常","testcases","2026-08-20","passed","2026-08-20","TestSpecialUsers","test_special_users","",""
+"点击 Continue Shopping → 返回主页继续购物","0","Continue Shopping 返回主页","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"商品详情页返回所有商品页面","145","详情页返回商品列表","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"商品详情页返回所有商品页面","172","详情页返回商品列表","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"商品详情页移除购物车，购物车商品数目角标 - 1","1181","详情页从购物车移除","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"商品详情页移除购物车，购物车商品数目角标 - 1","1169","详情页从购物车移除","testcases","2026-08-20","passed","2026-08-20","TestProductDetail","test_product_detail","",""
+"点击商品图片 → 对应详情页","101","点击商品图片进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"点击购物车商品标题 → 进入对应商品的详情页","0","点击购物车商品标题进入详情页","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"点击 Checkout → 进入结账流程 step one","0","Checkout 进入结账 Step One","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
+"每个商品一个用例：移除购物车","315","从购物车移除单个商品","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"点击商品标题 → 对应详情页","61","点击商品标题进入详情页","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"每个商品一个用例：加入购物车","1072","加入单个商品到购物车","testcases","2026-08-20","passed","2026-08-20","TestProducts","test_products","",""
+"点击购物车商品标题 → 进入对应商品的详情页","0","点击购物车商品标题进入详情页","testcases","2026-08-20","broken","2026-08-20","TestCart","test_cart","",""
