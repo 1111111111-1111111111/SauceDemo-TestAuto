@@ -1,1 +1,1 @@
-{"uid":"83edc06c07f9ae9e47eb6dd1b683e4e2","name":"packages","children":[{"name":"testcases.test_cart","children":[{"name":"Continue Shopping 返回主页","uid":"46db867e494302ec","parentUid":"450d81f200c5b94a562574fb6da47630","status":"broken","time":{"start":1787173277670,"stop":1787173277670,"duration":0},"flaky":false,"newFailed":false,"newPassed":false,"newBroken":false,"retriesCount":0,"retriesStatusChange":false,"parameters":[],"tags":["cart"]}],"uid":"testcases.test_cart"}]}
+{"uid":"83edc06c07f9ae9e47eb6dd1b683e4e2","name":"packages","children":[]}
