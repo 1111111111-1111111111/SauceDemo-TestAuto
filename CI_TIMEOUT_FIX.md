@@ -112,12 +112,14 @@ env:
   WDM_RETRIES: "3"
 ```
 
-### 4.3 pytest 整体 25 分钟硬超时 + 输出保留
+### 4.3 pytest 整体 40 分钟硬超时 + 输出保留
+
+> **实测修正（2026-08-19 首轮 CI）**：49 个用例 × 每用例重开浏览器 + 失败重试，25 分钟硬超时被触发（测试步骤精确耗时 25:01 被 `timeout 1500` 杀死）。已上调至 40 分钟（2400s），仍远低于 Actions job 360 分钟上限，卡死也能兜底结束。
 
 ```bash
-timeout 1500 python -m pytest -v \
+timeout 2400 python -m pytest -v \
   --alluredir=reports/allure-results --clean-alluredir \
-  --reruns=${{ github.event.inputs.reruns || '2' }} --reruns-delay=3 \
+  --reruns=${{ github.event.inputs.reruns || '2' }} --reruns-delay=2 \
   2>&1 | tee logs/pytest_ci.log
 exit ${PIPESTATUS[0]}    # 保留 pytest 真实退出码
 ```
