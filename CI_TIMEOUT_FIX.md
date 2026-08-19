@@ -130,6 +130,32 @@ exit ${PIPESTATUS[0]}    # 保留 pytest 真实退出码
 - Artifact `test-logs-<run_number>` 新增包含 `reports/allure-results`（失败截图+console 日志全在 Allure 报告里）
 - `workflow_dispatch` 新增 `explicit_wait` / `reruns` 两个输入，无需改代码即可调参
 
+### 4.5 退出码诊断 + 收尾加固（CI #43 排查记录）
+
+> **实测教训（2026-08-19 CI #43）**：Allure 报告显示 **102 用例全部 passed（0 failed / 0 broken）**，
+> 测试总耗时 4:09，但 job 仍 failure（运行测试步骤 4:36 失败，非超时）。
+> 症状 = "用例全过但流水线失败"，说明失败发生在 **pytest 收尾阶段而非用例层**。
+
+**根因分析（已通过本地复现缩小范围）：**
+
+| 候选原因 | 验证方式 | 结论 |
+|---|---|---|
+| pytest-rerunfailures 16.4 兼容性 | 本地重建与 CI 完全一致的环境（pytest 9.1.1 + rerunfailures 16.4 + allure 2.16.0），flaky 重试用例 EXIT 0 | ✅ 排除 |
+| conftest 钩子链（sessionfinish 等）逻辑缺陷 | 本地 102 个 dummy 全过用例 + 完整钩子链 + 同参数，EXIT 0 | ✅ 排除 |
+| **每次 call 重复 attach 完整 test_run.log** | 102 用例 × 每次读数 MB 日志 → allure-results 膨胀数百 MB → 收尾写入 IO 异常 → INTERNALERROR（退出码 3） | 🎯 **最大嫌疑** |
+| fixture teardown 异常传播 | teardown 抛异常会把用例标 error（Allure 会显示 broken），与 0 broken 矛盾 | ⚠️ 低概率，仍加固 |
+
+**修复内容（本次提交）：**
+
+1. **conftest.py**：
+   - `pytest_runtest_makereport`：移除"每次 call 都 attach 完整日志"，改为**仅失败用例** attach 日志**尾部（限 200KB）**——这是消除 allure-results 膨胀的关键
+   - `pytest_sessionfinish`：统计逻辑整体 try/except——**收尾统计异常不得影响 pytest 退出码**
+   - `driver_instance` teardown：try/except 包裹 `kill_driver`——fixture teardown 异常会标 error 且连锁影响后续用例
+   - `pytest_runtest_call` / `pytest_runtest_makereport`：hookwrapper yield 后代码整体 try/except——hook 异常不得覆盖用例原始结果
+2. **ci.yml**：`exit ${PIPESTATUS[0]}` 前增加**退出码诊断**，区分 0=通过 / 1=有失败 / 2=中断 / 3=INTERNALERROR（重点查收尾）/ 4=用法错误 / 5=无收集，下次同类问题一眼定位
+
+**pytest 退出码速查：** 0 全过 · 1 有失败 · 2 中断 · 3 内部错误（插件/hook 异常）· 4 用法错误 · 5 无测试收集
+
 ---
 
 ## 五、容器层：Dockerfile 优化

@@ -7,9 +7,11 @@
 # 超时治理（本版本新增）：
 #   1. 测试前先做被测站点连通性检查，网络问题第一时间暴露
 #   2. 通过环境变量显式注入各等待阈值（不再依赖代码默认值）
-#   3. pytest 整体套 25 分钟硬超时（timeout 命令包装），避免卡死耗尽 job 时间
+#   3. pytest 整体套 40 分钟硬超时（timeout 命令包装），避免卡死耗尽 job 时间
 #   4. 失败时自动输出日志尾部 + 截图清单，随 artifact 一起上传
 #   5. conftest 内置每用例耗时监控，慢用例 Top10 写入日志
+#   6. pytest 退出码诊断：区分 0=通过 / 1=有失败 / 2=中断 / 3=内部错误（INTERNALERROR），
+#      用于定位 "用例全过但 job 失败"（CI #43 曾出现，根因在收尾阶段）
 #
 # =====================================================================
 name: "SauceDemo 自动化测试 (Docker)"
@@ -187,7 +189,18 @@ jobs:
             --reruns=${{ github.event.inputs.reruns || '2' }} \
             --reruns-delay=2 \
             2>&1 | tee logs/pytest_ci.log
-          exit ${PIPESTATUS[0]}
+          RC=${PIPESTATUS[0]}
+          # 退出码诊断（CI #43 经验：102 用例全过但 job 失败 = 收尾 INTERNALERROR 退出码 3）
+          case "$RC" in
+            0) echo "✅ pytest 退出码 0：全部用例通过" ;;
+            1) echo "❌ pytest 退出码 1：存在失败用例（详见 pytest_ci.log）" ;;
+            2) echo "⚠️ pytest 退出码 2：测试被中断（KeyboardInterrupt / 信号）" ;;
+            3) echo "🛑 pytest 退出码 3：内部错误 INTERNALERROR（插件/hook 异常，非用例原因，重点查收尾阶段）" ;;
+            4) echo "🛑 pytest 退出码 4：命令行用法错误" ;;
+            5) echo "🛑 pytest 退出码 5：未收集到任何测试" ;;
+            *) echo "❓ pytest 退出码 $RC：非标准退出码" ;;
+          esac
+          exit $RC
 
       # ----------------------------------------------------------
       # 超时治理 3：失败时输出诊断信息（日志尾部 + 截图清单）
