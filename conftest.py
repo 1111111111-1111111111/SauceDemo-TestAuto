@@ -7,9 +7,18 @@
   - 只保留 driver_instance（基础）和 login_page（简单页面对象）
   - 各测试模块通过 utils.app_flows 的 helper 函数按需组装前置条件
   - 好处：登录挂了只影响调了 quick_login 的模块，不再连锁失败 ~60 个用例
+
+CI 稳定性治理（本版本新增）：
+  - 会话开始时做一次网络诊断（DNS/TCP/TTFB），日志留痕
+  - 每个用例计时，超过 SLOW_TEST_THRESHOLD 记 WARNING（慢用例 ≠ 失败用例）
+  - 结束时输出最慢用例 Top 10 与整体耗时统计，便于 CI 排查超时
+  - 失败时 attach 浏览器 console 日志，定位 JS 异常
 """
 import os
+import platform
 import shutil
+import time
+from collections import OrderedDict
 
 import allure
 import pytest
@@ -18,12 +27,69 @@ from pytest import Item
 from config.config import (
     BASE_URL,
     ALLURE_RESULTS_DIR,
+    BROWSER,
+    HEADLESS,
     LOG_DIR,
+    SLOW_TEST_THRESHOLD,
 )
 from utils.driver import get_driver, kill_driver
-from utils.helpers import take_screenshot
+from utils.helpers import take_screenshot, diagnose_network, format_duration
 from utils.logger import logger
 from pages.login_page import LoginPage
+
+
+# ==================== 会话级：网络诊断 + 耗时统计 ====================
+@pytest.hookimpl(tryfirst=True)
+def pytest_sessionstart(session):
+    """会话开始时：记录起始时间 + 网络诊断（只做一次）"""
+    session._wb_start_time = time.time()
+    session._wb_test_durations = OrderedDict()
+    logger.info("=" * 80)
+    logger.info("🚀 测试会话开始")
+    # CI 超时排查第一步：确认被测站点可达性
+    diag = diagnose_network(BASE_URL)
+    if not diag["ok"]:
+        logger.warning(f"⚠️ 被测站点网络诊断未通过: {diag['error']}")
+
+
+@pytest.hookimpl(trylast=True)
+def pytest_sessionfinish(session, exitstatus):
+    """会话结束时：输出整体耗时统计 + 最慢用例 Top 10"""
+    elapsed = time.time() - getattr(session, "_wb_start_time", time.time())
+    durations = getattr(session, "_wb_test_durations", {})
+    logger.info("=" * 80)
+    logger.info(f"📊 测试会话结束，总耗时 {format_duration(elapsed)}")
+    if durations:
+        total_case = sum(durations.values())
+        logger.info(f"📊 用例执行总耗时（不含 fixture）: {format_duration(total_case)}")
+        slowest = sorted(durations.items(), key=lambda kv: kv[1], reverse=True)[:10]
+        logger.info("🐢 最慢用例 Top 10：")
+        for name, dur in slowest:
+            flag = " ⚠️超阈值" if dur > SLOW_TEST_THRESHOLD else ""
+            logger.info(f"    {format_duration(dur):>10}  {name}{flag}")
+    logger.info("=" * 80)
+
+
+# ==================== 用例级：耗时监控 ====================
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_call(item):
+    """每个用例执行计时；超过 SLOW_TEST_THRESHOLD 记 WARNING"""
+    t0 = time.time()
+    outcome = yield
+    elapsed = time.time() - t0
+    session = item.session
+    durations = getattr(session, "_wb_test_durations", None)
+    if durations is not None:
+        durations[item.nodeid] = elapsed
+    if elapsed > SLOW_TEST_THRESHOLD:
+        logger.warning(
+            f"🐢 慢用例 [{format_duration(elapsed)} > 阈值 {format_duration(SLOW_TEST_THRESHOLD)}]: {item.nodeid}"
+        )
+        allure.attach(
+            f"{format_duration(elapsed)}",
+            name="test_duration",
+            attachment_type=allure.attachment_type.TEXT,
+        )
 
 
 # ==================== Driver Fixtures ====================
@@ -67,14 +133,12 @@ def pytest_configure(config):
     env_path = os.path.join(ALLURE_RESULTS_DIR, "environment.properties")
     with open(env_path, "w", encoding="utf-8") as f:
         f.write("TestTarget=SauceDemo\n")
-        f.write("URL=https://www.saucedemo.com\n")
+        f.write(f"URL={BASE_URL.rstrip('/')}\n")
         f.write("TestStack=Python+Pytest+Selenium+Allure\n")
-        f.write(f"Python={os.popen('python --version').read().strip() or 'unknown'}\n")
-
-
-def pytest_sessionfinish(session, exitstatus):
-    """测试结束时调用：可用于最终化报告等"""
-    pass
+        f.write(f"Python={platform.python_version()}\n")
+        f.write(f"Platform={platform.system()} {platform.release()}\n")
+        f.write(f"Browser={BROWSER}\n")
+        f.write(f"Headless={HEADLESS}\n")
 
 
 # ==================== 测试方法钩子（标题 + 失败截图）====================
@@ -92,6 +156,21 @@ def pytest_itemcollected(item: Item):
     allure.dynamic.title(item.name)
 
 
+def _attach_browser_console_logs(driver):
+    """失败诊断增强：抓取浏览器 console 日志（JS 异常/网络错误）"""
+    try:
+        logs = driver.get_log("browser")
+        if logs:
+            lines = [f"{l['level']} | {l['message']}" for l in logs[-50:]]
+            allure.attach(
+                "\n".join(lines),
+                name="browser_console_logs",
+                attachment_type=allure.attachment_type.TEXT,
+            )
+    except Exception:
+        pass
+
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """测试结果写入 Allure + 失败自动截图"""
@@ -101,7 +180,7 @@ def pytest_runtest_makereport(item, call):
     if rep.when in ("setup", "call") and rep.failed:
         driver = item.funcargs.get("driver_instance") or item.funcargs.get("driver_per_class")
         if driver is not None:
-            # 稳定性治理：失败诊断增强 — 截图 + 当前URL + 页面源码
+            # 稳定性治理：失败诊断增强 — 截图 + 当前URL + 页面源码 + console 日志
             try:
                 take_screenshot(driver, name=f"{item.name}_{rep.when}_FAIL")
             except Exception as e:
@@ -122,6 +201,7 @@ def pytest_runtest_makereport(item, call):
                 )
             except Exception:
                 pass
+            _attach_browser_console_logs(driver)
 
     if rep.when == "call":
         log_path = os.path.join(LOG_DIR, "test_run.log")

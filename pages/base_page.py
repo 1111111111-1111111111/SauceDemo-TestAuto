@@ -3,8 +3,11 @@
 所有 Page Object 的基类
 - 封装 Selenium 常用操作（点击、输入、获取文本、显式等待等）
 - 加入日志 + 失败自动截图
+- CI 稳定性治理：所有导航/等待都支持失败重试（RETRY_TIMES），
+  网络抖动导致的瞬时超时自动重试后通常即可恢复，避免用例误报 FAILED
 """
-from typing import Tuple
+import time
+from typing import Callable, List, Tuple
 
 import allure
 from selenium.common.exceptions import TimeoutException
@@ -14,7 +17,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from config.config import EXPLICIT_WAIT
+from config.config import EXPLICIT_WAIT, NAV_WAIT, RETRY_TIMES, RETRY_INTERVAL
 from utils.helpers import take_screenshot
 from utils.logger import logger
 
@@ -25,6 +28,136 @@ class BasePage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.wait = WebDriverWait(driver, EXPLICIT_WAIT)
+
+    # ============= 弹性等待核心 =============
+    def _wait_until(self, condition: Callable, timeout: float = None,
+                    desc: str = "", retries: int = None) -> bool:
+        """显式等待 + 失败重试（网络抖动兜底）。
+
+        :param condition: EC 条件或可调用对象（返回 truthy 即成功）
+        :param timeout:   单次等待超时（默认 EXPLICIT_WAIT）
+        :param desc:      等待描述（用于日志/告警）
+        :param retries:   重试次数（默认 RETRY_TIMES）
+        :return: 成功返回 True，最终失败返回 False（不抛异常，由调用方决定）
+        """
+        timeout = timeout if timeout is not None else EXPLICIT_WAIT
+        retries = RETRY_TIMES if retries is None else retries
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                wait = WebDriverWait(self.driver, timeout)
+                wait.until(condition)
+                if attempt > 1:
+                    logger.info(f"🔄 {desc or condition} 第 {attempt} 次等待成功")
+                return True
+            except TimeoutException as e:
+                if attempt > retries:
+                    logger.error(
+                        f"❌ 等待超时 {desc or condition} "
+                        f"(单次 {timeout}s × {attempt} 次共 {timeout * attempt}s)；"
+                        f"URL={self.driver.current_url}, "
+                        f"readyState={self._ready_state()}")
+                    return False
+                logger.warning(
+                    f"⚠️ 等待超时 {desc or condition} 第 {attempt}/{retries + 1} 次"
+                    f"（{timeout}s），{RETRY_INTERVAL}s 后重试…")
+                time.sleep(RETRY_INTERVAL)
+            except Exception as e:  # 其他异常（如 InvalidSelector）不重试
+                logger.error(f"❌ 等待异常 {desc or condition}: {type(e).__name__}: {e}")
+                return False
+
+    def _ready_state(self) -> str:
+        """当前页面 document.readyState（诊断用）"""
+        try:
+            return self.driver.execute_script("return document.readyState")
+        except Exception:
+            return "unknown"
+
+    def wait_page_ready(self, timeout: float = None) -> bool:
+        """等待页面 JS 就绪（document.readyState == 'complete'）。
+
+        SPA 场景下 URL 已变但 React 尚未挂载，单纯等 URL 会导致后续
+        find_element 扑空；这里先等 readyState 再等关键元素。
+        """
+        ok = self._wait_until(
+            lambda d: d.execute_script("return document.readyState") == "complete",
+            timeout=timeout or NAV_WAIT,
+            desc="页面就绪(document.readyState=complete)",
+        )
+        if not ok:
+            logger.warning(f"⚠️ 页面长时间未就绪，URL={self.driver.current_url}")
+        return ok
+
+    def wait_url_contains(self, keyword: str, timeout: float = None,
+                          retries: int = None) -> bool:
+        """等待 URL 包含关键字；失败自动重试（慢网络下跳转可能超时）。
+
+        原实现一次超时即抛异常，CI 网络抖动时高频误报。
+        新实现：单次 timeout 后自动重试 RETRY_TIMES 次，
+        最终失败才抛 TimeoutException（同时保留截图诊断）。
+        """
+        ok = self._wait_until(
+            EC.url_contains(keyword),
+            timeout=timeout or NAV_WAIT,
+            desc=f"URL 包含 '{keyword}'",
+            retries=retries,
+        )
+        if not ok:
+            take_screenshot(self.driver, name=f"url_timeout_{keyword.replace('/', '_')}")
+            raise TimeoutException(
+                f"等待 URL 包含 '{keyword}' 超时（{timeout or NAV_WAIT}s × {retries + 1} 次），"
+                f"当前 URL={self.driver.current_url}")
+        return True
+
+    def wait_text_in_element(self, locator: Tuple[str, str], text: str,
+                             timeout: float = None):
+        """等待元素文本变化；失败重试后仍失败则抛异常（文本断言前置）"""
+        ok = self._wait_until(
+            EC.text_to_be_present_in_element(locator, text),
+            timeout=timeout or EXPLICIT_WAIT,
+            desc=f"元素 {locator} 文本包含 '{text}'",
+        )
+        if not ok:
+            raise TimeoutException(f"等待元素文本 '{text}' 超时: {locator}")
+
+    def wait_any(self, conditions: List[Tuple[str, Tuple]], timeout: float = None):
+        """等待多个条件中任一满足（用于'页面可能是 A 或 B'的柔性断言场景）。
+
+        用法：
+            ok, which = page.wait_any([
+                ("cart", (By.ID, "checkout")),
+                ("products", (By.CSS_SELECTOR, "[data-test='inventory-list']")),
+            ])
+            assert ok, "页面既不是购物车也不是商品列表"
+        """
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        def _any_cond(driver):
+            for name, loc in conditions:
+                try:
+                    if driver.find_elements(*loc):
+                        return name
+                except Exception:
+                    continue
+            return None
+
+        wait = WebDriverWait(self.driver, timeout or EXPLICIT_WAIT)
+        try:
+            which = wait.until(_any_cond)
+            logger.info(f"🎯 页面状态: {which}")
+            return True, which
+        except TimeoutException:
+            logger.error(f"❌ 等待多个条件任一满足超时: {[c[0] for c in conditions]}")
+            return False, None
+
+    def scroll_into_view(self, element: WebElement):
+        """滚动元素到可视区域（避免被遮挡/懒加载导致点击超时）"""
+        try:
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView({block:'center', behavior:'instant'});", element)
+        except Exception:
+            pass
 
     # ============= 元素定位封装 =============
     def locator(self, locator: Tuple[str, str]):
@@ -38,7 +171,8 @@ class BasePage:
             logger.debug(f"✅ 找到元素 {locator}")
             return ele
         except TimeoutException:
-            logger.error(f"❌ 元素未找到 {locator}")
+            logger.error(f"❌ 元素未找到 {locator}, URL={self.driver.current_url}, "
+                         f"readyState={self._ready_state()}")
             take_screenshot(self.driver, name=f"element_not_found_{locator[0]}_{locator[1]}")
             raise
 
@@ -63,8 +197,8 @@ class BasePage:
             raise
 
     # ============= 基础操作 =============
-    def click(self, locator: Tuple[str, str]):
-        """点击元素（稳定性增强：区分页面加载超时与元素不可交互）
+    def click(self, locator: Tuple[str, str], expect_url: str = None):
+        """点击元素（稳定性增强：滚动可见 + 区分页面加载超时与元素不可交互）
 
         pageLoadStrategy=eager 下 click() 触发导航时只在 DOMContentLoaded 即返回，
         不再阻塞等整页资源。但极端网络环境下仍可能抛 TimeoutException（页面加载超时）。
@@ -73,8 +207,13 @@ class BasePage:
           - TimeoutException + URL 已变更 → 导航其实成功了（只是资源慢），继续后续显式等待
           - TimeoutException + URL 未变更 → 导航未发生，JS 兜底点击
           - 其他异常（ElementNotInteractable 等）→ JS 兜底点击
+
+        :param locator: 定位器
+        :param expect_url: 可选，点击后预期 URL 关键字；提供后点击完成会自动等待
         """
         ele = self.find_clickable_element(locator)
+        # 滚动到可视区域：避免元素被底部栏/懒加载遮挡导致点击交互超时
+        self.scroll_into_view(ele)
         url_before = self.driver.current_url
         try:
             ele.click()
@@ -92,6 +231,8 @@ class BasePage:
             logger.warning(f"⚠️ 常规点击失败 {locator}，改用 JS 点击")
             self.driver.execute_script("arguments[0].click();", ele)
         logger.info(f"🖱️ 已点击 {locator}")
+        if expect_url:
+            self.wait_url_contains(expect_url)
 
     def input_text(self, locator: Tuple[str, str], text: str):
         """输入文本"""
@@ -124,16 +265,6 @@ class BasePage:
     def page_contains(self, text: str) -> bool:
         """页面源码是否包含文本（用于宽松断言）"""
         return text in self.driver.page_source
-
-    # ============= 等待 =============
-    def wait_url_contains(self, keyword: str, timeout: int = None):
-        """等待 URL 包含某关键字"""
-        wait = WebDriverWait(self.driver, timeout or EXPLICIT_WAIT)
-        return wait.until(EC.url_contains(keyword))
-
-    def wait_text_in_element(self, locator: Tuple[str, str], text: str):
-        wait = WebDriverWait(self.driver, EXPLICIT_WAIT)
-        return wait.until(EC.text_to_be_present_in_element(locator, text))
 
     # ============= Allure 步骤 =============
     @allure.step("打开 URL: {url}")

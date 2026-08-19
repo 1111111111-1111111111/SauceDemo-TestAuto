@@ -22,7 +22,8 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.edge.service import Service as EdgeService
 
-# 设置 webdriver-manager 使用国内镜像
+# 设置 webdriver-manager：关闭 SSL 验证（部分内网镜像证书不可信），
+# 并显式设置下载超时/重试，避免 CI 网络抖动导致驱动下载失败
 os.environ["WDM_SSL_VERIFY"] = "0"  # 关闭 SSL 验证（可选）
 
 try:
@@ -41,8 +42,18 @@ from config.config import (
     CHROME_DRIVER_PATH,
     PAGE_LOAD_TIMEOUT,
     IMPLICIT_WAIT,
+    WDM_TIMEOUT,
+    WDM_RETRIES,
+    WDM_VERSION,
 )
 from utils.logger import logger
+
+# ---- WDM 下载参数（需在 config 导入后设置，避免 NameError）----
+os.environ.setdefault("WDM_TIMEOUT", str(WDM_TIMEOUT))      # 单次下载超时
+os.environ.setdefault("WDM_RETRIES", str(WDM_RETRIES))      # 下载重试次数
+# 锁版本：本地/CI 用同一版本 chromedriver，杜绝"自动匹配最新"带来的版本漂移
+if WDM_VERSION:
+    os.environ["WDM_CHROME_VERSION"] = WDM_VERSION
 
 
 def _is_container() -> bool:
@@ -102,23 +113,33 @@ def _make_options(browser: str):
     options.add_argument("--disable-notifications")
     options.add_argument("--disable-popup-blocking")
 
+    # ============================================================
+    # CI 稳定性加固：降低 headless Chrome 崩溃/卡死概率
+    # 1. VizDisplayCompositor 软渲染：避免 GPU 合成器崩溃（容器内常见）
+    # 2. disable-software-rasterizer：软渲染与 GPU 冲突时禁用兜底
+    # 3. disable-extensions：无头模式禁用扩展，减少启动竞态
+    # 4. blink-settings=imagesEnabled=true：确保图片正常加载（商品图片断言依赖）
+    # 5. disable-dev-shm-usage 单独按容器判断（见下）
+    # ============================================================
+    if browser.lower() in ("chrome", "edge"):
+        options.add_argument("--disable-features=VizDisplayCompositor,Translate,BlinkGenPropertyTrees")
+        options.add_argument("--disable-software-rasterizer")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--no-first-run")
+        options.add_argument("--no-default-browser-check")
+        options.add_argument("--disable-background-networking")
+
     # 容器内 /dev/shm 较小时必须启用，否则 Chrome 会频繁崩溃
     if _is_container() or _is_shm_limited():
         options.add_argument("--disable-dev-shm-usage")
-        # 容器内（Docker / GitHub Actions 嵌套容器）Chrome 偶发崩溃加固：
-        # "Chrome instance exited" 的经典根因是 zygote 进程在受限容器中 fork 失败，
-        # 以及 root 用户 + setuid sandbox 冲突。以下参数为容器环境标准兜底。
-        options.add_argument("--no-zygote")
-        options.add_argument("--disable-setuid-sandbox")
-        options.add_argument("--disable-extensions")
-        options.add_argument("--disable-software-rasterizer")
-        options.add_argument("--disable-features=Vulkan")
-        logger.info("🐳 检测到容器环境，启用容器稳定性参数(--no-zygote 等)")
+        logger.info("🐳 检测到容器环境，启用 --disable-dev-shm-usage")
 
     # 屏蔽 Chrome "正受自动化软件控制" 提示
     if browser.lower() in ("chrome", "edge"):
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
+        # 开启浏览器 console 日志采集（失败诊断用，配合 conftest 抓取 JS 异常）
+        options.set_capability("goog:loggingPrefs", {"browser": "ALL", "performance": "ALL"})
         # 稳定性修复：每个会话使用独立的临时 user-data-dir。
         # 若不指定，headless Chrome 会与用户正在运行的 Chrome 争抢默认 profile，
         # 触发单例锁冲突 → "Chrome instance exited" / SessionNotCreatedException。
@@ -127,6 +148,26 @@ def _make_options(browser: str):
         options._wb_profile_dir = profile_dir  # 供 kill_driver 清理
 
     return options
+
+
+def _install_driver_with_retry(manager_factory, driver_name: str):
+    """webdriver-manager 下载驱动，带超时与重试。
+
+    CI 网络抖动时驱动下载（ChromeDriver 等）可能超时，
+    这里按 WDM_RETRIES 次重试，每次间隔 3s。
+    """
+    last_exc = None
+    for attempt in range(1, WDM_RETRIES + 1):
+        try:
+            logger.info(f"📥 下载 {driver_name} (第 {attempt}/{WDM_RETRIES} 次, 超时 {WDM_TIMEOUT}s)...")
+            return manager_factory().install()
+        except Exception as e:
+            last_exc = e
+            logger.warning(f"⚠️ {driver_name} 下载失败: {type(e).__name__}: {e}")
+            if attempt < WDM_RETRIES:
+                time.sleep(3 * attempt)  # 3s / 6s 退避
+    logger.error(f"❌ {driver_name} 连续 {WDM_RETRIES} 次下载失败，放弃")
+    raise last_exc
 
 
 def _resolve_chrome_service() -> ChromeService:
@@ -141,10 +182,11 @@ def _resolve_chrome_service() -> ChromeService:
         logger.info("📌 使用 PATH 中的 chromedriver（容器镜像已内置）")
         return ChromeService()
 
-    # 3. webdriver-manager 自动下载
+    # 3. webdriver-manager 自动下载（带重试）
     if HAS_WDM:
         logger.info("📌 通过 webdriver-manager 自动下载 chromedriver")
-        return ChromeService(executable_path=ChromeDriverManager().install())
+        return ChromeService(executable_path=_install_driver_with_retry(
+            ChromeDriverManager, "chromedriver"))
 
     # 4. Selenium 4.10+ 自带 selenium-manager 兜底
     logger.info("📌 由 selenium-manager 自动管理 chromedriver")
@@ -189,14 +231,16 @@ def get_driver(browser: str = BROWSER):
 
     elif browser.lower() == "firefox":
         if HAS_WDM:
-            service = FirefoxService(executable_path=GeckoDriverManager().install())
+            service = FirefoxService(executable_path=_install_driver_with_retry(
+                GeckoDriverManager, "geckodriver"))
         else:
             service = FirefoxService()
         driver = webdriver.Firefox(service=service, options=options)
 
     elif browser.lower() == "edge":
         if HAS_WDM:
-            service = EdgeService(executable_path=EdgeChromiumDriverManager().install())
+            service = EdgeService(executable_path=_install_driver_with_retry(
+                EdgeChromiumDriverManager, "msedgedriver"))
         else:
             service = EdgeService()
         driver = webdriver.Edge(service=service, options=options)
@@ -205,13 +249,16 @@ def get_driver(browser: str = BROWSER):
         raise ValueError(f"不支持的浏览器: {browser}")
 
     driver.set_page_load_timeout(PAGE_LOAD_TIMEOUT)
+    # JS 执行超时独立设置，避免长轮询脚本卡死会话
+    driver.set_script_timeout(min(PAGE_LOAD_TIMEOUT, 60))
     # 稳定性治理：不再使用隐式等待，全用显式等待（BasePage WebDriverWait）
     # 隐式+显式混用会导致不可预测的等待时间（Selenium 官方警告）
     if IMPLICIT_WAIT:
         driver.implicitly_wait(IMPLICIT_WAIT)
     logger.info(
         f"✅ 浏览器启动成功, 版本: {driver.capabilities.get('browserVersion', 'unknown')}, "
-        f"平台: {driver.capabilities.get('platformName', platform.system())}"
+        f"平台: {driver.capabilities.get('platformName', platform.system())}, "
+        f"page_load_timeout: {PAGE_LOAD_TIMEOUT}s, script_timeout: {min(PAGE_LOAD_TIMEOUT, 60)}s"
     )
     return driver
 

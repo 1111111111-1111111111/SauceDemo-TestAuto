@@ -1,16 +1,15 @@
 # =====================================================================
-# SauceDemo 自动化测试 —— GitHub Actions CI/CD（Docker 版 · 优化版）
+# SauceDemo 自动化测试 —— GitHub Actions CI/CD（Docker 版 · 超时治理版）
 # 触发：push / PR → main、手动、定时（每天北京时间 06:00）
 # 流程：环境指纹判定 →（仅在环境变化时）构建镜像 → 容器内跑测试
 #       → 生成 Allure 报告 → 上传 artifact → 部署到 GitHub Pages
 #
-# 优化点：
-#   1. 镜像 tag 改为基于「Dockerfile + requirements.txt」内容指纹，
-#      而非 commit sha —— 业务代码变化不再触发镜像重建
-#   2. 构建前先用 docker manifest inspect 检查目标 tag 是否已存在，
-#      已存在则跳过 build-and-push 全部构建步骤
-#   3. 效果：只改测试用例 / 页面代码时，CI 直接复用已有环境镜像，
-#      省去镜像构建（约 3~5 分钟），仅保留 checkout + 测试 + 报告
+# 超时治理（本版本新增）：
+#   1. 测试前先做被测站点连通性检查，网络问题第一时间暴露
+#   2. 通过环境变量显式注入各等待阈值（不再依赖代码默认值）
+#   3. pytest 整体套 25 分钟硬超时（timeout 命令包装），避免卡死耗尽 job 时间
+#   4. 失败时自动输出日志尾部 + 截图清单，随 artifact 一起上传
+#   5. conftest 内置每用例耗时监控，慢用例 Top10 写入日志
 #
 # =====================================================================
 name: "SauceDemo 自动化测试 (Docker)"
@@ -26,6 +25,14 @@ on:
         description: "浏览器 (chrome/firefox/edge)"
         required: false
         default: "chrome"
+      explicit_wait:
+        description: "元素显式等待超时（秒）"
+        required: false
+        default: "20"
+      reruns:
+        description: "失败重试次数"
+        required: false
+        default: "2"
   schedule:
     - cron: "0 22 * * *"
 
@@ -133,6 +140,25 @@ jobs:
       - name: 📥 Checkout 代码
         uses: actions/checkout@v6
 
+      # ----------------------------------------------------------
+      # 超时治理 1：被测站点连通性检查
+      # 若 saucedemo.com 不可达，直接预警，避免所有用例超时后才暴露
+      # ----------------------------------------------------------
+      - name: 🌐 检查被测站点连通性
+        run: |
+          echo ">>> saucedemo.com 连通性检查 (connect 10s / total 30s)"
+          curl -sS -o /dev/null -w \
+            "HTTP %{http_code} | DNS %{time_namelookup}s | 连接 %{time_connect}s | TTFB %{time_starttransfer}s\n" \
+            --connect-timeout 10 --max-time 30 \
+            -H "User-Agent: Mozilla/5.0 (CI-healthcheck)" \
+            https://www.saucedemo.com/ \
+            || echo "::warning::saucedemo.com 连通性检查失败，测试可能大面积超时"
+
+      # ----------------------------------------------------------
+      # 超时治理 2：显式注入等待阈值 + 运行测试
+      # 值全部来自 workflow 输入/环境变量，代码默认值仅作兜底
+      # timeouts 命令给 pytest 套 25 分钟硬上限，卡死也会结束 job
+      # ----------------------------------------------------------
       - name: 🧪 运行测试
         working-directory: ${{ github.workspace }}
         env:
@@ -140,15 +166,46 @@ jobs:
           CONTAINER: "1"
           BROWSER: ${{ github.event.inputs.browser || 'chrome' }}
           CI: "true"
-          # pageLoadStrategy=eager 下 PAGE_LOAD_TIMEOUT 控制的是 DOMContentLoaded 超时
-          # CI → saucedemo.com 网络延迟高，60s 安全余量避免极端慢请求导致 TimeoutException
-          PAGE_LOAD_TIMEOUT: "60"
-          # GitHub Actions runner 网络/资源较慢，元素级显式等待保持 30s
-          EXPLICIT_WAIT: "30"
+          # ---- 超时治理参数（可按需通过 workflow_dispatch 调整）----
+          CI_TIMEOUT_SCALE: "1"                    # 关闭自动放大，用显式值精确控制
+          EXPLICIT_WAIT: ${{ github.event.inputs.explicit_wait || '20' }}  # 元素显式等待（秒）
+          NAV_WAIT: "30"                           # URL 跳转等待（秒）
+          PAGE_LOAD_TIMEOUT: "60"                  # 页面加载超时（秒）
+          RETRY_TIMES: "2"                         # 应用层等待重试次数
+          RETRY_INTERVAL: "2"                      # 应用层重试间隔（秒）
+          SLOW_TEST_THRESHOLD: "60"                # 慢用例告警阈值（秒）
+          WDM_TIMEOUT: "120"                       # 驱动下载超时（秒/次）
+          WDM_RETRIES: "3"                         # 驱动下载重试次数
         run: |
-          python -m pytest -v \
+          mkdir -p logs
+          echo ">>> 超时参数: EXPLICIT_WAIT=$EXPLICIT_WAIT NAV_WAIT=$NAV_WAIT PAGE_LOAD_TIMEOUT=$PAGE_LOAD_TIMEOUT"
+          echo ">>> 重试参数: RETRY_TIMES=$RETRY_TIMES RETRY_INTERVAL=$RETRY_INTERVAL"
+          timeout 1500 python -m pytest -v \
             --alluredir=reports/allure-results \
-            --clean-alluredir
+            --clean-alluredir \
+            --reruns=${{ github.event.inputs.reruns || '2' }} \
+            --reruns-delay=3 \
+            2>&1 | tee logs/pytest_ci.log
+          exit ${PIPESTATUS[0]}
+
+      # ----------------------------------------------------------
+      # 超时治理 3：失败时输出诊断信息（日志尾部 + 截图清单）
+      # ----------------------------------------------------------
+      - name: 📋 失败诊断输出
+        if: failure()
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo "===== 测试输出尾部 (logs/pytest_ci.log) ====="
+          tail -n 100 logs/pytest_ci.log 2>/dev/null || true
+          echo ""
+          echo "===== 运行日志尾部 (logs/test_run.log) ====="
+          tail -n 80 logs/test_run.log 2>/dev/null || true
+          echo ""
+          echo "===== 失败截图 ====="
+          ls -la screenshots/ 2>/dev/null | grep -i fail | head -20 || echo "(无失败截图)"
+          echo ""
+          echo "===== 最慢用例 Top 10 ====="
+          grep -A 12 "最慢用例" logs/test_run.log 2>/dev/null || true
 
       # 生成 Allure 报告
       - name: 📊 生成 Allure HTML 报告
@@ -192,8 +249,8 @@ jobs:
           path: ${{ github.workspace }}/reports/allure-report
           retention-days: 90
 
-      # 上传日志和截图
-      - name: 📤 上传日志 / 截图 (artifact)
+      # 上传日志、截图和 pytest 输出（含失败截图 Artifact 机制）
+      - name: 📤 上传日志 / 截图 / 测试输出 (artifact)
         if: always()
         uses: actions/upload-artifact@v7
         with:
@@ -201,6 +258,7 @@ jobs:
           path: |
             ${{ github.workspace }}/logs
             ${{ github.workspace }}/screenshots
+            ${{ github.workspace }}/reports/allure-results
           retention-days: 30
           if-no-files-found: ignore
 
