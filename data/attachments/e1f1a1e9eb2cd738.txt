@@ -1,0 +1,15 @@
+INFO     saucedemo:conftest.py:116 ================================================================================
+INFO     saucedemo:conftest.py:117 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:226 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:135 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+INFO     saucedemo:driver.py:182 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:258 ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+INFO     saucedemo:base_page.py:364 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:app_flows.py:42 🔑 quick_login: user=standard_user
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('id', 'login-button')
+INFO     saucedemo:products_page.py:146 🖱️ 已点击商品 1 的图片（父级链接）
+INFO     saucedemo:conftest.py:120 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:273 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:128 ================================================================================
