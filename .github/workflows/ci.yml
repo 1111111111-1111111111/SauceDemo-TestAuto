@@ -1,17 +1,30 @@
 # =====================================================================
-# SauceDemo 自动化测试 —— GitHub Actions CI/CD（Docker 版 · 超时治理版）
-# 触发：push / PR → main、手动、定时（每天北京时间 06:00）
-# 流程：环境指纹判定 →（仅在环境变化时）构建镜像 → 容器内跑测试
-#       → 生成 Allure 报告 → 上传 artifact → 部署到 GitHub Pages
+# SauceDemo 自动化测试 —— GitHub Actions CI/CD（Docker 版 · 智能构建版）
+# 触发：push / PR → main、push tag (v*)、手动、定时（每天北京时间 06:00）
+# 流程：变更检测（paths-filter）→ 智能构建决策 →（仅在需要时）构建镜像
+#       → 容器内跑测试 → 生成 Allure 报告 → 上传 artifact → 部署到 GitHub Pages
 #
-# 超时治理（本版本新增）：
+# 智能构建策略（2026-08-20 需求变更）：
+#   变更分类（dorny/paths-filter 检测本次提交改了什么文件）：
+#     1. 发版相关变更（CHANGELOG / VERSION / tag 推送）      → 重建镜像
+#     2. 环境/配置变更（Dockerfile / requirements / config）  → 重建镜像
+#     3. 数据变更（data/ 测试数据 / 静态资源）                → 重建镜像
+#     4. 其他变更（纯文档 / workflow / 测试代码）              → 复用已有镜像
+#   两条兜底规则（优先级最高）：
+#     a. 目标镜像 tag 在 GHCR 上不存在（首次构建 / 镜像被删） → 强制重建
+#     b. 手动触发时勾选 force_rebuild=true                   → 强制重建
+#
+#   为什么纯代码变更可以复用镜像：test job 在容器内 checkout 最新代码
+#   挂载执行（pytest 跑的是 github.workspace 的最新代码），
+#   镜像只承载环境（Python + Chrome + 依赖 + Allure），不承载测试逻辑。
+#
+# 超时治理（历史版本遗留，继续生效）：
 #   1. 测试前先做被测站点连通性检查，网络问题第一时间暴露
 #   2. 通过环境变量显式注入各等待阈值（不再依赖代码默认值）
 #   3. pytest 整体套 40 分钟硬超时（timeout 命令包装），避免卡死耗尽 job 时间
 #   4. 失败时自动输出日志尾部 + 截图清单，随 artifact 一起上传
 #   5. conftest 内置每用例耗时监控，慢用例 Top10 写入日志
-#   6. pytest 退出码诊断：区分 0=通过 / 1=有失败 / 2=中断 / 3=内部错误（INTERNALERROR），
-#      用于定位 "用例全过但 job 失败"（CI #43 曾出现，根因在收尾阶段）
+#   6. pytest 退出码诊断：区分 0=通过 / 1=有失败 / 2=中断 / 3=内部错误（INTERNALERROR）
 #
 # =====================================================================
 name: "SauceDemo 自动化测试 (Docker)"
@@ -19,6 +32,8 @@ name: "SauceDemo 自动化测试 (Docker)"
 on:
   push:
     branches: [main, master, develop]
+    # tag 推送（v1.2.3 等）视为发版 → 触发智能构建（决策中强制重建）
+    tags: ["v*"]
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -39,6 +54,11 @@ on:
         description: "短轮询等待（秒，购物车角标等轮询读取）"
         required: false
         default: "2"
+      force_rebuild:
+        description: "强制重新构建镜像（忽略智能变更检测）"
+        required: false
+        default: false
+        type: boolean
   schedule:
     - cron: "0 22 * * *"
 
@@ -54,7 +74,7 @@ permissions:
 
 jobs:
   build-and-push:
-    name: 🐳 构建并推送镜像（每次强制）
+    name: 🐳 构建并推送镜像（智能判断）
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
@@ -64,21 +84,80 @@ jobs:
     steps:
       - name: 📥 Checkout 代码
         uses: actions/checkout@v6
+        # fetch-depth: 0 拉全量历史，保证 paths-filter 能取到变更 diff
+        with:
+          fetch-depth: 0
 
-      # ----------------------------------------------------------
-      # 关键步骤：计算环境指纹（强制每次重建，2026-08-20 需求变更）
-      # 原逻辑：镜像已存在（manifest inspect 命中）→ 跳过构建复用镜像
-      # 现逻辑：注释掉所有"判断是否存在镜像"的分支，无条件 rebuilt=true，
-      #        确保每次提交都重新构建并推送镜像，test job 拉取到的是
-      #        与当前代码完全同步的最新镜像（避免旧镜像复用带来的环境漂移）
-      # ----------------------------------------------------------
-      - name: 🔧 计算环境指纹 & 判断是否需要构建
+      # ==================================================================
+      # 阶段 1：变更检测（dorny/paths-filter）
+      # 对比本次推送与上一次推送之间的文件差异，输出三类标志：
+      #   release —— 发版相关（CHANGELOG / VERSION / 发版说明）
+      #   config  —— 环境与配置（Dockerfile / requirements / pytest.ini / config / conftest）
+      #   data    —— 数据与静态资源（data/ 目录 / xlsx / csv）
+      # 注意：
+      #   * push / PR 事件：自动用 before/after SHA 或 PR base 对比
+      #   * workflow_dispatch：与触发分支远端 HEAD 对比（通常无差异 → 复用镜像）
+      #   * schedule 事件：跳过检测（定时回归语义 = 复用镜像，靠 manifest 兜底）
+      #   * 未匹配任何过滤器的变更（纯文档 / workflow / 测试代码）→ 三个标志全 false
+      # ==================================================================
+      - name: 🔍 检测代码变更类型
+        if: github.event_name != 'schedule'
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            release:
+              - 'CHANGELOG.md'
+              - 'CHANGELOG*'
+              - 'RELEASE*'
+              - 'VERSION'
+              - 'version.*'
+              - '*/version.py'
+            config:
+              - 'Dockerfile'
+              - 'requirements.txt'
+              - 'entrypoint.sh'
+              - '.dockerignore'
+              - '.env.example'
+              - 'pytest.ini'
+              - 'config/**'
+              - 'conftest.py'
+            data:
+              - 'data/**'
+              - '*.xlsx'
+              - '*.csv'
+
+      # ==================================================================
+      # 阶段 2：智能构建决策
+      # 决策优先级（从高到低）：
+      #   ① 手动 force_rebuild=true          → 重建
+      #   ② tag 推送（发版）                  → 重建（并额外打版本 tag）
+      #   ③ release 变更（CHANGELOG/VERSION）→ 重建
+      #   ④ config 变更（Dockerfile/依赖等） → 重建
+      #   ⑤ data 变更（测试数据/静态资源）    → 重建
+      #   ⑥ 以上都不命中 → 检查镜像是否存在：
+      #        存在   → 复用镜像，跳过构建（rebuilt=false）
+      #        不存在 → 兜底强制重建（首次构建/镜像被删，rebuilt=true）
+      # 输出：rebuilt / image_with_tag / build_reason / extra_tags
+      # ==================================================================
+      - name: 🧠 智能构建决策
         id: decide
+        env:
+          FILTER_RELEASE: ${{ steps.filter.outputs.release }}
+          FILTER_CONFIG: ${{ steps.filter.outputs.config }}
+          FILTER_DATA: ${{ steps.filter.outputs.data }}
+          FORCE_REBUILD: ${{ github.event.inputs.force_rebuild }}
         run: |
           REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           IMAGE_NAME="ghcr.io/${REPO_LOWER}"
-          # 基于 Dockerfile + requirements.txt 内容计算指纹
-          ENV_HASH=$(cat Dockerfile requirements.txt | sha256sum | cut -c1-12)
+          # ---- 环境指纹：覆盖所有"影响镜像内容"的文件 ----
+          # Dockerfile/entrypoint/.dockerignore：构建定义
+          # requirements.txt：Python 依赖
+          # pytest.ini/config/conftest：运行配置（也被 COPY 进镜像）
+          # data/：测试数据与静态资源
+          ENV_HASH=$( { cat Dockerfile requirements.txt entrypoint.sh .dockerignore pytest.ini 2>/dev/null; \
+                        find config data -type f 2>/dev/null | LC_ALL=C sort | xargs cat 2>/dev/null; \
+                      } | sha256sum | cut -c1-12)
           TAG="env-${ENV_HASH}"
           IMAGE_WITH_TAG="${IMAGE_NAME}:${TAG}"
           echo "image_with_tag=${IMAGE_WITH_TAG}" >> $GITHUB_OUTPUT
@@ -86,22 +165,63 @@ jobs:
           echo "env_hash=${ENV_HASH}" >> $GITHUB_OUTPUT
           echo "🔍 环境指纹: ${ENV_HASH}"
           echo "🔍 目标镜像: ${IMAGE_WITH_TAG}"
-          # 登录 GHCR（推送镜像需要认证）
+
+          # ---- 登录 GHCR（推送镜像 + manifest 检查私有镜像都需要认证）----
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
             -u "${{ github.actor }}" --password-stdin
-          # ============================================================
-          # 【已注释】镜像存在性判断分支（2026-08-20 起强制每次重建）
-          # if docker manifest inspect "${IMAGE_WITH_TAG}" >/dev/null 2>&1; then
-          #   echo "✅ 镜像已存在于 GHCR，跳过构建"
-          #   echo "rebuilt=false" >> $GITHUB_OUTPUT
-          # else
-          #   echo "🔨 镜像不存在，将执行构建"
-          #   echo "rebuilt=true" >> $GITHUB_OUTPUT
-          # fi
-          # ============================================================
-          echo "🔨 强制重新构建镜像（每次提交都重新构建并拉取最新镜像）"
-          echo "rebuilt=true" >> $GITHUB_OUTPUT
 
+          # ---- 判断是否为 tag 推送（发版）----
+          IS_TAG_PUSH="false"
+          if [ "$GITHUB_EVENT_NAME" = "push" ] && echo "$GITHUB_REF" | grep -q '^refs/tags/'; then
+            IS_TAG_PUSH="true"
+          fi
+
+          # ---- 决策矩阵（按优先级）----
+          REASON=""
+          if [ "$FORCE_REBUILD" = "true" ]; then
+            REASON="手动强制重建（workflow_dispatch force_rebuild=true）"
+          elif [ "$IS_TAG_PUSH" = "true" ]; then
+            REASON="发版：tag 推送（${GITHUB_REF_NAME}）"
+          elif [ "$FILTER_RELEASE" = "true" ]; then
+            REASON="发版相关变更（CHANGELOG / VERSION）"
+          elif [ "$FILTER_CONFIG" = "true" ]; then
+            REASON="环境/配置变更（Dockerfile / requirements / entrypoint / pytest.ini / config / conftest）"
+          elif [ "$FILTER_DATA" = "true" ]; then
+            REASON="数据变更（data/ 测试数据 / xlsx / csv 静态资源）"
+          fi
+
+          # ---- tag 推送时额外打版本 tag（v1.2.3），方便回溯发版镜像 ----
+          EXTRA_TAGS=""
+          if [ "$IS_TAG_PUSH" = "true" ]; then
+            EXTRA_TAGS="${IMAGE_NAME}:${GITHUB_REF_NAME}"
+            echo "extra_tags=${EXTRA_TAGS}" >> $GITHUB_OUTPUT
+          fi
+
+          # ---- 兜底检查：无关键变更时，确认镜像确实存在 ----
+          if [ -z "$REASON" ]; then
+            if docker manifest inspect "${IMAGE_WITH_TAG}" >/dev/null 2>&1; then
+              echo "♻️ 智能判断：无关键变更且镜像已存在 → 复用镜像，跳过构建"
+              echo "rebuilt=false" >> $GITHUB_OUTPUT
+              echo "build_reason=复用镜像（本次变更仅为文档/测试代码/CI 配置）" >> $GITHUB_OUTPUT
+            else
+              REASON="兜底：镜像 ${TAG} 不存在于 GHCR（首次构建或镜像已被删除）"
+              echo "rebuilt=true" >> $GITHUB_OUTPUT
+              echo "build_reason=${REASON}" >> $GITHUB_OUTPUT
+              echo "⚠️ ${REASON}"
+            fi
+          else
+            echo "🔨 智能判断：${REASON} → 重新构建镜像"
+            echo "rebuilt=true" >> $GITHUB_OUTPUT
+            echo "build_reason=${REASON}" >> $GITHUB_OUTPUT
+          fi
+
+          echo "📋 变更检测明细: release=${FILTER_RELEASE:-skipped} config=${FILTER_CONFIG:-skipped} data=${FILTER_DATA:-skipped} force_rebuild=${FORCE_REBUILD:-false} tag_push=${IS_TAG_PUSH}"
+
+      # ==================================================================
+      # 阶段 3：构建（仅 rebuilt=true 时执行；复用镜像时这些步骤全部 skipped）
+      # 缓存策略：GHA cache（cache-from/to type=gha）——即使重建，
+      # 未变化的 layer（系统依赖/Chrome/Allure）直接命中缓存，秒级跳过
+      # ==================================================================
       - name: 🐳 设置 Docker Buildx
         if: steps.decide.outputs.rebuilt == 'true'
         uses: docker/setup-buildx-action@v4
@@ -120,15 +240,27 @@ jobs:
         with:
           context: .
           push: true
+          # 镜像 tag 体系：
+          #   env-{指纹}   —— 内容寻址，环境文件变 → 新 tag，天然区分镜像版本
+          #   latest       —— 滚动指针，永远指向最近一次构建
+          #   {版本号}     —— 仅 tag 推送时额外打（如 v1.2.3），发版镜像可回溯
           tags: |
             ${{ steps.decide.outputs.image_with_tag }}
             ${{ steps.decide.outputs.image_name }}:latest
+            ${{ steps.decide.outputs.extra_tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # ==================================================================
+      # 阶段 4：构建摘要（每次运行都输出，写清是重建还是复用及原因）
+      # ==================================================================
       - name: 📋 构建摘要
         run: |
-          echo "🏗️ 本次执行了镜像构建（强制重建，每次提交都构建）"
+          if [ "${{ steps.decide.outputs.rebuilt }}" = "true" ]; then
+            echo "🔨 本次执行了镜像构建（原因: ${{ steps.decide.outputs.build_reason }}）"
+          else
+            echo "♻️ 本次复用已有镜像，跳过构建（原因: ${{ steps.decide.outputs.build_reason }}）"
+          fi
           echo "🏷️ 使用镜像: ${{ steps.decide.outputs.image_with_tag }}"
 
   test:
@@ -137,6 +269,9 @@ jobs:
     needs: build-and-push
     timeout-minutes: 45
 
+    # 无论镜像来自"本次新建"还是"GHCR 复用"，容器都从这里拉取：
+    #   - rebuilt=true  → 刚推送的新镜像
+    #   - rebuilt=false → GHCR 上已存在的 env-{指纹} 镜像（决策阶段已 manifest 验证存在）
     container:
       image: ${{ needs.build-and-push.outputs.image_with_tag }}
       credentials:
@@ -168,7 +303,7 @@ jobs:
       # timeouts 命令给 pytest 套 40 分钟硬上限（49 用例 × 每用例重开浏览器 + 重试，
       # 首轮实测 25 分钟不够，25:01 被 timeout 1500 杀；2400 留足余量且远低于 360 分钟 job 上限）
       # ----------------------------------------------------------
-      - name: 🧪 运行测试（含单用例看门狗 + 执行时间监控）
+      - name: 🧪 运行测试
         working-directory: ${{ github.workspace }}
         env:
           HEADLESS: "true"
@@ -221,6 +356,7 @@ jobs:
           echo "|---|---|" >> $GITHUB_STEP_SUMMARY
           echo "| pytest 总耗时 | $((DURATION/60))m$((DURATION%60))s (${DURATION}s) |" >> $GITHUB_STEP_SUMMARY
           echo "| pytest 退出码 | $RC |" >> $GITHUB_STEP_SUMMARY
+          echo "| 镜像构建 | ${{ needs.build-and-push.outputs.rebuilt == 'true' && '🔨 本次新建' || '♻️ 复用已有' }} |" >> $GITHUB_STEP_SUMMARY
           if [ "$DURATION" -gt 1800 ]; then
             echo "::warning::⚠️ 测试执行超过 30 分钟（${DURATION}s），请检查慢用例并考虑拆分测试集"
           elif [ "$DURATION" -gt 1200 ]; then

@@ -424,3 +424,94 @@ python -m pytest testcases/test_helpers.py -v    # 6 passed
 2. 若仍有 broken：异常信息现在会显示 `windows=N, iframes=N`——N>1 或 N>0 才需排查
    标签页/iframe，否则继续按 URL/readyState 诊断
 3. 关注 Step Summary 的「等待超时告警」与最慢用例 Top10
+
+## 十二、智能构建策略（基于变更类型决定构建/复用，2026-08-20）
+
+### 12.1 需求与决策矩阵
+
+| 变更类型 | 检测方式 | 结果 |
+|---|---|---|
+| 手动触发勾选 `force_rebuild` | workflow_dispatch 输入 | **重建** |
+| tag 推送（`v*`，发版） | `on.push.tags` + ref 前缀判断 | **重建**（额外打版本 tag） |
+| 发版相关变更（CHANGELOG/VERSION） | paths-filter `release` | **重建** |
+| 环境/配置变更（Dockerfile/requirements/entrypoint/pytest.ini/config/conftest） | paths-filter `config` | **重建** |
+| 数据变更（data//xlsx/csv） | paths-filter `data` | **重建** |
+| 其他变更（纯文档/workflow/测试代码）+ 镜像存在 | 兜底 `docker manifest inspect` | **复用镜像** |
+| 其他变更 + 镜像不存在（首次构建/被删） | 同上 | **兜底重建** |
+
+优先级：`force_rebuild > tag 推送 > release > config > data > 兜底检查`。
+
+### 12.2 为什么纯代码变更可以复用镜像
+
+test job 的执行模型：`container:` 拉镜像 + `actions/checkout` 挂载最新代码 →
+pytest 跑的是 `github.workspace` 的**最新代码**；镜像只承载环境
+（Python 3.12 + Chrome + chromedriver + Allure + pip 依赖）。
+所以 `pages/`、`testcases/`、`utils/` 的代码变更不影响 CI 测试所用环境，无需重建。
+
+注意 trade-off：Dockerfile 里有 `COPY . .`（供本地 `docker run`/entrypoint 场景使用），
+镜像内代码副本在复用期间是旧的；CI 测试不受影响（用挂载代码），但本地直跑镜像时
+如需最新代码请勾选 `force_rebuild` 重建。
+
+### 12.3 变更检测实现（dorny/paths-filter@v3）
+
+- `push`：用 push event 的 before/after SHA 对比上一次推送
+- `pull_request`：用 PR base 分支对比
+- `workflow_dispatch`：与触发分支远端 HEAD 对比（通常无差异 → 复用，`force_rebuild` 可强制）
+- `schedule`：**跳过检测**（定时回归语义 = 复用镜像；`manifest inspect` 兜底保证安全）
+- checkout 需要 `fetch-depth: 0`（全量历史供 diff）
+
+### 12.4 镜像 tag 体系
+
+| tag | 含义 | 更新时机 |
+|---|---|---|
+| `env-{指纹12位}` | 内容寻址：Dockerfile+requirements+entrypoint+.dockerignore+pytest.ini+config/+data/ 的 sha256 | 任一指纹文件变更 → 新 tag |
+| `latest` | 滚动指针 | 每次构建 |
+| `v1.2.3` | 发版 tag | 仅 tag 推送时额外打 |
+
+指纹算法（扩展自旧版，旧版只算 Dockerfile+requirements）：
+```bash
+ENV_HASH=$( { cat Dockerfile requirements.txt entrypoint.sh .dockerignore pytest.ini; \
+              find config data -type f | LC_ALL=C sort | xargs cat; } | sha256sum | cut -c1-12)
+```
+
+### 12.5 缓存策略
+
+- `cache-from/cache-to: type=gha`（GitHub Actions cache 后端）
+- 即使决策为"重建"，未变化的 layer（apt 系统依赖 / Chrome / JDK / Allure / pip）
+  直接命中 GHA 缓存，实际构建只重跑 `COPY . .` 之后的层，秒级完成
+- `mode=max` 导出所有中间 layer 缓存，最大化命中率
+
+### 12.6 边界情况处理
+
+1. **首次构建**：目标 `env-{指纹}` 镜像在 GHCR 不存在 → `manifest inspect` 失败 → 兜底强制重建
+2. **镜像被手动删除**：同上，自动恢复
+3. **强制重建**：workflow_dispatch 勾选 `force_rebuild`（boolean，默认 false）
+4. **tag 推送**：`on.push.tags: ['v*']` 触发，决策中无条件重建并额外打 `v{版本}` tag
+5. **paths-filter 意外失败**：job 直接失败（fail-fast），不会静默复用旧镜像跑测试——
+   宁可失败也不用错误的环境（测试项目的安全取向）
+6. **PR**：按 PR diff 正常判断；fork PR 无 `packages:write` 权限，推送镜像会失败（已知限制）
+
+### 12.7 验证方法
+
+**本地（已执行 ✅）**：
+1. YAML 解析 + 结构断言（4 jobs、7 个 build 步骤、条件门控、outputs 链路）
+2. 决策矩阵 12 场景单测：force_rebuild / tag push / release / config / data /
+   文档变更×镜像存在 / 文档变更×镜像缺失 / schedule×存在 / schedule×缺失 /
+   优先级 force>tag / tag>config / release>data —— **12/12 PASS**
+3. 指纹计算确定性：重复计算结果一致（当前指纹 `7358543b4230`）
+
+**推送后（CI 观察）**：
+1. 首次推送本修改 → 指纹变化 → 新 tag `env-7358543b4230` 不存在 → 兜底重建（顺带实战验证兜底逻辑）
+2. 之后只改 `*.md` 文档再推送 → 构建摘要显示「♻️ 复用已有镜像」，Buildx/登录/构建三步 skipped，
+   build job 用时应 < 1 分钟
+3. 改 `requirements.txt` 再推送 → 重新构建（GHA 缓存命中，仅 pip 层重跑）
+4. Actions 页面手动运行勾选 `force_rebuild` → 无条件重建
+5. `git tag v1.2.3 && git push origin v1.2.3` → 重建 + 额外打 `v1.2.3` tag
+
+### 12.8 与历史版本的关系
+
+| 版本 | 策略 | 问题 |
+|---|---|---|
+| 初版 | manifest 存在即复用 | 代码与镜像环境漂移（#55 教训） |
+| 11.x 版 | 无条件强制重建 | 纯文档提交也构建，浪费 3-5 分钟 |
+| **本版（12.x）** | 智能判断 + 双兜底 | 精准：该重建才重建，文档提交秒过 |
