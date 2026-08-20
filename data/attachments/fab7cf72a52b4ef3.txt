@@ -1,0 +1,69 @@
+INFO     saucedemo:conftest.py:116 ================================================================================
+INFO     saucedemo:conftest.py:117 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:226 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:135 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+INFO     saucedemo:driver.py:182 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:258 ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+INFO     saucedemo:base_page.py:364 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:app_flows.py:42 🔑 quick_login: user=standard_user
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('id', 'login-button')
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+ERROR    saucedemo:base_page.py:57 ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+INFO     saucedemo:app_flows.py:59 🛒 quick_setup_cart: 加购 6 件，进入购物车
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+ERROR    saucedemo:base_page.py:57 ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.2s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+INFO     saucedemo:helpers.py:36 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+INFO     saucedemo:conftest.py:120 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:273 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:128 ================================================================================
+INFO     saucedemo:conftest.py:116 ================================================================================
+INFO     saucedemo:conftest.py:117 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:226 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:135 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+INFO     saucedemo:driver.py:182 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:258 ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+INFO     saucedemo:base_page.py:364 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:app_flows.py:42 🔑 quick_login: user=standard_user
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('id', 'login-button')
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+ERROR    saucedemo:base_page.py:57 ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+INFO     saucedemo:app_flows.py:59 🛒 quick_setup_cart: 加购 6 件，进入购物车
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+ERROR    saucedemo:base_page.py:57 ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.2s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+INFO     saucedemo:helpers.py:36 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+INFO     saucedemo:conftest.py:120 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:273 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:128 ================================================================================
+INFO     saucedemo:conftest.py:116 ================================================================================
+INFO     saucedemo:conftest.py:117 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:226 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:135 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+INFO     saucedemo:driver.py:182 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:258 ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+INFO     saucedemo:base_page.py:364 🌐 已访问 https://www.saucedemo.com/
+INFO     saucedemo:app_flows.py:42 🔑 quick_login: user=standard_user
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('id', 'login-button')
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+ERROR    saucedemo:base_page.py:57 ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+INFO     saucedemo:app_flows.py:59 🛒 quick_setup_cart: 加购 6 件，进入购物车
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+WARNING  saucedemo:base_page.py:63 ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+ERROR    saucedemo:base_page.py:57 ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+INFO     saucedemo:helpers.py:36 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+INFO     saucedemo:conftest.py:120 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:273 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:128 ================================================================================

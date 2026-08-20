@@ -1,0 +1,1517 @@
+2026-08-20 12:34:55,129 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:34:55,129 | INFO     | saucedemo | 🚀 测试会话开始
+2026-08-20 12:34:55,199 | INFO     | saucedemo | 🌐 网络诊断 https://www.saucedemo.com/: DNS=0.9ms, TCP连接=14.5ms, TTFB=53.9ms, 状态=OK
+2026-08-20 12:34:55,278 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:34:55,278 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:34:55,278 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:34:55,278 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:34:55,279 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:34:56,840 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:34:57,131 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:34:57,133 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:34:57,208 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:34:57,260 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:34:57,363 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:35:17,664 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 12:35:39,793 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 12:36:01,931 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.3s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:36:01,931 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:36:01,983 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:36:32,051 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:37:04,128 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:37:36,176 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.2s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:37:36,260 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:37:36,296 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:37:36,364 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:37:36,379 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:37:39,382 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:37:39,382 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:37:39,382 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:37:39,382 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:37:39,382 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:37:40,205 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:37:40,457 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:37:40,458 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:37:40,591 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:37:40,654 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:37:40,759 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:38:01,103 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 12:38:23,277 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 12:38:45,433 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.4s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:38:45,434 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:38:45,487 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:39:15,512 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:39:47,526 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:40:19,641 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.1s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:40:19,728 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:40:19,749 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:40:20,207 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:40:20,224 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:40:23,226 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:40:23,226 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:40:23,227 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:40:23,227 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:40:23,227 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:40:24,042 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:40:24,447 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:40:24,449 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:40:24,531 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:40:24,584 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:40:24,697 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:40:45,019 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 12:41:07,166 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 12:41:29,411 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.4s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:41:29,412 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:41:29,464 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:41:59,531 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:42:31,641 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:43:04,168 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.7s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:43:04,246 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:43:04,265 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:43:04,362 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:43:04,377 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:43:07,380 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:43:07,380 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:43:07,380 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:43:07,380 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:43:07,380 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:43:08,169 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:43:08,577 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:43:08,578 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:43:09,165 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:43:09,215 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:43:09,313 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:43:09,542 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:43:09,597 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:43:09,670 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue-shopping')
+2026-08-20 12:43:09,814 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:43:09,893 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:43:09,896 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:43:09,899 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:43:09,899 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:43:09,899 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:43:09,899 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:43:09,899 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:43:10,778 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:43:11,250 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:43:11,251 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:43:11,332 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:43:11,376 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:43:11,462 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:43:31,966 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 12:43:54,174 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 12:44:16,372 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:44:16,372 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:44:16,426 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:44:46,470 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:45:18,568 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:45:50,625 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.2s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:45:50,710 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:45:50,730 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:45:50,859 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:45:50,875 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:45:53,878 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:45:53,878 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:45:53,878 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:45:53,878 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:45:53,878 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:45:54,855 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:45:55,114 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:45:55,114 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:45:55,198 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:45:55,249 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:45:55,346 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:46:15,720 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 12:46:37,921 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 12:47:00,117 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:47:00,118 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:47:00,170 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:47:30,240 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:48:02,352 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:48:34,413 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.2s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:48:34,500 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:48:34,521 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:48:34,584 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:48:34,599 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:48:37,602 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:48:37,602 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:48:37,602 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:48:37,602 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:48:37,602 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:48:38,505 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:48:38,811 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:48:38,812 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:48:38,891 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:48:38,945 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:48:39,045 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:48:59,361 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 12:49:21,613 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 12:49:43,891 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:49:43,891 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:49:43,946 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:50:13,974 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:50:46,486 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:51:18,609 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:51:18,693 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:51:18,711 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:51:18,824 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:51:18,839 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:51:21,842 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:51:21,842 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:51:21,842 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:51:21,842 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:51:21,842 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:51:22,612 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:51:23,099 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:51:23,099 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:51:23,180 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:51:23,223 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:51:23,312 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:51:43,675 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 12:52:05,883 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 12:52:28,114 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:52:28,114 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:52:28,164 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:52:58,647 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:53:30,740 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:54:02,814 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 12:54:02,904 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:54:02,923 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:03,251 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:03,267 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:03,269 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:03,269 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:03,269 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:03,269 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:03,269 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:04,200 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:04,517 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:04,517 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:04,599 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:04,650 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:04,748 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:05,004 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:54:05,056 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:07,123 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:07,579 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:07,583 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:07,586 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:07,586 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:07,586 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:07,586 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:07,586 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:08,386 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:08,814 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:08,814 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:08,894 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:08,947 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:09,049 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:09,309 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:54:09,360 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:09,435 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:09,514 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:09,518 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:09,520 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:09,520 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:09,521 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:09,521 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:09,521 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:10,704 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:10,975 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:10,975 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:11,054 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:11,113 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:11,274 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:11,580 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:54:11,634 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:11,707 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:12,361 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:12,365 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:12,368 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:12,368 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:12,368 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:12,368 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:12,368 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:13,166 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:13,625 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:13,626 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:13,716 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:13,763 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:13,855 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:14,092 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:54:14,148 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:14,223 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:14,450 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:14,453 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:14,456 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:14,456 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:14,456 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:14,456 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:14,456 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:15,272 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:15,680 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:15,682 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:15,809 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:15,854 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:15,944 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:16,173 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:54:16,224 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:16,296 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:16,951 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:16,955 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:16,957 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:16,957 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:16,957 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:16,957 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:16,958 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:17,757 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:18,380 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:18,381 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:18,446 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:18,500 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:18,594 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:18,830 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:54:18,888 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:18,963 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:19,356 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:19,360 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:19,362 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:19,362 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:19,363 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:19,363 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:19,363 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:20,363 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:20,734 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:20,735 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:20,826 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:20,882 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:20,993 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:21,246 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-08-20 12:54:21,304 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:21,383 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:21,463 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:21,467 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:21,469 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:21,469 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:21,470 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:21,470 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:21,470 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:22,643 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:23,508 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:23,508 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:23,591 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:23,641 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:23,747 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:23,896 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:23,956 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:23,971 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:24,030 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:24,103 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'cancel')
+2026-08-20 12:54:24,120 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:24,234 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:24,238 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:24,241 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:24,241 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:24,241 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:24,241 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:24,241 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:24,997 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:25,390 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:25,390 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:25,514 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:25,560 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:25,654 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:25,827 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:25,886 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:25,900 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:25,955 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:26,012 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:26,056 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:26,108 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:26,177 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:26,196 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:26,982 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:26,986 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:26,989 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:26,989 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:26,989 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:26,989 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:26,990 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:27,916 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:29,040 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:29,040 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:29,119 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:29,164 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:29,254 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:29,391 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:29,443 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:29,458 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:29,506 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:29,555 | INFO     | saucedemo | ⌨️ 输入文本 '' 到 ('id', 'last-name')
+2026-08-20 12:54:29,592 | INFO     | saucedemo | ⌨️ 输入文本 '' 到 ('id', 'postal-code')
+2026-08-20 12:54:29,650 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:29,662 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:30,316 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:30,319 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:30,322 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:30,322 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:30,322 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:30,322 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:30,322 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:31,098 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:31,585 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:31,585 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:31,679 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:31,723 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:31,813 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:31,948 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:32,000 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:32,018 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:32,069 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:32,127 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:32,173 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:32,238 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:32,253 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:33,301 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:33,305 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:33,307 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:33,307 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:33,307 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:33,307 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:33,307 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:34,203 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:34,844 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:34,845 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:34,929 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:34,976 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:35,065 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:35,197 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:35,250 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:35,266 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:35,314 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:35,382 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:35,429 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:35,493 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:35,504 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:36,551 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:36,555 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:36,557 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:36,557 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:36,557 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:36,557 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:36,558 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:37,325 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:37,863 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:37,864 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:37,945 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:38,000 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:38,103 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:38,247 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:38,303 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:38,316 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:38,365 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:38,428 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:38,438 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:38,895 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:38,899 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:38,901 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:38,901 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:38,901 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:38,901 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:38,901 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:40,024 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:40,390 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:40,390 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:40,482 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:40,532 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:40,627 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:40,775 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:40,829 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:40,844 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:40,890 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:40,904 | INFO     | saucedemo | 📋 quick_setup_step_two: 填写结账信息，进入 step two
+2026-08-20 12:54:40,943 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:40,980 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:41,019 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:41,077 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:41,142 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'cancel')
+2026-08-20 12:54:41,159 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:41,353 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:41,357 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:41,359 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:41,359 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:41,359 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:41,359 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:41,360 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:42,635 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:43,290 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:43,290 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:43,357 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:43,403 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:43,495 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:43,636 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:43,692 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:43,709 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:43,763 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:43,779 | INFO     | saucedemo | 📋 quick_setup_step_two: 填写结账信息，进入 step two
+2026-08-20 12:54:43,823 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:43,865 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:44,065 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:44,134 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:44,210 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:44,866 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:44,870 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:44,872 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:44,872 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:44,872 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:44,872 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:44,872 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:45,721 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:46,600 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:46,601 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:46,692 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:46,739 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:46,829 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:46,967 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:47,022 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:47,104 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:47,159 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:47,198 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:47,240 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:47,295 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:47,324 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:47,404 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:47,407 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:47,410 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:47,410 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:47,410 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:47,410 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:47,410 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:48,470 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:48,713 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:48,713 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:48,790 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:48,841 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:48,942 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:49,078 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:49,136 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:49,216 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:49,275 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:49,321 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:49,368 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:49,431 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:49,454 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:49,780 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:49,784 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:49,786 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:49,786 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:49,786 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:49,786 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:49,786 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:50,840 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:51,162 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:51,162 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:51,247 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:51,311 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:51,430 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:51,596 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:51,653 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:51,666 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:51,715 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:51,729 | INFO     | saucedemo | 📋 quick_setup_step_two: 填写结账信息，进入 step two
+2026-08-20 12:54:51,771 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:51,809 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:51,853 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:51,909 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:51,944 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:52,023 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:52,026 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:52,028 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:52,029 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:52,029 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:52,029 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:52,029 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:52,857 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:53,158 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:53,159 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:53,291 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:53,336 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:53,428 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:53,568 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:53,620 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:53,634 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:53,682 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:53,697 | INFO     | saucedemo | 📋 quick_setup_step_two: 填写结账信息，进入 step two
+2026-08-20 12:54:53,736 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:53,778 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:53,824 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:53,884 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:53,952 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'finish')
+2026-08-20 12:54:53,969 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:54,097 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:54,101 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:54,103 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:54,103 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:54,103 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:54,103 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:54,104 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:54,867 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:55,310 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:55,310 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:55,402 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:55,446 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:55,536 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:55,976 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:56,040 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:56,055 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:56,110 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:56,124 | INFO     | saucedemo | 📋 quick_setup_step_two: 填写结账信息，进入 step two
+2026-08-20 12:54:56,171 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:56,219 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:56,270 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:56,335 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:56,350 | INFO     | saucedemo | ✅ quick_setup_complete: 点击 Finish 完成订单
+2026-08-20 12:54:56,407 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'finish')
+2026-08-20 12:54:56,475 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'back-to-products')
+2026-08-20 12:54:56,487 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:56,649 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:56,653 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:56,655 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:56,655 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:56,655 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:56,655 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:56,656 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:57,436 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:57,890 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:54:57,890 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:54:57,976 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:54:58,026 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:54:58,124 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:54:58,276 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 3 件，进入购物车
+2026-08-20 12:54:58,334 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:54:58,349 | INFO     | saucedemo | 💳 quick_setup_checkout: 进入结账 step one
+2026-08-20 12:54:58,397 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'checkout')
+2026-08-20 12:54:58,411 | INFO     | saucedemo | 📋 quick_setup_step_two: 填写结账信息，进入 step two
+2026-08-20 12:54:58,451 | INFO     | saucedemo | ⌨️ 输入文本 'Test' 到 ('id', 'first-name')
+2026-08-20 12:54:58,494 | INFO     | saucedemo | ⌨️ 输入文本 'User' 到 ('id', 'last-name')
+2026-08-20 12:54:58,538 | INFO     | saucedemo | ⌨️ 输入文本 '12345' 到 ('id', 'postal-code')
+2026-08-20 12:54:58,595 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue')
+2026-08-20 12:54:58,607 | INFO     | saucedemo | ✅ quick_setup_complete: 点击 Finish 完成订单
+2026-08-20 12:54:58,702 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'finish')
+2026-08-20 12:54:58,719 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:54:58,949 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:54:58,953 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:58,965 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:54:58,966 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:54:58,966 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:54:58,966 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:54:58,966 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:54:59,796 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:54:59,810 | INFO     | saucedemo | 🏷️ 关键字用例: 冒烟_登录成功，共 7 步
+2026-08-20 12:54:59,810 | INFO     | saucedemo | ▶ 关键字: open | {'keyword': 'open', 'url': 'https://www.saucedemo.com/'}
+2026-08-20 12:55:00,059 | INFO     | saucedemo | ▶ 关键字: input | {'keyword': 'input', 'page': 'login', 'locator': 'USERNAME_INPUT', 'text': 'standard_user'}
+2026-08-20 12:55:00,199 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:00,200 | INFO     | saucedemo | ▶ 关键字: input | {'keyword': 'input', 'page': 'login', 'locator': 'PASSWORD_INPUT', 'text': 'secret_sauce'}
+2026-08-20 12:55:00,257 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:00,257 | INFO     | saucedemo | ▶ 关键字: click | {'keyword': 'click', 'page': 'login', 'locator': 'LOGIN_BUTTON'}
+2026-08-20 12:55:00,459 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:00,460 | INFO     | saucedemo | ▶ 关键字: assert_url_contains | {'keyword': 'assert_url_contains', 'text': 'inventory'}
+2026-08-20 12:55:00,482 | INFO     | saucedemo | ▶ 关键字: assert_title | {'keyword': 'assert_title', 'text': 'Swag Labs'}
+2026-08-20 12:55:00,489 | INFO     | saucedemo | ▶ 关键字: assert_text_visible | {'keyword': 'assert_text_visible', 'page': 'products', 'locator': 'TITLE_LABEL'}
+2026-08-20 12:55:00,496 | INFO     | saucedemo | ✅ 关键字用例通过: 冒烟_登录成功
+2026-08-20 12:55:00,497 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:00,577 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:00,580 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:00,583 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:00,583 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:00,583 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:00,583 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:00,583 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:01,451 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:01,456 | INFO     | saucedemo | 🏷️ 关键字用例: 冒烟_登录加购进购物车，共 10 步
+2026-08-20 12:55:01,456 | INFO     | saucedemo | ▶ 关键字: open | {'keyword': 'open', 'url': 'https://www.saucedemo.com/'}
+2026-08-20 12:55:01,784 | INFO     | saucedemo | ▶ 关键字: input | {'keyword': 'input', 'page': 'login', 'locator': 'USERNAME_INPUT', 'text': 'standard_user'}
+2026-08-20 12:55:01,862 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:01,862 | INFO     | saucedemo | ▶ 关键字: input | {'keyword': 'input', 'page': 'login', 'locator': 'PASSWORD_INPUT', 'text': 'secret_sauce'}
+2026-08-20 12:55:01,916 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:01,916 | INFO     | saucedemo | ▶ 关键字: click | {'keyword': 'click', 'page': 'login', 'locator': 'LOGIN_BUTTON'}
+2026-08-20 12:55:02,021 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:02,024 | INFO     | saucedemo | ▶ 关键字: assert_url_contains | {'keyword': 'assert_url_contains', 'text': 'inventory'}
+2026-08-20 12:55:02,035 | INFO     | saucedemo | ▶ 关键字: click | {'keyword': 'click', 'page': 'products', 'locator': 'ADD_TO_CART_BTN'}
+2026-08-20 12:55:02,091 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "button[data-test^='add-to-cart']")
+2026-08-20 12:55:02,091 | INFO     | saucedemo | ▶ 关键字: assert_text_visible | {'keyword': 'assert_text_visible', 'page': 'products', 'locator': 'SHOPPING_CART_BADGE'}
+2026-08-20 12:55:02,097 | INFO     | saucedemo | ▶ 关键字: click | {'keyword': 'click', 'page': 'products', 'locator': 'SHOPPING_CART_LINK'}
+2026-08-20 12:55:02,151 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:55:02,151 | INFO     | saucedemo | ▶ 关键字: wait_url_contains | {'keyword': 'wait_url_contains', 'text': 'cart'}
+2026-08-20 12:55:02,154 | INFO     | saucedemo | ▶ 关键字: assert_text_visible | {'keyword': 'assert_text_visible', 'page': 'cart', 'locator': 'CHECKOUT_BTN'}
+2026-08-20 12:55:02,161 | INFO     | saucedemo | ✅ 关键字用例通过: 冒烟_登录加购进购物车
+2026-08-20 12:55:02,162 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:02,488 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:02,492 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:02,494 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:02,494 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:02,494 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:02,494 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:02,495 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:03,287 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:03,558 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:03,663 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:03,732 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:03,830 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:03,856 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:03,985 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:03,989 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:03,991 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:03,991 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:03,992 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:03,992 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:03,992 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:04,951 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:05,195 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:05,777 | INFO     | saucedemo | ⌨️ 输入文本 'problem_user' 到 ('id', 'user-name')
+2026-08-20 12:55:05,828 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:05,927 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:05,965 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:06,194 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:06,198 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:06,200 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:06,200 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:06,200 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:06,200 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:06,201 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:07,068 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:07,418 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:07,514 | INFO     | saucedemo | ⌨️ 输入文本 'performance_glitch_user' 到 ('id', 'user-name')
+2026-08-20 12:55:07,564 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:12,673 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:12,707 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:13,098 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:13,103 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:13,105 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:13,105 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:13,105 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:13,105 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:13,106 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:14,031 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:14,367 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:14,494 | INFO     | saucedemo | ⌨️ 输入文本 'error_user' 到 ('id', 'user-name')
+2026-08-20 12:55:14,554 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:14,652 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:14,686 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:14,817 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:14,821 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:14,824 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:14,824 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:14,824 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:14,824 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:14,824 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:15,707 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:16,173 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:16,291 | INFO     | saucedemo | ⌨️ 输入文本 'visual_user' 到 ('id', 'user-name')
+2026-08-20 12:55:16,363 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:16,467 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:16,509 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:17,425 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:17,429 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:17,432 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:17,432 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:17,432 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:17,432 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:17,433 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:18,200 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:19,040 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:19,125 | INFO     | saucedemo | ⌨️ 输入文本 'locked_out_user' 到 ('id', 'user-name')
+2026-08-20 12:55:19,176 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:19,250 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:19,274 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:19,436 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:19,439 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:19,442 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:19,442 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:19,442 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:19,442 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:19,442 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:20,209 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:20,621 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:20,729 | INFO     | saucedemo | ⌨️ 输入文本 '' 到 ('id', 'user-name')
+2026-08-20 12:55:20,802 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:20,873 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:20,895 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:21,090 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:21,093 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:21,096 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:21,096 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:21,096 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:21,096 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:21,096 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:22,336 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:22,487 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:23,064 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:23,106 | INFO     | saucedemo | ⌨️ 输入文本 '' 到 ('id', 'password')
+2026-08-20 12:55:23,173 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:23,196 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:23,521 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:23,525 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:23,527 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:23,527 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:23,527 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:23,528 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:23,528 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:24,292 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:25,046 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:25,114 | INFO     | saucedemo | ⌨️ 输入文本 'test_user' 到 ('id', 'user-name')
+2026-08-20 12:55:25,160 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:25,225 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:25,246 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:25,900 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:25,903 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:25,906 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:25,906 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:25,906 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:25,906 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:25,906 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:26,984 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:27,195 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:27,775 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:27,826 | INFO     | saucedemo | ⌨️ 输入文本 'secret_saucee' 到 ('id', 'password')
+2026-08-20 12:55:27,898 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:27,921 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:28,116 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:28,120 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:28,122 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:28,122 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:28,122 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:28,122 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:28,123 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:29,050 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:29,420 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:29,503 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:29,520 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:30,042 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:30,046 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:30,049 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:30,049 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:30,049 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:30,049 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:30,049 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:31,005 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:31,284 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:31,419 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:31,475 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:31,513 | INFO     | saucedemo | ⌨️ 输入文本 '' 到 ('id', 'password')
+2026-08-20 12:55:31,580 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:31,648 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', '.error-button')
+2026-08-20 12:55:31,663 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:31,891 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:31,895 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:31,897 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:31,897 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:31,898 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:31,898 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:31,898 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:32,678 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:32,987 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:33,189 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:33,302 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:33,306 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:33,308 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:33,308 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:33,308 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:33,308 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:33,309 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:34,211 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:34,506 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:34,506 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:34,595 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:34,643 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:34,733 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:34,857 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:34,919 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:34,923 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:34,925 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:34,925 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:34,925 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:34,926 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:34,926 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:35,794 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:36,046 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:36,047 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:36,147 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:36,203 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:36,295 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:36,426 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:36,587 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:36,591 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:36,594 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:36,594 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:36,594 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:36,594 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:36,594 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:37,421 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:38,070 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:38,070 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:38,152 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:38,209 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:38,323 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:38,457 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:39,504 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:39,508 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:39,511 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:39,511 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:39,511 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:39,511 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:39,512 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:40,416 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:40,739 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:40,739 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:40,834 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:40,892 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:41,013 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:41,167 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:41,263 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:41,267 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:41,269 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:41,270 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:41,270 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:41,270 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:41,270 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:42,121 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:42,230 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:42,230 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:42,528 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:42,585 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:42,685 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:42,830 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:43,484 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:43,488 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:43,490 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:43,490 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:43,490 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:43,491 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:43,491 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:44,482 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:44,975 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:44,975 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:45,065 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:45,122 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:45,231 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:45,374 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:45,568 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:45,572 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:45,574 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:45,574 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:45,574 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:45,574 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:45,575 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:46,353 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:46,632 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:46,633 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:46,755 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:46,822 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:46,920 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:47,175 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_remove_from_cart[0]_call_FAIL.png
+2026-08-20 12:55:47,184 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:47,706 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:47,710 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:50,713 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:50,713 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:50,713 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:50,713 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:50,713 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:51,667 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:52,006 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:52,007 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:52,070 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:52,124 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:52,229 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:52,409 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:52,801 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:52,805 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:52,807 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:52,807 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:52,807 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:52,807 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:52,807 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:53,713 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:53,974 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:53,975 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:54,071 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:54,121 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:54,210 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:54,370 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:54,482 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:54,486 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:54,488 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:54,488 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:54,488 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:54,488 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:54,489 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:55:55,333 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:55:55,579 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:55:55,579 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:55:55,702 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:55:55,757 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:55:55,923 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:55:56,222 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_remove_from_cart[2]_call_FAIL.png
+2026-08-20 12:55:56,231 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:55:56,294 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:55:56,297 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:59,300 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:55:59,300 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:55:59,300 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:55:59,300 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:55:59,301 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:00,120 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:00,468 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:00,470 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:00,583 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:00,632 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:00,832 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:00,962 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:01,057 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:01,061 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:01,063 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:01,064 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:01,064 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:01,064 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:01,064 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:02,077 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:02,231 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:02,232 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:02,812 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:02,864 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:02,960 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:03,371 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_remove_from_cart[3]_call_FAIL.png
+2026-08-20 12:56:03,379 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:03,606 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:03,610 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:06,613 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:06,613 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:06,613 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:06,613 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:06,613 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:07,434 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:07,745 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:07,745 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:07,847 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:07,894 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:08,006 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:08,177 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:08,339 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:08,342 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:08,345 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:08,345 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:08,345 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:08,345 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:08,345 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:09,179 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:09,587 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:09,588 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:09,674 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:09,724 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:09,831 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:09,992 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:10,154 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:10,157 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:10,159 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:10,160 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:10,160 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:10,160 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:10,160 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:11,344 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:11,777 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:11,778 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:11,860 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:11,917 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:12,019 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:12,277 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_remove_from_cart[5]_call_FAIL.png
+2026-08-20 12:56:12,286 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:12,513 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:12,517 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:15,519 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:15,520 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:15,520 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:15,520 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:15,520 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:16,351 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:16,610 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:16,611 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:17,192 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:17,243 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:17,339 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:17,844 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_remove_from_cart[5]_call_FAIL.png
+2026-08-20 12:56:17,853 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:18,244 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:18,248 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:21,250 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:21,250 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:21,250 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:21,250 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:21,251 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:22,122 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:22,448 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:22,448 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:22,564 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:22,615 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:22,720 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:22,904 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:22,983 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:22,987 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:22,990 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:22,990 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:22,990 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:22,990 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:22,990 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:23,856 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:24,157 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:24,158 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:24,735 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:24,784 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:24,882 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:25,008 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'back-to-products')
+2026-08-20 12:56:25,024 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:25,153 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:25,157 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:25,159 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:25,160 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:25,160 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:25,160 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:25,160 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:26,001 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:26,287 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:26,288 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:26,401 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:26,454 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:26,558 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:26,704 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'back-to-products')
+2026-08-20 12:56:26,730 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:26,929 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:26,933 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:26,935 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:26,935 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:26,936 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:26,936 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:26,936 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:27,785 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:28,187 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:28,187 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:28,276 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:28,324 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:28,423 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:28,558 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'back-to-products')
+2026-08-20 12:56:28,575 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:28,835 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:28,839 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:28,842 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:28,842 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:28,842 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:28,842 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:28,842 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:29,765 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:30,073 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:30,073 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:30,165 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:30,217 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:30,312 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:30,449 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'back-to-products')
+2026-08-20 12:56:30,466 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:30,564 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:30,567 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:30,570 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:30,570 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:30,570 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:30,570 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:30,571 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:31,608 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:31,863 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:31,864 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:31,953 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:32,005 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:32,103 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:32,243 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'back-to-products')
+2026-08-20 12:56:32,258 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:32,339 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:32,343 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:32,345 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:32,345 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:32,345 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:32,345 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:32,345 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:33,398 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:33,665 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:33,666 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:33,752 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:33,807 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:33,917 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:34,051 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'back-to-products')
+2026-08-20 12:56:34,066 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:56:34,524 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:56:34,528 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:34,530 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:56:34,530 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:56:34,530 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:56:34,530 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:56:34,530 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:56:35,336 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:56:35,776 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:56:35,777 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:56:35,868 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:56:35,913 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:56:36,009 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:56:36,229 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:57:06,662 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:57:38,767 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:58:10,812 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.6s)；URL=https://www.saucedemo.com/inventory-item.html?id=4, readyState=complete, windows=1, iframes=0
+2026-08-20 12:58:10,870 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:58:10,880 | WARNING  | saucedemo | 🐢 慢用例 [1m34s > 阈值 1m00s]: testcases/test_product_detail.py::TestProductDetail::test_detail_open_cart
+2026-08-20 12:58:10,937 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_open_cart_call_FAIL.png
+2026-08-20 12:58:10,944 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:58:11,073 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:58:11,089 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:58:14,092 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:58:14,092 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:58:14,092 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:58:14,092 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:58:14,092 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:58:14,925 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:58:15,188 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:58:15,189 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:58:15,312 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:58:15,368 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:58:15,469 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:58:15,685 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 12:58:46,149 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 12:59:18,259 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 12:59:50,300 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.6s)；URL=https://www.saucedemo.com/inventory-item.html?id=4, readyState=complete, windows=1, iframes=0
+2026-08-20 12:59:50,366 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 12:59:50,375 | WARNING  | saucedemo | 🐢 慢用例 [1m34s > 阈值 1m00s]: testcases/test_product_detail.py::TestProductDetail::test_detail_open_cart
+2026-08-20 12:59:50,430 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_open_cart_call_FAIL.png
+2026-08-20 12:59:50,439 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 12:59:50,534 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 12:59:50,550 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:59:53,553 | INFO     | saucedemo | ================================================================================
+2026-08-20 12:59:53,553 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 12:59:53,553 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 12:59:53,553 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 12:59:53,553 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 12:59:54,340 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 12:59:54,660 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 12:59:54,661 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 12:59:54,799 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 12:59:54,853 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 12:59:54,956 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 12:59:55,194 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 13:00:25,590 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 13:00:57,646 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 13:01:29,728 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.5s)；URL=https://www.saucedemo.com/inventory-item.html?id=4, readyState=complete, windows=1, iframes=0
+2026-08-20 13:01:29,795 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 13:01:29,805 | WARNING  | saucedemo | 🐢 慢用例 [1m34s > 阈值 1m00s]: testcases/test_product_detail.py::TestProductDetail::test_detail_open_cart
+2026-08-20 13:01:29,860 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_open_cart_call_FAIL.png
+2026-08-20 13:01:29,868 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:01:29,923 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:01:29,940 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:01:32,942 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:01:32,943 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:01:32,943 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:01:32,943 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:01:32,943 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:01:33,772 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:01:33,866 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:01:33,868 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:01:34,186 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:01:34,234 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:01:34,346 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:01:34,577 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-08-20 13:02:05,072 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-08-20 13:02:37,096 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-08-20 13:03:09,153 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.6s)；URL=https://www.saucedemo.com/inventory-item.html?id=4, readyState=complete, windows=1, iframes=0
+2026-08-20 13:03:09,208 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-08-20 13:03:09,218 | WARNING  | saucedemo | 🐢 慢用例 [1m34s > 阈值 1m00s]: testcases/test_product_detail.py::TestProductDetail::test_detail_open_cart
+2026-08-20 13:03:09,274 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_detail_open_cart_call_FAIL.png
+2026-08-20 13:03:09,282 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:09,338 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:09,354 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:09,356 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:09,356 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:09,356 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:09,356 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:09,356 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:10,182 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:10,452 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:10,453 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:10,559 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:10,622 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:10,715 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:10,791 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:10,871 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:10,875 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:10,877 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:10,877 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:10,877 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:10,877 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:10,878 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:11,699 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:12,053 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:12,054 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:12,151 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:12,196 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:12,308 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:12,407 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:12,487 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:12,490 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:12,492 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:12,493 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:12,493 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:12,493 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:12,493 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:13,343 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:13,561 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:13,562 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:14,149 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:14,201 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:14,305 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:14,401 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:14,464 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:14,468 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:14,471 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:14,471 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:14,471 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:14,471 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:14,471 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:15,271 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:15,573 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:15,575 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:15,683 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:15,743 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:15,833 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:15,935 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:15,999 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:16,002 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:16,004 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:16,005 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:16,005 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:16,005 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:16,005 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:16,765 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:17,151 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:17,151 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:17,263 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:17,311 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:17,409 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:17,489 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:17,683 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:17,687 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:17,689 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:17,690 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:17,690 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:17,690 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:17,690 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:18,545 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:18,735 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:18,735 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:19,316 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:19,361 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:19,461 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:19,535 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:19,615 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:19,618 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:19,620 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:19,620 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:19,620 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:19,621 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:19,621 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:20,428 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:20,815 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:20,817 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:20,910 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:20,956 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:21,046 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:21,121 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:21,251 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:21,254 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:21,257 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:21,257 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:21,257 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:21,257 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:21,257 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:22,191 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:22,605 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:22,607 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:22,685 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:22,732 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:22,823 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:22,897 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:23,093 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:23,097 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:23,099 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:23,099 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:23,099 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:23,099 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:23,100 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:24,048 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:24,298 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:24,300 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:24,381 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:24,434 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:24,531 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:24,609 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:24,934 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:24,938 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:24,940 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:24,940 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:24,940 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:24,940 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:24,940 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:25,828 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:26,265 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:26,265 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:26,345 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:26,404 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:26,502 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:26,588 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:26,667 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:26,671 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:26,674 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:26,674 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:26,674 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:26,675 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:26,675 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:27,453 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:27,713 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:27,717 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:27,846 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:27,920 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:28,010 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:28,157 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:03:28,221 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:03:28,225 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:28,227 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:03:28,227 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:03:28,228 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:03:28,228 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:03:28,228 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:03:29,051 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:03:29,354 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:03:29,355 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:03:29,474 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:03:29,520 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:03:29,609 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:03:49,900 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 13:04:12,122 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 13:04:34,408 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 13:04:34,408 | WARNING  | saucedemo | 🐢 慢用例 [1m04s > 阈值 1m00s]: testcases/test_products.py::TestProducts::test_remove_from_cart_each_product[0]
+2026-08-20 13:04:34,497 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_remove_from_cart_each_product[0]_call_FAIL.png
+2026-08-20 13:04:34,506 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:04:34,586 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:04:34,603 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:04:37,605 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:04:37,605 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:04:37,606 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:04:37,606 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:04:37,606 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:04:38,425 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:04:38,749 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:04:38,751 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:04:38,861 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:04:38,917 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:04:39,062 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:04:59,413 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 13:05:21,632 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 13:05:43,841 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 13:05:43,841 | WARNING  | saucedemo | 🐢 慢用例 [1m04s > 阈值 1m00s]: testcases/test_products.py::TestProducts::test_remove_from_cart_each_product[0]
+2026-08-20 13:05:43,927 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_remove_from_cart_each_product[0]_call_FAIL.png
+2026-08-20 13:05:43,936 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:05:43,999 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:05:44,015 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:05:47,017 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:05:47,018 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:05:47,018 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:05:47,018 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:05:47,018 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:05:47,965 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:05:48,225 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:05:48,226 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:05:48,804 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:05:48,853 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:05:48,944 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:06:09,288 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 13:06:31,546 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 13:06:53,707 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 13:06:53,707 | WARNING  | saucedemo | 🐢 慢用例 [1m04s > 阈值 1m00s]: testcases/test_products.py::TestProducts::test_remove_from_cart_each_product[0]
+2026-08-20 13:06:53,790 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_remove_from_cart_each_product[0]_call_FAIL.png
+2026-08-20 13:06:53,798 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:06:53,897 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:06:53,913 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:06:56,915 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:06:56,915 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:06:56,915 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:06:56,916 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:06:56,916 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:06:57,740 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:06:58,124 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:06:58,125 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:06:58,233 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:06:58,283 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:06:58,390 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:07:18,779 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 13:07:41,044 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 13:08:03,251 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 13:08:03,251 | WARNING  | saucedemo | 🐢 慢用例 [1m04s > 阈值 1m00s]: testcases/test_products.py::TestProducts::test_remove_from_cart_each_product[0]
+2026-08-20 13:08:03,339 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_remove_from_cart_each_product[0]_call_FAIL.png
+2026-08-20 13:08:03,348 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:08:03,478 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:08:03,494 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:08:03,496 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:08:03,496 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:08:03,496 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:08:03,496 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:08:03,496 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:08:04,304 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:08:04,611 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:08:04,612 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:08:04,771 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:08:04,826 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:08:04,924 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:08:25,272 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 13:08:47,486 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 13:09:09,718 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 13:09:09,718 | WARNING  | saucedemo | 🐢 慢用例 [1m04s > 阈值 1m00s]: testcases/test_products.py::TestProducts::test_remove_from_cart_each_product[1]
+2026-08-20 13:09:09,802 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_remove_from_cart_each_product[1]_call_FAIL.png
+2026-08-20 13:09:09,811 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:09:09,866 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:09:09,879 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:09:12,881 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:09:12,881 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:09:12,881 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:09:12,881 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:09:12,882 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:09:13,781 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:09:14,205 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:09:14,205 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:09:14,295 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:09:14,351 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:09:14,469 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:09:34,809 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 13:09:57,036 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 13:10:19,239 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 13:10:19,240 | WARNING  | saucedemo | 🐢 慢用例 [1m04s > 阈值 1m00s]: testcases/test_products.py::TestProducts::test_remove_from_cart_each_product[1]
+2026-08-20 13:10:19,331 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_remove_from_cart_each_product[1]_call_FAIL.png
+2026-08-20 13:10:19,340 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-08-20 13:10:19,501 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-08-20 13:10:19,515 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:10:22,518 | INFO     | saucedemo | ================================================================================
+2026-08-20 13:10:22,518 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-08-20 13:10:22,518 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-08-20 13:10:22,518 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-08-20 13:10:22,518 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-08-20 13:10:23,415 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-08-20 13:10:23,667 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-08-20 13:10:23,668 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-08-20 13:10:23,776 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-08-20 13:10:23,832 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-08-20 13:10:23,927 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-08-20 13:10:44,326 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-08-20 13:11:06,588 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-08-20 13:11:28,817 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-08-20 13:11:28,818 | WARNING  | saucedemo | 🐢 慢用例 [1m04s > 阈值 1m00s]: testcases/test_products.py::TestProducts::test_remove_from_cart_each_product[1]
+2026-08-20 13:11:28,898 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_remove_from_cart_each_product[1]_call_FAIL.png
