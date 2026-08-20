@@ -2,12 +2,10 @@
 """
 项目根 conftest.py
 所有测试模块共享的 fixtures + Allure 钩子
-
 设计：
   - 只保留 driver_instance（基础）和 login_page（简单页面对象）
   - 各测试模块通过 utils.app_flows 的 helper 函数按需组装前置条件
   - 好处：登录挂了只影响调了 quick_login 的模块，不再连锁失败 ~60 个用例
-
 CI 稳定性治理（本版本新增）：
   - 会话开始时做一次网络诊断（DNS/TCP/TTFB），日志留痕
   - 每个用例计时，超过 SLOW_TEST_THRESHOLD 记 WARNING（慢用例 ≠ 失败用例）
