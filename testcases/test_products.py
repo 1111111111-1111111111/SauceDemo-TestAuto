@@ -72,8 +72,11 @@ class TestProducts:
         """每个商品一个用例：加入购物车"""
         before = products_page.get_cart_badge_count()
         products_page.add_to_cart_by_index(idx)
-        after = products_page.get_cart_badge_count()
-        assert after == before + 1, f"加入购物车后角标应 +1，实际 {before}→{after}"
+        # #47 修复：改为"先等待后断言"——旧实现立刻读角标，CI 慢 DOM 更新下
+        # 读到过期 0 值导致误报 FAILED
+        assert products_page.wait_cart_badge_count(before + 1), (
+            f"加入购物车后角标应 +1（等待超时），实际 {before}→{products_page.get_cart_badge_count()}"
+        )
 
     @allure.story("加入购物车")
     @allure.title("随机加入 3 件商品到购物车")
@@ -81,8 +84,9 @@ class TestProducts:
         """随机加购多个商品作为一个用例"""
         before = products_page.get_cart_badge_count()
         products_page.add_to_cart_random(count=3)
-        after = products_page.get_cart_badge_count()
-        assert after - before == 3, f"加购 3 件后角标应 +3，实际 +{after - before}"
+        assert products_page.wait_cart_badge_count(before + 3), (
+            f"加购 3 件后角标应 +3（等待超时），实际 +{products_page.get_cart_badge_count() - before}"
+        )
 
     # =========== 3. 移除购物车（基于已加购状态）===========
     @allure.story("移除购物车")
@@ -92,10 +96,13 @@ class TestProducts:
         """每个商品一个用例：移除购物车"""
         for i in range(6):
             products_page.add_to_cart_by_index(i)
+        assert products_page.wait_cart_badge_count(6), "预置加购 6 件超时"
         before = products_page.get_cart_badge_count()
         products_page.remove_from_cart_by_index(idx)
-        after = products_page.get_cart_badge_count()
-        assert after == before - 1, f"移除 1 件后角标应 -1，实际 {before}→{after}"
+        # #47 修复：先等待后断言（同上）
+        assert products_page.wait_cart_badge_count(before - 1), (
+            f"移除 1 件后角标应 -1（等待超时），实际 {before}→{products_page.get_cart_badge_count()}"
+        )
 
     @allure.story("移除购物车")
     @allure.title("从购物车随机移除 2 件商品")
@@ -103,10 +110,12 @@ class TestProducts:
         """随机移除多个商品"""
         for i in range(6):
             products_page.add_to_cart_by_index(i)
+        assert products_page.wait_cart_badge_count(6), "预置加购 6 件超时"
         before = products_page.get_cart_badge_count()
         products_page.remove_from_cart_random(count=2)
-        after = products_page.get_cart_badge_count()
-        assert after == before - 2
+        assert products_page.wait_cart_badge_count(before - 2), (
+            f"移除 2 件后角标应 -2（等待超时），实际 {before}→{products_page.get_cart_badge_count()}"
+        )
 
     # =========== 4. 跳转商品详情页 ===========
     @allure.story("跳转详情页")
@@ -202,8 +211,9 @@ class TestProducts:
         products_page.add_to_cart_by_index(0)
         products_page.add_to_cart_by_index(1)
         products_page.add_to_cart_by_index(2)
-        assert products_page.get_cart_badge_count() == 3
+        assert products_page.wait_cart_badge_count(3), "预置加购 3 件超时"
 
         products_page.reset_app_state()
-        assert products_page.get_cart_badge_count() == 0
+        # #47 修复：先等待后断言——reset 后 React 重渲染需要时间
+        assert products_page.wait_cart_badge_count(0), "Reset 后角标应清零（等待超时）"
         assert "inventory" in products_page.get_current_url()

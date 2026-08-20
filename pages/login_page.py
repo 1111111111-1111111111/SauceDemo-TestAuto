@@ -45,8 +45,10 @@ class LoginPage(BasePage):
         self.wait_url_contains("inventory")
         # pageLoadStrategy=eager: URL 变更后 React 可能尚未渲染，
         # 等待商品列表容器出现确保页面真正就绪
-        self.wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "[data-test='inventory-list']")))
+        self.wait_element_present(
+            (By.CSS_SELECTOR, "[data-test='inventory-list']"),
+            desc="商品列表渲染完成",
+        )
         from pages.products_page import ProductsPage  # 延迟导入，打断循环
         return ProductsPage(self.driver)
 
@@ -70,8 +72,20 @@ class LoginPage(BasePage):
         self.click(self.ERROR_BUTTON)
 
     def is_error_displayed(self) -> bool:
-        """错误提示框是否仍然可见（快速判断，不等待不截图）"""
-        return bool(self.find_elements(self.ERROR_CONTAINER, timeout=1))
+        """错误提示框是否仍然可见（即时读取，不等待不截图）
+
+        #47 修复：非阻塞读取——旧实现 find_elements(timeout=1) 在 CI 慢 DOM
+        更新下关闭错误框后仍可能读到残留状态，导致 close_error 断言偶发失败。
+        """
+        return bool(self.find_elements_immediate(self.ERROR_CONTAINER))
+
+    def wait_error_hidden(self, timeout: float = None) -> bool:
+        """等待错误提示框消失（close_error 后 React 重渲染需要时间，弹性等待）"""
+        return self._wait_until(
+            lambda d: not self.find_elements_immediate(self.ERROR_CONTAINER),
+            timeout=timeout,
+            desc="错误提示框消失",
+        )
 
     def get_password_input_type(self) -> str:
         """获取密码输入框的 type 属性（验证掩码显示）"""

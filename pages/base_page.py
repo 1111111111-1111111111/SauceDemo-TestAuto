@@ -43,10 +43,11 @@ class BasePage:
         timeout = timeout if timeout is not None else EXPLICIT_WAIT
         retries = RETRY_TIMES if retries is None else retries
         attempt = 0
+        t_start = time.time()
         while True:
             attempt += 1
             try:
-                wait = WebDriverWait(self.driver, timeout)
+                wait = WebDriverWait(self.driver, timeout, poll_frequency=0.5)
                 wait.until(condition)
                 if attempt > 1:
                     logger.info(f"🔄 {desc or condition} 第 {attempt} 次等待成功")
@@ -55,7 +56,8 @@ class BasePage:
                 if attempt > retries:
                     logger.error(
                         f"❌ 等待超时 {desc or condition} "
-                        f"(单次 {timeout}s × {attempt} 次共 {timeout * attempt}s)；"
+                        f"(单次 {timeout}s × {attempt} 次共 {timeout * attempt}s，"
+                        f"实际耗时 {time.time() - t_start:.1f}s)；"
                         f"URL={self.driver.current_url}, "
                         f"readyState={self._ready_state()}")
                     return False
@@ -150,6 +152,47 @@ class BasePage:
         except TimeoutException:
             logger.error(f"❌ 等待多个条件任一满足超时: {[c[0] for c in conditions]}")
             return False, None
+
+    def wait_element_present(self, locator: Tuple[str, str], timeout: float = None,
+                             desc: str = None) -> WebElement:
+        """弹性等待元素出现（带失败重试 + 诊断），最终失败才抛 TimeoutException。
+
+        与裸 self.wait.until(EC.presence_of_element_located(...)) 的区别：
+        - 单次 timeout 后自动重试 RETRY_TIMES 次（网络抖动兜底）
+        - 失败时输出 URL + readyState + 截图，便于 CI 排查
+        所有页面对象的"导航后等关键元素"统一走这里，替代散落的裸 wait。
+        """
+        ok = self._wait_until(
+            EC.presence_of_element_located(locator),
+            timeout=timeout,
+            desc=desc or f"元素出现 {locator}",
+        )
+        if not ok:
+            take_screenshot(self.driver, name=f"element_timeout_{locator[0]}_{locator[1]}")
+            raise TimeoutException(
+                f"等待元素出现超时: {locator}（{timeout or EXPLICIT_WAIT}s × {RETRY_TIMES + 1} 次），"
+                f"URL={self.driver.current_url}, readyState={self._ready_state()}")
+        return self.driver.find_element(*locator)
+
+    def find_elements_immediate(self, locator: Tuple[str, str]) -> List[WebElement]:
+        """非阻塞即时读取所有匹配元素；不存在立即返回 []（不等待）。
+
+        专用于"轮询式快速读取"场景（购物车角标数量、元素是否存在等）：
+        旧实现 find_elements(locator, timeout=1) 每次轮询阻塞 1s，且 CI 慢 DOM
+        更新下 1s 内读不到就误判为 0 → 角标断言高频误报。
+        改为即时读取后，读取本身零阻塞，真正的等待由外层 _wait_until /
+        WebDriverWait 的轮询驱动，既快又准。
+        """
+        try:
+            return self.driver.find_elements(*locator)
+        except Exception as e:
+            logger.debug(f"即时读取元素异常 {locator}: {type(e).__name__}: {e}")
+            return []
+
+    def find_element_if_present(self, locator: Tuple[str, str]) -> WebElement | None:
+        """即时检查元素是否存在；存在返回元素，不存在返回 None（不等待不抛异常）。"""
+        eles = self.find_elements_immediate(locator)
+        return eles[0] if eles else None
 
     def scroll_into_view(self, element: WebElement):
         """滚动元素到可视区域（避免被遮挡/懒加载导致点击超时）"""

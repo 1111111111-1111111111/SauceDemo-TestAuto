@@ -26,7 +26,8 @@ class CheckoutStepTwoPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.wait.until(EC.url_contains("checkout-step-two"))
+        # #47 修复：裸 wait.until 无重试 → 弹性 URL 等待
+        self.wait_url_contains("checkout-step-two")
 
     # ========== 操作 ==========
     def get_subtotal(self) -> float:
@@ -58,23 +59,31 @@ class CheckoutStepTwoPage(BasePage):
         return prices
 
     def click_item_name(self, idx: int):
+        """点击账单商品标题 → 详情页（滚动可见 + JS 兜底，#47 加固）"""
         names = self.find_elements(self.CART_ITEM_NAME)
-        names[idx].click()
+        ele = names[idx]
+        self.scroll_into_view(ele)
+        try:
+            ele.click()
+        except Exception:
+            self.driver.execute_script("arguments[0].click();", ele)
 
     def click_finish(self) -> "CheckoutCompletePage":
-        self.click(self.FINISH_BTN)
-        self.wait.until(EC.url_contains("checkout-complete"))
+        self.click(self.FINISH_BTN, expect_url="checkout-complete")
         # pageLoadStrategy=eager: URL 变更后等 React 渲染完成页
-        self.wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "[data-test='complete-header']")))
+        self.wait_element_present(
+            (By.CSS_SELECTOR, "[data-test='complete-header']"),
+            desc="完成页 complete-header 出现",
+        )
         from pages.checkout_complete_page import CheckoutCompletePage  # 延迟导入
         return CheckoutCompletePage(self.driver)
 
     def click_cancel(self) -> "ProductsPage":
-        self.click(self.CANCEL_BTN)
-        self.wait.until(EC.url_contains("inventory"))
+        self.click(self.CANCEL_BTN, expect_url="inventory")
         # pageLoadStrategy=eager: URL 变更后等 React 渲染商品列表
-        self.wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "[data-test='inventory-list']")))
+        self.wait_element_present(
+            (By.CSS_SELECTOR, "[data-test='inventory-list']"),
+            desc="商品列表渲染完成",
+        )
         from pages.products_page import ProductsPage  # 延迟导入
         return ProductsPage(self.driver)

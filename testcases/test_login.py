@@ -76,7 +76,8 @@ class TestLogin:
         login_page.login_expect_failure("standard_user", "")
         assert login_page.is_error_displayed()
         login_page.close_error()
-        assert not login_page.is_error_displayed()
+        # #47 修复：先等待后断言——close_error 后 React 重渲染需要时间
+        assert login_page.wait_error_hidden(), "关闭错误提示框后错误框应消失（等待超时）"
         assert login_page.get_username_value() == "standard_user"
 
     @allure.story("边界场景")

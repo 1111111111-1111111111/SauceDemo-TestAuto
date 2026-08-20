@@ -27,10 +27,11 @@
 | `pages/base_page.py` | 新增弹性等待核心 + 改造 wait/click | `_wait_until`（超时重试）、`wait_page_ready`、`wait_any`、`scroll_into_view`；`wait_url_contains` 支持重试；`click` 支持预期 URL |
 | `utils/helpers.py` | 新增工具 | `diagnose_network`（DNS/TCP/TTFB 诊断）、`retry_on_exception`（通用重试装饰器）、`record_duration`、`format_duration` |
 | `conftest.py` | 会话级/用例级钩子 | 会话开始网络诊断；每用例计时+慢用例告警；会话结束输出最慢 Top10；失败 attach console 日志 |
-| `.github/workflows/ci.yml` | test job | 连通性检查步骤；显式注入超时环境变量；pytest 25min 硬超时；失败诊断输出；artifacts 增加 allure-results |
-| `Dockerfile` | 下载步骤 / ENV | 全部 wget 加 `--timeout --tries`；chromedriver 双源回退；apt/pip 网络加固；`TZ=Asia/Shanghai`；ENV 超时默认值 |
-| `.env.example` | 新增 | 环境变量配置示例（含本地/CI 两套参考值） |
-| `pytest.ini` | 注释 | 说明 reruns 与 CI workflow 的配合 |
+| `.github/workflows/ci.yml` | test job | 连通性检查步骤；显式注入超时环境变量；pytest 40min 硬超时 + 单用例看门狗；执行时间监控与预警（Step Summary）；失败诊断输出；artifacts 增加 allure-results |
+| `Dockerfile` | 下载步骤 / ENV | 全部 wget 加 `--timeout --tries`；chromedriver 双源回退；apt/pip 网络加固；`TZ=Asia/Shanghai`；ENV 超时默认值（含 `SHORT_WAIT`） |
+| `.env.example` | 新增 | 环境变量配置示例（含本地/CI 两套参考值 + 动态阈值表 + `SHORT_WAIT`） |
+| `requirements.txt` | 新增依赖 | `pytest-timeout==2.4.0`（单用例硬上限看门狗） |
+| `pytest.ini` | addopts | `--timeout=240 --timeout-method=thread`（本地运行也有看门狗保护）；注释说明 reruns 与 CI workflow 的配合 |
 
 ---
 
@@ -112,23 +113,40 @@ env:
   WDM_RETRIES: "3"
 ```
 
-### 4.3 pytest 整体 40 分钟硬超时 + 输出保留
+### 4.3 pytest 整体 40 分钟硬超时 + 单用例看门狗（pytest-timeout）
 
 > **实测修正（2026-08-19 首轮 CI）**：49 个用例 × 每用例重开浏览器 + 失败重试，25 分钟硬超时被触发（测试步骤精确耗时 25:01 被 `timeout 1500` 杀死）。已上调至 40 分钟（2400s），仍远低于 Actions job 360 分钟上限，卡死也能兜底结束。
+
+> **单用例看门狗（新增）**：`pytest-timeout==2.4.0` 给**每个用例**套 240s 硬上限（`--timeout=240 --timeout-method=thread`），
+> 防止单个用例卡死（如某元素永远等不到）耗尽整个 job。thread 模式只杀用例线程，不拖垮 pytest 进程，
+> 超时用例计入失败并可被 `--reruns` 重试。注意 2.5.0 已被 PyPI yanked，锁定 2.4.0。
 
 ```bash
 timeout 2400 python -m pytest -v \
   --alluredir=reports/allure-results --clean-alluredir \
-  --reruns=${{ github.event.inputs.reruns || '2' }} --reruns-delay=2 \
+  --reruns=${{ github.event.inputs.reruns || '3' }} --reruns-delay=3 \
+  --timeout=240 --timeout-method=thread \
   2>&1 | tee logs/pytest_ci.log
 exit ${PIPESTATUS[0]}    # 保留 pytest 真实退出码
 ```
 
 ### 4.4 失败诊断输出 + Artifact 增强
 
-- 失败时输出：pytest 输出尾部、`logs/test_run.log` 尾部、失败截图清单、最慢用例 Top10
+- 失败时输出：pytest 输出尾部、`logs/test_run.log` 尾部、失败截图清单、最慢用例 Top10、等待超时告警统计
 - Artifact `test-logs-<run_number>` 新增包含 `reports/allure-results`（失败截图+console 日志全在 Allure 报告里）
-- `workflow_dispatch` 新增 `explicit_wait` / `reruns` 两个输入，无需改代码即可调参
+- `workflow_dispatch` 新增 `explicit_wait` / `reruns` / `short_wait` 三个输入，无需改代码即可调参
+
+### 4.6 测试执行时间监控与预警（Step Summary）
+
+`⏱️ 测试执行时间监控与预警` 步骤（`if: always()`，每次运行都输出到 Actions 运行摘要）：
+
+| 监控项 | 数据来源 | 告警规则 |
+|--------|---------|---------|
+| pytest 总耗时 | `date +%s` 差值 | > 30min `::warning::`；> 20min `::notice::` |
+| 最慢用例 Top10 | `grep "最慢用例" logs/test_run.log` | 慢用例长期占 Top 说明需优化或调参 |
+| 等待超时告警次数 | `grep -c "等待超时" logs/test_run.log` | > 20 次 `::warning::` 建议调大 EXPLICIT_WAIT/NAV_WAIT/RETRY_TIMES |
+
+同时运行测试步骤内输出 pytest 总耗时与退出码诊断（0=通过 / 1=有失败 / 2=中断 / 3=INTERNALERROR / 4=用法 / 5=无收集）。
 
 ### 4.5 退出码诊断 + 收尾加固（CI #43 排查记录）
 
@@ -174,7 +192,7 @@ RUN pip install --no-cache-dir --timeout 60 --retries 5 -r requirements.txt
 # 4. 新增 tzdata + TZ=Asia/Shanghai（报告时间戳正确）
 
 # 5. ENV 内置超时默认值（CI workflow 可覆盖）
-ENV EXPLICIT_WAIT=20 NAV_WAIT=30 PAGE_LOAD_TIMEOUT=60 \
+ENV EXPLICIT_WAIT=20 NAV_WAIT=30 PAGE_LOAD_TIMEOUT=60 SHORT_WAIT=2 \
     RETRY_TIMES=2 RETRY_INTERVAL=2 SLOW_TEST_THRESHOLD=60 \
     WDM_TIMEOUT=120 WDM_RETRIES=3
 ```
@@ -234,10 +252,16 @@ options.set_capability("goog:loggingPrefs", {"browser": "ALL", "performance": "A
 | `EXPLICIT_WAIT` | 10s | 20s | 30s | 元素出现/可点击 |
 | `NAV_WAIT` | 20s | 30s | 45s | URL 跳转（登录后等最久） |
 | `PAGE_LOAD_TIMEOUT` | 30s | 60s | 90s | driver.get() 页面加载 |
+| `SHORT_WAIT` | 1s | 2s | 3s | 短轮询窗口（购物车角标等） |
 | `RETRY_TIMES` / `RETRY_INTERVAL` | 1 / 1.5 | 2 / 2 | 3 / 3 | 等待失败重试 |
 | `WDM_TIMEOUT` / `WDM_RETRIES` | 60 / 2 | 120 / 3 | 180 / 5 | 驱动下载 |
 | `SLOW_TEST_THRESHOLD` | 30 | 60 | 90 | 慢用例告警线 |
-| 单用例最大时长（隐含） | — | ~120s | — | URL 30s×3 次重试 ≈ 90s+ |
+| 单用例硬上限（pytest-timeout） | 240s | 240s | 240s | 看门狗，超时计失败并触发 rerun |
+
+> **动态阈值参考**（也可用 `config.suggest_timeouts(ttfb_ms)` 读取推荐值）：
+> 按 `🌐 检查被测站点连通性` 步骤实测 TTFB 选择——TTFB < 300ms 用"本地开发"列；
+> 300ms~1s 用"CI 默认"列；1s~3s 用"网络波动剧烈时"列；> 3s 建议 EXPLICIT_WAIT=40 / NAV_WAIT=60 / PAGE_LOAD_TIMEOUT=120。
+> 经验法则：`NAV_WAIT ≈ EXPLICIT_WAIT × 1.5`；`PAGE_LOAD_TIMEOUT ≈ EXPLICIT_WAIT × 3`；`pytest-timeout ≈ EXPLICIT_WAIT × 12`。
 
 > 动态调整建议：CI 首次运行后看"最慢用例 Top10"，若某用例耗时接近阈值，
 > 说明该环节网络开销大，可针对性调大对应等待；若大部分用例耗时 < 5s，
@@ -259,6 +283,9 @@ CI=true python -c "from config.config import EXPLICIT_WAIT; print(EXPLICIT_WAIT)
 
 # 3) 无浏览器依赖的单元测试
 python -m pytest testcases/test_helpers.py -v
+
+# 4) 单用例看门狗生效验证（pytest.ini 已内置 --timeout=240）
+python -m pytest --collect-only -q   # 无 unrecognized arguments 报错即 OK
 ```
 
 ### 9.2 本地完整冒烟（有浏览器）

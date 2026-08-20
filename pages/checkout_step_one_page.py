@@ -24,7 +24,8 @@ class CheckoutStepOnePage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.wait.until(EC.url_contains("checkout-step-one"))
+        # #47 修复：裸 wait.until 无重试 → 弹性 URL 等待
+        self.wait_url_contains("checkout-step-one")
 
     # ========== 操作 ==========
     def input_first_name(self, v: str):
@@ -40,10 +41,9 @@ class CheckoutStepOnePage(BasePage):
         self.click(self.CONTINUE_BTN)
 
     def click_cancel(self) -> "CartPage":
-        self.click(self.CANCEL_BTN)
-        self.wait.until(EC.url_contains("cart"))
+        self.click(self.CANCEL_BTN, expect_url="cart")
         # pageLoadStrategy=eager: URL 变更后等 React 渲染购物车页
-        self.wait.until(EC.presence_of_element_located((By.ID, "checkout")))
+        self.wait_element_present((By.ID, "checkout"), desc="购物车页 checkout 按钮出现")
         from pages.cart_page import CartPage  # 延迟导入
         return CartPage(self.driver)
 
@@ -55,9 +55,11 @@ class CheckoutStepOnePage(BasePage):
         self.input_last_name(last)
         self.input_postal_code(postal)
         self.click_continue()
-        self.wait.until(EC.url_contains("checkout-step-two"))
+        self.wait_url_contains("checkout-step-two")
         # pageLoadStrategy=eager: URL 变更后等 React 渲染账单汇总
-        self.wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "[data-test='subtotal-label']")))
+        self.wait_element_present(
+            (By.CSS_SELECTOR, "[data-test='subtotal-label']"),
+            desc="账单汇总 subtotal 出现",
+        )
         from pages.checkout_step_two_page import CheckoutStepTwoPage  # 延迟导入
         return CheckoutStepTwoPage(self.driver)

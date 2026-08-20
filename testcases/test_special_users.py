@@ -63,6 +63,7 @@ class TestSpecialUsers:
         Act:     逐个点击 6 件商品的 Add to Cart 按钮
         Assert:  至少 1 次点击后按钮状态未变化（加购失败）
         """
+        from config.config import SHORT_WAIT
         products = _login_as(driver_instance, "error_user")
         failures = 0
         for i in range(6):
@@ -72,8 +73,9 @@ class TestSpecialUsers:
             except Exception:
                 failures += 1
                 continue
-            after = products.get_cart_badge_count()
-            if after != before + 1:
+            # #47 修复：短窗口弹性等待角标 +1，避免 CI 慢 DOM 更新下
+            # 立即读取误判"缺陷不存在"（该用例本质是验证缺陷存在性）
+            if not products.wait_cart_badge_count(before + 1, timeout=SHORT_WAIT * 4):
                 failures += 1
         assert failures > 0, "error_user 应有加购异常，但所有加购操作均成功"
 
