@@ -8,7 +8,7 @@
 > 
 > **覆盖范围**：登录 / 商品列表 / 商品详情 / 购物车 / 结账流程
 > 
-> **当前状态**：**96条用例本地全部通过,推送GitHub Actions后 82条全绿,14条⚠️**，支持数据驱动 + 关键字驱动 + Docker / GitHub Actions / Jenkins 
+> **当前状态**：支持数据驱动 + 关键字驱动 + Docker / GitHub Actions / Jenkins 
 > 
 > **查看 Allure 报告URL**: https://1111111111-1111111111.github.io/SauceDemo-TestAuto/index.html
 

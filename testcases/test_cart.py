@@ -10,15 +10,11 @@ import pytest
 import allure
 
 from utils.app_flows import quick_login, quick_setup_cart
-
+from utils.logger import logger
 
 @pytest.fixture()
-def cart_with_items(driver_instance) -> "CartPage":
-    """本地 fixture：登录 → 加购 6 件 → 进购物车
-
-    返回类型注解：让 IDE 能推断 cart 是 CartPage，从而支持
-    Ctrl+Enter 跳转到 continue_shopping() 等方法定义。
-    """
+def cart_with_items(driver_instance):
+    """本地 fixture：登录 → 加购 6 件 → 进购物车"""
     return quick_setup_cart(driver_instance, count=6)
 
 
@@ -31,10 +27,11 @@ class TestCart:
     @allure.story("跳转主页")
     @allure.title("Continue Shopping 返回主页")
     def test_cart_continue_shopping_back_to_products(self, cart_with_items):
-        """点击 Continue Shopping → 返回主页继续购物"""
-        cart = cart_with_items
-        assert cart.get_item_count() == 6
-        back = cart.continue_shopping()
+        """点击 Continue Shopping → 返回主页继续购物""" 
+        # cart = cart_with_items 
+        assert cart_with_items.get_item_count() == 6
+        back = cart_with_items.continue_shopping()
+        logger.info(f'最终：{back.get_current_url}')
         assert "inventory" in back.get_current_url()
 
     @allure.story("跳转结账页")
