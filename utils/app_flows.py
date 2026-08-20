@@ -13,11 +13,23 @@
 新方案：
   每个测试模块在本地 fixture 中调用 quick_xxx，只影响自己
 """
+from typing import TYPE_CHECKING
+
 from config.config import BASE_URL, DEFAULT_USER, DEFAULT_PASSWORD
 from utils.logger import logger
 
+# TYPE_CHECKING 导入：仅供 IDE/类型检查器解析字符串返回注解
+# （quick_xxx -> "ProductsPage" 等），运行时为 False 不执行导入，零开销。
+# 没有这些导入，IDE 无法把字符串注解解析成类，Ctrl+Enter 跳转方法会失败。
+if TYPE_CHECKING:
+    from pages.cart_page import CartPage
+    from pages.checkout_complete_page import CheckoutCompletePage
+    from pages.checkout_step_one_page import CheckoutStepOnePage
+    from pages.checkout_step_two_page import CheckoutStepTwoPage
+    from pages.products_page import ProductsPage
 
-def quick_login(driver, user: str = DEFAULT_USER, pwd: str = DEFAULT_PASSWORD):
+
+def quick_login(driver, user: str = DEFAULT_USER, pwd: str = DEFAULT_PASSWORD) -> "ProductsPage":
     """
     打开网站并登录，返回 ProductsPage。
 
@@ -31,14 +43,15 @@ def quick_login(driver, user: str = DEFAULT_USER, pwd: str = DEFAULT_PASSWORD):
     return login.login(user, pwd)
 
 
-def quick_setup_cart(driver, count: int = 3):
+def quick_setup_cart(driver, count: int = 3) -> "CartPage":
     """
     登录 → 加购 N 件商品 → 进入购物车，返回 CartPage。
 
     用法:
         cart_page = quick_setup_cart(driver, count=3)
     """
-    products = quick_login(driver)
+    from pages.products_page import ProductsPage
+    products: ProductsPage = quick_login(driver)
     products.add_to_cart_random(count=count)
     # 稳定性（#44 修复）：连续加购后先等角标数量确认，页面状态稳定再跳购物车，
     # 避免点击购物车图标时 DOM 仍在更新导致 URL 跳转等待超时（CI #44 19 个 broken 根因）
@@ -47,7 +60,7 @@ def quick_setup_cart(driver, count: int = 3):
     return products.go_to_cart()
 
 
-def quick_setup_checkout(driver, count: int = 3):
+def quick_setup_checkout(driver, count: int = 3) -> "CheckoutStepOnePage":
     """
     登录 → 加购 N 件 → 进购物车 → 点击 Checkout，返回 CheckoutStepOnePage。
 
@@ -60,7 +73,7 @@ def quick_setup_checkout(driver, count: int = 3):
 
 
 def quick_setup_step_two(driver, count: int = 3, first: str = "Test",
-                         last: str = "User", postal: str = "12345"):
+                         last: str = "User", postal: str = "12345") -> "CheckoutStepTwoPage":
     """
     登录 → 加购 N 件 → 进购物车 → 结账 → 填写信息 → 返回 CheckoutStepTwoPage。
 
@@ -73,7 +86,7 @@ def quick_setup_step_two(driver, count: int = 3, first: str = "Test",
 
 
 def quick_setup_complete(driver, count: int = 3, first: str = "Test",
-                         last: str = "User", postal: str = "12345"):
+                         last: str = "User", postal: str = "12345") -> "CheckoutCompletePage":
     """
     完整下单流程：登录 → 加购 → 结账 → 填信息 → Finish，返回 CheckoutCompletePage。
 

@@ -138,7 +138,7 @@ class ProductsPage(BasePage):
                 desc=f"商品 {product_index} 图片链接可点击",
             )
             if not ok:
-                raise TimeoutException(f"商品 {product_index} 图片链接不可点击")
+                raise TimeoutException(f"商品 {product_index} 图片链接不可点击")  # pyright: ignore[reportUndefinedVariable]
             link.click()
         except Exception:
             logger.warning(f"⚠️ 常规点击商品 {product_index} 图片失败，改用 JS 点击")

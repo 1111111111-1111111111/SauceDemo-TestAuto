@@ -329,3 +329,98 @@ git push origin main
 | 单用例失败反馈 | 10s 即抛（误报） | 30s×3 次重试后才判失败（真实超时才失败） |
 | 排查耗时 | 无日志，靠猜 | 连通性诊断 + 慢用例 Top10 + console 日志 + 截图 |
 | 总执行时间 | 无保护，卡死可能耗尽 job | pytest 25min 硬上限 + job 30min |
+
+---
+
+## 十一、#55 根因修复记录（2026-08-20）
+
+### 11.1 现象
+
+CI #55（commit 9a370f0）failure：Allure 报告仅 7 个用例（3 passed / 4 broken），
+整个会话只跑完 `test_cart` 一个模块就被 `timeout 2400` 杀死——每个 broken 用例
+烧掉约 4~8 分钟（240s 看门狗 × reruns 3 次 + 90s+ URL 等待 × 多次尝试），
+40 分钟预算在第一个模块即耗尽。
+
+### 11.2 根因（二次崩溃 bug）
+
+`pages/base_page.py` 的 `wait_url_contains()` 错误消息里直接写 `retries + 1`：
+
+```python
+# 修复前（#55 崩溃点）
+f"等待 URL 包含 '{keyword}' 超时（{timeout or NAV_WAIT}s × {retries + 1} 次），"
+#                                        ^^^^^^^^^ retries 为 None 时 → TypeError!
+```
+
+`click()` 内部调用 `self.wait_url_contains(expect_url)` 时不传 `retries`，
+`retries=None` → `None + 1` 抛 `TypeError`，**把真正的 TimeoutException 完全掩盖**。
+#55 的 4 个 broken 全部是这个二次崩溃（Allure 堆栈证据：`TypeError:
+unsupported operand type(s) for +: 'NoneType' and 'int'`，崩溃点在 base_page.py:111）。
+
+**修复**：先换算 `effective_retries = RETRY_TIMES if retries is None else retries`，
+再拼接消息；超时原因（URL/readyState/windows/iframes）如实暴露。
+
+### 11.3 两个猜测的排查结论
+
+| 猜测 | 结论 | 证据 |
+|------|------|------|
+| 猜测1：iframe/shadow DOM 嵌套导致加载超时 | ❌ **不是原因** | SauceDemo 是简单 React SPA，无 iframe、无 shadow DOM；所有 102 用例定位器均作用于顶层 document（By.ID / CSS[data-test]），若有 iframe 则全部用例都会挂，但 #55 中 Continue Shopping、移除全部商品、点击商品标题[1] 均 passed |
+| 猜测2：多标签页干扰焦点 | ❌ **不是原因** | SauceDemo 的 continue-shopping 是普通 `<button>`，无 `target="_blank"` / `window.open`；代码全程无打开新标签页操作；每用例 function-scope 全新 driver |
+
+**防御性增强（仍在本次提交）**：新增 `_page_diagnostics()`，所有等待超时的日志/异常
+统一输出 `URL + readyState + windows=N + iframes=N`。下次若真出现 iframe 或多标签
+干扰，诊断信息会直接给出证据（windows>1 或 iframes>0），无需再猜。
+
+### 11.4 IDE Ctrl+Enter 跳转失效的原因与修复
+
+- **原因**：`test_cart.py` 的 fixture `cart_with_items` 无返回类型注解 → IDE 无法推断
+  `cart = cart_with_items` 的类型 → `cart.continue_shopping()` 的 Ctrl+Enter 跳转无效；
+  而 `quick_setup_cart` 里 `products` 通过 `login.login()` 的 `-> "ProductsPage"`
+  注解链可推断，所以 `go_to_cart` 能跳。
+- **修复**：
+  - `utils/app_flows.py`：5 个 `quick_xxx` 函数全部加返回类型注解
+    （`-> "ProductsPage"` / `-> "CartPage"` / `-> "CheckoutStepOnePage"` 等），
+    并新增 `if TYPE_CHECKING:` 导入块（IDE 解析用，运行时零开销）
+  - `test_cart.py` / `test_checkout.py` / `test_products.py` / `test_product_detail.py`：
+    本地 fixture 加返回类型注解
+- **效果**：IDE 现在能推断 `cart` 是 `CartPage`，Ctrl+Enter 可跳转到
+  `continue_shopping()` 等方法定义；同时 `cart.` 自动补全也恢复。
+
+### 11.5 click() 可点击等待加固
+
+`click()` 第一步原用 `find_clickable_element()`（单次 `WebDriverWait` 无重试），
+CI 慢 DOM 更新下"暂不可点击"一次即抛且无诊断。新增弹性版本 `wait_clickable()`
+（单次超时自动重试 RETRY_TIMES 次 + 失败输出 `_page_diagnostics()` + 截图），
+`click()` 改用它——`continue_shopping()` 点击"Continue Shopping"按钮时更抗抖。
+
+### 11.6 ci.yml 变更：强制每次重建镜像
+
+原逻辑：`docker manifest inspect` 命中 → 跳过构建复用旧镜像（环境漂移风险）。
+现逻辑（2026-08-20 需求）：**注释掉镜像存在性判断分支，无条件 `rebuilt=true`**，
+每次提交都重新构建并推送镜像，test job 拉取最新镜像，确保容器环境与代码完全同步。
+job 名称同步改为「🐳 构建并推送镜像（每次强制）」。
+
+### 11.7 本次验证步骤
+
+```bash
+# 1) 语法验证
+python -m py_compile pages/base_page.py utils/app_flows.py \
+  testcases/test_cart.py testcases/test_checkout.py \
+  testcases/test_products.py testcases/test_product_detail.py
+
+# 2) YAML 语法 + 收集
+python -c "import yaml; yaml.safe_load(open('.github/workflows/ci.yml', encoding='utf-8'))"
+python -m pytest --collect-only -q          # 期望 102 collected
+
+# 3) TypeError 修复回归（mock driver，retries=None 场景）
+#    期望抛 TimeoutException（含 windows/iframes 诊断），而非 TypeError
+
+# 4) 无浏览器单元测试
+python -m pytest testcases/test_helpers.py -v    # 6 passed
+```
+
+### 11.8 推送后 CI 观察点
+
+1. `🐳 构建并推送镜像（每次强制）` job 每次都会构建（不再出现"跳过构建"）
+2. 若仍有 broken：异常信息现在会显示 `windows=N, iframes=N`——N>1 或 N>0 才需排查
+   标签页/iframe，否则继续按 URL/readyState 诊断
+3. 关注 Step Summary 的「等待超时告警」与最慢用例 Top10

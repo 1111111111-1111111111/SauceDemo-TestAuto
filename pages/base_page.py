@@ -58,8 +58,7 @@ class BasePage:
                         f"❌ 等待超时 {desc or condition} "
                         f"(单次 {timeout}s × {attempt} 次共 {timeout * attempt}s，"
                         f"实际耗时 {time.time() - t_start:.1f}s)；"
-                        f"URL={self.driver.current_url}, "
-                        f"readyState={self._ready_state()}")
+                        f"{self._page_diagnostics()}")
                     return False
                 logger.warning(
                     f"⚠️ 等待超时 {desc or condition} 第 {attempt}/{retries + 1} 次"
@@ -75,6 +74,22 @@ class BasePage:
             return self.driver.execute_script("return document.readyState")
         except Exception:
             return "unknown"
+
+    def _page_diagnostics(self) -> str:
+        """页面诊断汇总：URL + readyState + 窗口数 + iframe 数。
+
+        用于所有等待超时的错误消息/日志，直接回答两类高频排查问题：
+        - windows=N：若 N>1 说明存在多标签页/多窗口，需检查焦点是否在正确页面（猜测 2）
+        - iframes=N：若 N>0 说明页面存在 iframe/frame，元素可能在子文档里（猜测 1）
+        """
+        try:
+            windows = len(self.driver.window_handles)
+            iframes = self.driver.execute_script(
+                "return document.querySelectorAll('iframe, frame').length")
+            return (f"URL={self.driver.current_url}, readyState={self._ready_state()}, "
+                    f"windows={windows}, iframes={iframes}")
+        except Exception:
+            return f"URL={self.driver.current_url}"
 
     def wait_page_ready(self, timeout: float = None) -> bool:
         """等待页面 JS 就绪（document.readyState == 'complete'）。
@@ -98,6 +113,12 @@ class BasePage:
         原实现一次超时即抛异常，CI 网络抖动时高频误报。
         新实现：单次 timeout 后自动重试 RETRY_TIMES 次，
         最终失败才抛 TimeoutException（同时保留截图诊断）。
+
+        ⚠️ #55 修复（2026-08-20）：错误消息原先直接 `retries + 1`，
+        当调用方不传 retries（click() 内部即如此）时 retries=None，
+        None + 1 抛 TypeError，把真正的超时诊断信息完全掩盖——
+        CI #55 的 4 个 broken 全部是这个二次崩溃。现在先换算
+        effective_retries 再拼接消息，超时原因才能如实暴露。
         """
         ok = self._wait_until(
             EC.url_contains(keyword),
@@ -107,9 +128,11 @@ class BasePage:
         )
         if not ok:
             take_screenshot(self.driver, name=f"url_timeout_{keyword.replace('/', '_')}")
+            effective_retries = RETRY_TIMES if retries is None else retries
             raise TimeoutException(
-                f"等待 URL 包含 '{keyword}' 超时（{timeout or NAV_WAIT}s × {retries + 1} 次），"
-                f"当前 URL={self.driver.current_url}")
+                f"等待 URL 包含 '{keyword}' 超时"
+                f"（{timeout or NAV_WAIT}s × {effective_retries + 1} 次），"
+                f"{self._page_diagnostics()}")
         return True
 
     def wait_text_in_element(self, locator: Tuple[str, str], text: str,
@@ -171,7 +194,7 @@ class BasePage:
             take_screenshot(self.driver, name=f"element_timeout_{locator[0]}_{locator[1]}")
             raise TimeoutException(
                 f"等待元素出现超时: {locator}（{timeout or EXPLICIT_WAIT}s × {RETRY_TIMES + 1} 次），"
-                f"URL={self.driver.current_url}, readyState={self._ready_state()}")
+                f"{self._page_diagnostics()}")
         return self.driver.find_element(*locator)
 
     def find_elements_immediate(self, locator: Tuple[str, str]) -> List[WebElement]:
@@ -239,6 +262,29 @@ class BasePage:
             take_screenshot(self.driver, name=f"not_clickable_{locator[0]}_{locator[1]}")
             raise
 
+    def wait_clickable(self, locator: Tuple[str, str], timeout: float = None,
+                       desc: str = None) -> WebElement:
+        """弹性等待元素可点击（带失败重试 + 诊断），最终失败才抛 TimeoutException。
+
+        与裸 find_clickable_element（单次 WebDriverWait 无重试）的区别：
+        - 单次 timeout 后自动重试 RETRY_TIMES 次，CI 慢 DOM 更新/React 重渲染
+          导致的"暂不可点击"不再一次即抛
+        - 失败时输出 _page_diagnostics（URL/readyState/windows/iframes）+ 截图
+        所有点击操作（click）统一走这里，替代裸 self.wait.until(EC.element_to_be_clickable)。
+        """
+        ok = self._wait_until(
+            EC.element_to_be_clickable(locator),
+            timeout=timeout,
+            desc=desc or f"元素可点击 {locator}",
+        )
+        if not ok:
+            take_screenshot(self.driver, name=f"not_clickable_{locator[0]}_{locator[1]}")
+            raise TimeoutException(
+                f"等待元素可点击超时: {locator}"
+                f"（{timeout or EXPLICIT_WAIT}s × {RETRY_TIMES + 1} 次），"
+                f"{self._page_diagnostics()}")
+        return self.driver.find_element(*locator)
+
     # ============= 基础操作 =============
     def click(self, locator: Tuple[str, str], expect_url: str = None):
         """点击元素（稳定性增强：滚动可见 + 区分页面加载超时与元素不可交互）
@@ -254,7 +300,9 @@ class BasePage:
         :param locator: 定位器
         :param expect_url: 可选，点击后预期 URL 关键字；提供后点击完成会自动等待
         """
-        ele = self.find_clickable_element(locator)
+        # #55 加固：原先 find_clickable_element 是单次 WebDriverWait 无重试，
+        # CI 慢 DOM 更新下"暂不可点击"一次即抛，且无诊断信息。改用弹性等待。
+        ele = self.wait_clickable(locator)
         # 滚动到可视区域：避免元素被底部栏/懒加载遮挡导致点击交互超时
         self.scroll_into_view(ele)
         url_before = self.driver.current_url

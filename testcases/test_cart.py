@@ -13,8 +13,12 @@ from utils.app_flows import quick_login, quick_setup_cart
 
 
 @pytest.fixture()
-def cart_with_items(driver_instance):
-    """本地 fixture：登录 → 加购 6 件 → 进购物车"""
+def cart_with_items(driver_instance) -> "CartPage":
+    """本地 fixture：登录 → 加购 6 件 → 进购物车
+
+    返回类型注解：让 IDE 能推断 cart 是 CartPage，从而支持
+    Ctrl+Enter 跳转到 continue_shopping() 等方法定义。
+    """
     return quick_setup_cart(driver_instance, count=6)
 
 

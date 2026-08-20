@@ -54,7 +54,7 @@ permissions:
 
 jobs:
   build-and-push:
-    name: 🐳 构建并推送镜像（按需）
+    name: 🐳 构建并推送镜像（每次强制）
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
@@ -66,9 +66,11 @@ jobs:
         uses: actions/checkout@v6
 
       # ----------------------------------------------------------
-      # 关键步骤：计算环境指纹 + 检查镜像是否已存在
-      # 指纹来源 = Dockerfile + requirements.txt 的 sha256
-      # 这两个文件不变 → 指纹不变 → tag 不变 → 镜像已存在 → 跳过构建
+      # 关键步骤：计算环境指纹（强制每次重建，2026-08-20 需求变更）
+      # 原逻辑：镜像已存在（manifest inspect 命中）→ 跳过构建复用镜像
+      # 现逻辑：注释掉所有"判断是否存在镜像"的分支，无条件 rebuilt=true，
+      #        确保每次提交都重新构建并推送镜像，test job 拉取到的是
+      #        与当前代码完全同步的最新镜像（避免旧镜像复用带来的环境漂移）
       # ----------------------------------------------------------
       - name: 🔧 计算环境指纹 & 判断是否需要构建
         id: decide
@@ -84,17 +86,21 @@ jobs:
           echo "env_hash=${ENV_HASH}" >> $GITHUB_OUTPUT
           echo "🔍 环境指纹: ${ENV_HASH}"
           echo "🔍 目标镜像: ${IMAGE_WITH_TAG}"
-          # 登录 GHCR（manifest inspect 私有包需要认证）
+          # 登录 GHCR（推送镜像需要认证）
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
             -u "${{ github.actor }}" --password-stdin
-          # 检查镜像是否已存在
-          if docker manifest inspect "${IMAGE_WITH_TAG}" >/dev/null 2>&1; then
-            echo "✅ 镜像已存在于 GHCR，跳过构建"
-            echo "rebuilt=false" >> $GITHUB_OUTPUT
-          else
-            echo "🔨 镜像不存在，将执行构建"
-            echo "rebuilt=true" >> $GITHUB_OUTPUT
-          fi
+          # ============================================================
+          # 【已注释】镜像存在性判断分支（2026-08-20 起强制每次重建）
+          # if docker manifest inspect "${IMAGE_WITH_TAG}" >/dev/null 2>&1; then
+          #   echo "✅ 镜像已存在于 GHCR，跳过构建"
+          #   echo "rebuilt=false" >> $GITHUB_OUTPUT
+          # else
+          #   echo "🔨 镜像不存在，将执行构建"
+          #   echo "rebuilt=true" >> $GITHUB_OUTPUT
+          # fi
+          # ============================================================
+          echo "🔨 强制重新构建镜像（每次提交都重新构建并拉取最新镜像）"
+          echo "rebuilt=true" >> $GITHUB_OUTPUT
 
       - name: 🐳 设置 Docker Buildx
         if: steps.decide.outputs.rebuilt == 'true'
@@ -122,11 +128,7 @@ jobs:
 
       - name: 📋 构建摘要
         run: |
-          if [ "${{ steps.decide.outputs.rebuilt }}" = "true" ]; then
-            echo "🏗️ 本次执行了镜像构建（环境有变化）"
-          else
-            echo "♻️ 本次跳过镜像构建，复用已有环境镜像"
-          fi
+          echo "🏗️ 本次执行了镜像构建（强制重建，每次提交都构建）"
           echo "🏷️ 使用镜像: ${{ steps.decide.outputs.image_with_tag }}"
 
   test:

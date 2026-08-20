@@ -21,8 +21,11 @@ from utils.app_flows import (
 
 
 @pytest.fixture()
-def checkout_page(driver_instance):
-    """本地 fixture：登录 → 加购 3 件 → 进购物车 → 点 Checkout"""
+def checkout_page(driver_instance) -> "CheckoutStepOnePage":
+    """本地 fixture：登录 → 加购 3 件 → 进购物车 → 点 Checkout
+
+    返回类型注解：让 IDE 能推断 checkout_page 类型，支持 Ctrl+Enter 跳转。
+    """
     return quick_setup_checkout(driver_instance, count=3)
 
 

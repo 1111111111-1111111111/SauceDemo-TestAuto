@@ -20,8 +20,11 @@ from utils.app_flows import quick_login
 
 
 @pytest.fixture()
-def products_page(driver_instance):
-    """本地 fixture：登录并返回商品主页"""
+def products_page(driver_instance) -> "ProductsPage":
+    """本地 fixture：登录并返回商品主页
+
+    返回类型注解：让 IDE 能推断 products_page 类型，支持 Ctrl+Enter 跳转。
+    """
     return quick_login(driver_instance)
 
 
