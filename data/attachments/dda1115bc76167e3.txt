@@ -1,0 +1,21 @@
+INFO     saucedemo:conftest.py:114 ================================================================================
+INFO     saucedemo:conftest.py:115 ▶ 初始化 WebDriver
+INFO     saucedemo:driver.py:226 📌 初始化浏览器: chrome, headless=True
+INFO     saucedemo:driver.py:135 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+INFO     saucedemo:driver.py:182 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+INFO     saucedemo:driver.py:258 ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+INFO     saucedemo:keyword_engine.py:113 🏷️ 关键字用例: 冒烟_登录成功，共 7 步
+INFO     saucedemo:keyword_engine.py:74 ▶ 关键字: open | {'keyword': 'open', 'url': 'https://www.saucedemo.com/'}
+INFO     saucedemo:keyword_engine.py:74 ▶ 关键字: input | {'keyword': 'input', 'page': 'login', 'locator': 'USERNAME_INPUT', 'text': 'standard_user'}
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+INFO     saucedemo:keyword_engine.py:74 ▶ 关键字: input | {'keyword': 'input', 'page': 'login', 'locator': 'PASSWORD_INPUT', 'text': 'secret_sauce'}
+INFO     saucedemo:base_page.py:333 ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+INFO     saucedemo:keyword_engine.py:74 ▶ 关键字: click | {'keyword': 'click', 'page': 'login', 'locator': 'LOGIN_BUTTON'}
+INFO     saucedemo:base_page.py:324 🖱️ 已点击 ('id', 'login-button')
+INFO     saucedemo:keyword_engine.py:74 ▶ 关键字: assert_url_contains | {'keyword': 'assert_url_contains', 'text': 'inventory'}
+INFO     saucedemo:keyword_engine.py:74 ▶ 关键字: assert_title | {'keyword': 'assert_title', 'text': 'Swag Labs'}
+INFO     saucedemo:keyword_engine.py:74 ▶ 关键字: assert_text_visible | {'keyword': 'assert_text_visible', 'page': 'products', 'locator': 'TITLE_LABEL'}
+INFO     saucedemo:keyword_engine.py:118 ✅ 关键字用例通过: 冒烟_登录成功
+INFO     saucedemo:conftest.py:118 ◀ 清理 WebDriver
+INFO     saucedemo:driver.py:273 🛑 浏览器已安全退出
+INFO     saucedemo:conftest.py:126 ================================================================================
