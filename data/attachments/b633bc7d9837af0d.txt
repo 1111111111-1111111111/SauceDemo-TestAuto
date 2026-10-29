@@ -1,0 +1,314 @@
+2026-10-29 09:21:56,421 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:21:56,421 | INFO     | saucedemo | 🚀 测试会话开始
+2026-10-29 09:21:56,493 | INFO     | saucedemo | 🌐 网络诊断 https://www.saucedemo.com/: DNS=0.9ms, TCP连接=14.9ms, TTFB=56.0ms, 状态=OK
+2026-10-29 09:21:56,566 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:21:56,566 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:21:56,566 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:21:56,566 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:21:56,567 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:21:57,630 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:21:57,925 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:21:57,926 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:21:57,989 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:21:58,039 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:21:58,101 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:22:18,586 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:22:40,830 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:23:03,100 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.8s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:23:03,100 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:23:03,141 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:23:33,314 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:24:05,469 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:24:37,635 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:24:37,701 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:24:37,742 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:24:37,810 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:24:37,880 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:24:40,883 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:24:40,883 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:24:40,883 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:24:40,883 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:24:40,883 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:24:41,689 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:24:42,011 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:24:42,012 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:24:42,086 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:24:42,135 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:24:42,201 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:25:02,678 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:25:24,880 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:25:47,123 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.7s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:25:47,123 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:25:47,158 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:26:17,311 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:26:49,432 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:27:21,587 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.4s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:27:21,658 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:27:21,674 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:27:21,740 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:27:21,809 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:27:24,812 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:27:24,812 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:27:24,812 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:27:24,812 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:27:24,812 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:27:25,645 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:27:26,001 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:27:26,002 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:27:26,078 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:27:26,124 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:27:26,190 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:27:46,703 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:28:08,952 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:28:31,247 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.8s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:28:31,248 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:28:31,282 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:29:01,433 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:29:33,577 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:30:05,680 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.4s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:30:05,750 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:30:05,765 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:30:05,830 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:30:05,896 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:30:08,898 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:30:08,898 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:30:08,898 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:30:08,898 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:30:08,899 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:30:09,722 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:30:09,951 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:30:09,952 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:30:10,520 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:30:10,584 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:30:10,691 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:30:31,139 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:30:53,351 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:31:15,555 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:31:15,555 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:31:15,589 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:31:45,690 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:32:17,795 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:32:49,897 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.3s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:32:49,965 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:32:49,981 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:32:50,045 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:32:50,113 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:32:50,114 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:32:50,115 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:32:50,115 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:32:50,115 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:32:50,115 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:32:50,929 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:32:51,188 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:32:51,191 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:32:51,282 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:32:51,325 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:32:51,384 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:33:11,821 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:33:34,010 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:33:56,256 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.6s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:33:56,256 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:33:56,289 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:34:26,402 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:34:58,500 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:35:30,604 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.3s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:35:30,671 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:35:30,688 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:35:30,751 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:35:30,824 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:35:33,826 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:35:33,826 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:35:33,826 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:35:33,826 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:35:33,827 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:35:34,725 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:35:34,863 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:35:34,864 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:35:35,444 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:35:35,478 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:35:35,535 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:35:55,957 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:36:18,167 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:36:40,415 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.7s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:36:40,415 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:36:40,451 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:37:10,617 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:37:42,778 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:38:14,951 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:38:15,016 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:38:15,031 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:38:15,096 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:38:15,163 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:38:18,165 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:38:18,165 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:38:18,165 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:38:18,165 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:38:18,166 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:38:19,001 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:38:19,263 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:38:19,263 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:38:19,372 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:38:19,421 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:38:19,482 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:38:40,328 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:39:02,463 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:39:24,614 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.4s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:39:24,614 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:39:24,648 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:39:54,812 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:40:26,975 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:40:59,144 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:40:59,210 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:40:59,225 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:40:59,305 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:40:59,370 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:41:02,373 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:41:02,373 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:41:02,373 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:41:02,373 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:41:02,373 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:41:03,221 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:41:03,529 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:41:03,531 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:41:03,620 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:41:03,669 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:41:03,746 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:41:24,311 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:41:46,570 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:42:08,871 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.8s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:42:08,872 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:42:08,919 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:42:39,089 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:43:11,253 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:43:43,419 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:43:43,489 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:43:43,505 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:43:43,568 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:43:43,638 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:43:43,640 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:43:43,640 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:43:43,640 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:43:43,640 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:43:43,640 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:43:44,499 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:43:44,788 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:43:44,788 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:43:44,858 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:43:44,916 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:43:44,974 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:44:05,499 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:44:27,747 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:44:50,007 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.8s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:44:50,008 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:44:50,042 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:45:20,208 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:45:52,367 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:46:24,545 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:46:24,612 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:46:24,628 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:46:24,692 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:46:24,758 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:46:27,760 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:46:27,760 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:46:27,760 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:46:27,760 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:46:27,760 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:46:28,569 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:46:28,914 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:46:28,915 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:46:28,983 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:46:29,029 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:46:29,080 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:46:49,905 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:47:12,033 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:47:34,177 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.4s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:47:34,177 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:47:34,210 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:48:04,375 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:48:36,532 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:49:08,689 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.5s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:49:08,757 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:49:08,773 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:49:08,836 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:49:08,904 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:49:11,906 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:49:11,907 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:49:11,907 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:49:11,907 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:49:11,907 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:49:12,735 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:49:13,073 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:49:13,073 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:49:13,155 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:49:13,197 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:49:13,255 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:49:33,732 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:49:55,950 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:50:18,194 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.7s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:50:18,195 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:50:18,229 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:50:48,347 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:51:20,472 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:51:52,619 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.4s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:51:52,686 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:51:52,702 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:51:52,782 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:51:52,848 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:51:55,850 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:51:55,850 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:51:55,850 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:51:55,850 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:51:55,850 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:51:56,677 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:51:57,041 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:51:57,041 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:51:57,112 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:51:57,149 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:51:57,195 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:51:57,874 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:51:57,913 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:52:00,403 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:52:00,468 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:52:00,484 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:52:00,486 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:52:00,486 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:52:00,486 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:52:00,486 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:52:00,487 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:52:01,309 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:52:01,586 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:52:01,586 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:52:01,684 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:52:01,726 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:52:01,785 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:52:22,257 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 1/3 次（20s），2.0s 后重试…
+2026-10-29 09:52:44,474 | WARNING  | saucedemo | ⚠️ 等待超时 购物车角标数量 = 6 第 2/3 次（20s），2.0s 后重试…
+2026-10-29 09:53:06,727 | ERROR    | saucedemo | ❌ 等待超时 购物车角标数量 = 6 (单次 20s × 3 次共 60s，实际耗时 64.7s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:53:06,727 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:53:06,762 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:53:36,879 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:54:08,999 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'cart' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:54:41,116 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'cart' (单次 30s × 3 次共 90s，实际耗时 94.3s)；URL=https://www.saucedemo.com/inventory.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:54:41,194 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_cart.png
+2026-10-29 09:54:41,210 | INFO     | saucedemo | ◀ 清理 WebDriver
+2026-10-29 09:54:41,272 | INFO     | saucedemo | 🛑 浏览器已安全退出
+2026-10-29 09:54:41,337 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:54:44,339 | INFO     | saucedemo | ================================================================================
+2026-10-29 09:54:44,339 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-10-29 09:54:44,339 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-10-29 09:54:44,339 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-10-29 09:54:44,339 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-10-29 09:54:45,151 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-10-29 09:54:45,438 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-10-29 09:54:45,440 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-10-29 09:54:45,530 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-10-29 09:54:45,574 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-10-29 09:54:45,630 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-10-29 09:54:45,869 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-10-29 09:54:45,911 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-10-29 09:55:16,580 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'inventory-item' 第 1/3 次（30s），2.0s 后重试…
+2026-10-29 09:55:48,697 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'inventory-item' 第 2/3 次（30s），2.0s 后重试…
+2026-10-29 09:56:20,821 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'inventory-item' (单次 30s × 3 次共 90s，实际耗时 94.4s)；URL=https://www.saucedemo.com/cart.html, readyState=complete, windows=1, iframes=0
+2026-10-29 09:56:20,864 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_inventory-item.png
+2026-10-29 09:56:20,870 | WARNING  | saucedemo | 🐢 慢用例 [1m34s > 阈值 1m00s]: testcases/test_cart.py::TestCart::test_cart_click_item_to_detail[0]
+2026-10-29 09:56:20,932 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_cart_click_item_to_detail[0]_call_FAIL.png
