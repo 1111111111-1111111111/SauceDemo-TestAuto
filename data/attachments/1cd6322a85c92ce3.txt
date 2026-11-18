@@ -1,0 +1,23 @@
+2026-11-18 11:13:18,782 | INFO     | saucedemo | ================================================================================
+2026-11-18 11:13:18,782 | INFO     | saucedemo | 🚀 测试会话开始
+2026-11-18 11:13:18,853 | INFO     | saucedemo | 🌐 网络诊断 https://www.saucedemo.com/: DNS=1.0ms, TCP连接=25.5ms, TTFB=43.7ms, 状态=OK
+2026-11-18 11:13:18,950 | INFO     | saucedemo | ================================================================================
+2026-11-18 11:13:18,950 | INFO     | saucedemo | ▶ 初始化 WebDriver
+2026-11-18 11:13:18,951 | INFO     | saucedemo | 📌 初始化浏览器: chrome, headless=True
+2026-11-18 11:13:18,951 | INFO     | saucedemo | 🐳 检测到容器环境，启用 --disable-dev-shm-usage
+2026-11-18 11:13:18,951 | INFO     | saucedemo | 📌 使用 PATH 中的 chromedriver（容器镜像已内置）
+2026-11-18 11:13:20,072 | INFO     | saucedemo | ✅ 浏览器启动成功, 版本: 151.0.7922.169, 平台: linux, page_load_timeout: 90s, script_timeout: 60s
+2026-11-18 11:13:20,401 | INFO     | saucedemo | 🌐 已访问 https://www.saucedemo.com/
+2026-11-18 11:13:20,403 | INFO     | saucedemo | 🔑 quick_login: user=standard_user
+2026-11-18 11:13:20,510 | INFO     | saucedemo | ⌨️ 输入文本 'standard_user' 到 ('id', 'user-name')
+2026-11-18 11:13:20,564 | INFO     | saucedemo | ⌨️ 输入文本 'secret_sauce' 到 ('id', 'password')
+2026-11-18 11:13:20,649 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'login-button')
+2026-11-18 11:13:20,960 | INFO     | saucedemo | 🛒 quick_setup_cart: 加购 6 件，进入购物车
+2026-11-18 11:13:21,014 | INFO     | saucedemo | 🖱️ 已点击 ('css selector', "[data-test='shopping-cart-link']")
+2026-11-18 11:13:21,090 | INFO     | saucedemo | 🖱️ 已点击 ('id', 'continue-shopping')
+2026-11-18 11:13:51,294 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'inventory' 第 1/3 次（30s），2.0s 后重试…
+2026-11-18 11:14:23,500 | WARNING  | saucedemo | ⚠️ 等待超时 URL 包含 'inventory' 第 2/3 次（30s），2.0s 后重试…
+2026-11-18 11:14:55,717 | ERROR    | saucedemo | ❌ 等待超时 URL 包含 'inventory' (单次 30s × 3 次共 90s，实际耗时 94.6s)；URL=https://www.saucedemo.com/cart.html, readyState=complete, windows=1, iframes=0
+2026-11-18 11:14:55,762 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/url_timeout_inventory.png
+2026-11-18 11:14:55,770 | WARNING  | saucedemo | 🐢 慢用例 [1m34s > 阈值 1m00s]: testcases/test_cart.py::TestCart::test_cart_continue_shopping_back_to_products
+2026-11-18 11:14:55,844 | INFO     | saucedemo | 📸 截图保存: /__w/SauceDemo-TestAuto/SauceDemo-TestAuto/screenshots/test_cart_continue_shopping_back_to_products_call_FAIL.png
